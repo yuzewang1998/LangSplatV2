@@ -39,6 +39,9 @@ from utils.vq_utils import get_weights_and_indices
 
 import torch.nn.functional as F
 
+# 导入特征对比可视化
+from visualize_comparison_simple_rgb import visualize_comparison
+
 
 def get_logger(name, log_file=None, log_level=logging.INFO, file_mode='w'):
     logger = logging.getLogger(name)
@@ -71,35 +74,19 @@ def eval_gt_lerfdata(json_folder: Union[str, Path] = None, ouput_path: Path = No
                 keys: str(label)
                 values: dict() which contain 'bboxes' and 'mask'
     """
-    gt_json_paths = sorted(glob.glob(os.path.join(str(json_folder), 'frame_*.json')))
-    img_paths = sorted(glob.glob(os.path.join(str(json_folder), 'frame_*.jpg')))
-    gt_ann = {}
+    print(json_folder)
+    gt_json_paths = sorted(glob.glob(os.path.join(str(json_folder), '*.json')))
+    img_paths = sorted(glob.glob(os.path.join(str(json_folder), '*.jpg')))
+    gt_qa = {}
     for js_path in gt_json_paths:
-        img_ann = defaultdict(dict)
         with open(js_path, 'r') as f:
             gt_data = json.load(f)
-        
-        h, w = gt_data['info']['height'], gt_data['info']['width']
-        idx = int(gt_data['info']['name'].split('_')[-1].split('.jpg')[0]) - 1 
-        for prompt_data in gt_data["objects"]:
-            label = prompt_data['category']
-            box = np.asarray(prompt_data['bbox']).reshape(-1)           # x1y1x2y2
-            mask = polygon_to_mask((h, w), prompt_data['segmentation'])
-            if img_ann[label].get('mask', None) is not None:
-                mask = stack_mask(img_ann[label]['mask'], mask)
-                img_ann[label]['bboxes'] = np.concatenate(
-                    [img_ann[label]['bboxes'].reshape(-1, 4), box.reshape(-1, 4)], axis=0)
-            else:
-                img_ann[label]['bboxes'] = box
-            img_ann[label]['mask'] = mask
-            
-            # # save for visulsization
-            save_path = ouput_path / 'gt' / gt_data['info']['name'].split('.jpg')[0] / f'{label}.jpg'
-            save_path.parent.mkdir(exist_ok=True, parents=True)
-            vis_mask_save(mask, save_path)
-        gt_ann[f'{idx}'] = img_ann
 
-    return gt_ann, (h, w), img_paths
+        # 原始格式：用于分割评估，不是问答
+        idx = js_path.split('.')[0].split('/')[-1]
+        print(idx)
+        gt_qa[f'{idx}'] = gt_data
+    return gt_qa, img_paths
 
 def smooth_cuda(mask_pred:torch.Tensor):
     scale = 7
@@ -108,7 +95,7 @@ def smooth_cuda(mask_pred:torch.Tensor):
     mask = (avg_filtered > 0.5).type(torch.uint8).squeeze(0).squeeze(0)
     return mask
 
-def segmentation_process_cuda(sem_map:torch.tensor, clip_model, thresh, img_ann, prompts):
+def segmentation_process_cuda(sem_map:torch.tensor, clip_model, thresh, img_ann, prompts, output_path=None, frame_idx=None):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     valid_map = clip_model.get_max_across_quick(sem_map)
     n_head, n_prompt, h, w = valid_map.shape
@@ -124,7 +111,7 @@ def segmentation_process_cuda(sem_map:torch.tensor, clip_model, thresh, img_ann,
             avg_pool = torch.nn.AvgPool2d(kernel_size=scale, stride=1, padding=14, count_include_pad=False).to(device)
             avg_filtered = avg_pool(valid_map[i][k].unsqueeze(0).unsqueeze(0))
             valid_map[i][k] = 0.5 * (avg_filtered.squeeze(0).squeeze(0) + valid_map[i][k])
-            
+
             # truncate the heatmap into mask
             output = valid_map[i][k]
             output = output - torch.min(output)
@@ -149,7 +136,14 @@ def segmentation_process_cuda(sem_map:torch.tensor, clip_model, thresh, img_ann,
             score = valid_map[i, k].max()
             score_lvl[i] = score
         chosen_lvl = torch.argmax(score_lvl)
-        
+
+        # Save prediction result
+        if output_path is not None and frame_idx is not None:
+            pred_mask = mask_lvl[chosen_lvl].cpu().numpy().astype(np.uint8)
+            save_path = Path(output_path) / 'pred' / f'frame_{frame_idx:0>5}' / f'{prompts[k]}.jpg'
+            save_path.parent.mkdir(exist_ok=True, parents=True)
+            vis_mask_save(pred_mask, save_path)
+
         chosen_iou_list.append(iou_lvl[chosen_lvl].cpu().numpy().item())
         chosen_lvl_list.append(chosen_lvl.cpu().numpy().item())
 
@@ -197,13 +191,14 @@ def localization_process_cuda(sem_map:torch.tensor, clip_model, img_ann):
                     break
             if flag != 0:
                 break
+
     return acc_num
 
 def render_language_feature_map(gaussians:GaussianModel, view, pipeline, background, args):
     with torch.no_grad():
         output = render(view, gaussians, pipeline, background, args)
         language_feature_weight_map = output['language_feature_weight_map']
-        language_feature_map = gaussians.compute_final_feature_map(language_feature_weight_map)
+        language_feature_map = gaussians.compute_final_feature_map(language_feature_weight_map) #[1152, H, W]
 
     return language_feature_map
 
@@ -214,13 +209,14 @@ def render_language_feature_map_quick(gaussians:GaussianModel, view, pipeline, b
         D, H, W = language_feature_weight_map.shape
         language_feature_weight_map = language_feature_weight_map.view(3, 64, H, W).view(3, 64, H*W)
         language_codebooks = gaussians._language_feature_codebooks.permute(0, 2, 1)
-        language_feature_map = torch.einsum('ldk,lkn->ldn', language_codebooks, language_feature_weight_map).view(3, 512, H, W)
-        language_feature_map = language_feature_map / (language_feature_map.norm(dim=1, keepdim=True) + 1e-10)
+        feature_dim = gaussians._language_feature_codebooks.shape[2]
+        language_feature_map = torch.einsum('ldk,lkn->ldn', language_codebooks, language_feature_weight_map).view(3, feature_dim, H, W)
+        # language_feature_map = language_feature_map / (language_feature_map.norm(dim=1, keepdim=True) + 1e-10)
 
     return language_feature_map
 
 
-def evaluate(dataset:ModelParams, pipeline:PipelineParams, args):
+def render_all(dataset:ModelParams, pipeline:PipelineParams, args):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     colormap_options = colormaps.ColormapOptions(
         colormap="turbo",
@@ -229,68 +225,91 @@ def evaluate(dataset:ModelParams, pipeline:PipelineParams, args):
         colormap_max=1.0,
     )
     # load test data
-    gt_ann, image_shape, image_paths = eval_gt_lerfdata(Path(args.json_folder), Path(args.output_path))
-    eval_index_list = [int(idx) for idx in list(gt_ann.keys())]
-    clip_model = OpenCLIPNetwork(device)
+    gt_ann, image_paths = eval_gt_lerfdata(Path(args.json_folder), Path(args.output_path))
+    eval_index_list = [idx for idx in list(gt_ann.keys())]
 
     chosen_iou_all, chosen_lvl_list = [], []
     acc_num = 0
 
     for i, idx in enumerate(tqdm(eval_index_list)):
-        rgb_img = cv2.imread(image_paths[i])[..., ::-1]
+      
+      
+        image_path = os.path.join(args.json_folder, f'{idx}.jpg')
+        rgb_img = cv2.imread(image_path)[..., ::-1]
         rgb_img = (rgb_img / 255.0).astype(np.float32)
         rgb_img = torch.from_numpy(rgb_img).to(device)
-
-        image_name = Path(args.output_path) / f'{idx+1:0>5}'
+        image_name = Path(args.output_path) / f'{idx}'
         image_name.mkdir(exist_ok=True, parents=True)
         img_ann = gt_ann[f'{idx}']
-        clip_model.set_positives(list(img_ann.keys()))
-        sem_feat = []
-        for level_idx in range(3):
-            # restore gaussian model
-            dataset.model_path = args.ckpt_paths[level_idx]
-            gaussians = GaussianModel(dataset.sh_degree)
-            scene = Scene(dataset, gaussians, shuffle=False)
-            views = scene.getTrainCameras()
-            view = views[idx]
-            bg_color = [1,1,1] if dataset.white_background else [0, 0, 0]
-            background = torch.tensor(bg_color, dtype=torch.float32, device="cuda")
-            checkpoint = os.path.join(args.ckpt_paths[level_idx], f'chkpnt{args.checkpoint}.pth')
-            (model_params, first_iter) = torch.load(checkpoint)
-            gaussians.restore(model_params, args, mode='test')
-            
-            language_feature_image = render_language_feature_map(gaussians, view, pipeline, background, args)
-            language_feature_image = language_feature_image / (language_feature_image.norm(dim=0, keepdim=True) + 1e-10)
-            language_feature_image = language_feature_image.detach()
-            language_feature_image = language_feature_image.permute(1, 2, 0)
-            sem_feat.append(language_feature_image)
+        # 直接使用-m传入的model_path（不循环，不hardcode）
+        # dataset.model_path已经通过-m参数设置
+        gaussians = GaussianModel(dataset.sh_degree)
+        scene = Scene(dataset, gaussians, shuffle=False)
+        views = scene.getTrainCameras()
 
-        restored_feat = torch.stack(sem_feat, dim=0)
+        # 找到匹配的view
+        view = None
+        for v in views:
+            print(v, idx)
+            if v.image_name == idx.split('/')[-1]:
+                view = v
+                break
+        if view == None:
+            raise ValueError(f'View not found for {idx}')
+
+        bg_color = [1, 1, 1] if dataset.white_background else [0, 0, 0]
+        background = torch.tensor(bg_color, dtype=torch.float32, device="cuda")
+
+        # 使用-m传入的model_path加载checkpoint
+        checkpoint = os.path.join(dataset.model_path, f'chkpnt{args.checkpoint}.pth')
+        (model_params, first_iter) = torch.load(checkpoint)
+        gaussians.restore(model_params, args, mode='test')
+
+        language_feature_image = render_language_feature_map(gaussians, view, pipeline, background, args)
+        language_feature_image = language_feature_image.detach()  # [3584, H, W]
+        language_feature_image = language_feature_image.permute(1, 2, 0)  # [H, W, 3584]
+
+        # 保持4D格式 [1, H, W, 3584] 以兼容现有代码
+        restored_feat = language_feature_image.unsqueeze(0)
         img_ann = gt_ann[f'{idx}']
-        clip_model.set_positives(list(img_ann.keys()))
-        
-        c_iou_list, c_lvl = segmentation_process_cuda(restored_feat, clip_model, args.mask_thresh, img_ann, list(img_ann.keys()))
-        chosen_iou_all.extend(c_iou_list)
-        chosen_lvl_list.extend(c_lvl)
-        acc_num_img = localization_process_cuda(restored_feat, clip_model, img_ann)
-        acc_num += acc_num_img
 
-    logger.info(f'checkpoint: {args.checkpoint}')
-    mean_iou_chosen = sum(chosen_iou_all) / len(chosen_iou_all)
-    logger.info(f'trunc thresh: {args.mask_thresh}')
-    logger.info(f"iou chosen: {mean_iou_chosen:.4f}")
-    logger.info(f"chosen_lvl: \n{chosen_lvl_list}")
+        # save feature map
+        rendered_feature_path = image_name / f'feature_map_{idx}.pt'
+        torch.save(restored_feat.cpu(), rendered_feature_path)
 
-    # localization acc
-    total_bboxes = 0
-    for img_ann in gt_ann.values():
-        total_bboxes += len(list(img_ann.keys()))
-    acc = acc_num / total_bboxes
-    logger.info("Localization accuracy: " + f'{acc:.4f}')
+        # 特征对比可视化（如果启用）
+        if args.visualize_comparison and hasattr(args, 'gt_feature_dir') and args.gt_feature_dir:
+            try:
+                # 构建 GT 特征路径（使用idx而不是idx+1）
+                gt_feature_path = Path(args.gt_feature_dir) / f'{idx}.pth'
+                if gt_feature_path.exists():
+                    # 使用正确的图像路径（与前面一致）
+                    original_image_path = image_path
+
+                    # 输出路径
+                    comparison_output_path = image_name / f'{idx}_comparison.png'
+
+                    logger.info(f"Generating comparison visualization for frame {idx}...")
+
+                    # 调用可视化函数
+                    visualize_comparison(
+                        rendered_path=str(rendered_feature_path),
+                        gt_path=str(gt_feature_path),
+                        image_path=original_image_path,
+                        output_path=str(comparison_output_path),
+                        scale_name=args.comparison_scale
+                    )
+                else:
+                    logger.warning(f"GT feature not found: {gt_feature_path}")
+            except Exception as e:
+                logger.error(f"Error generating comparison for frame {idx}: {e}")
+                import traceback
+                traceback.print_exc()
 
     return
 
-def evaluate_quick(dataset:ModelParams, pipeline:PipelineParams, args):
+def render_all_quick(dataset:ModelParams, pipeline:PipelineParams, args):
+  #TODO: not implemented yet
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     colormap_options = colormaps.ColormapOptions(
         colormap="turbo",
@@ -306,12 +325,14 @@ def evaluate_quick(dataset:ModelParams, pipeline:PipelineParams, args):
     chosen_iou_all, chosen_lvl_list = [], []
     acc_num = 0
 
-    for i, idx in enumerate(tqdm(eval_index_list)):
-        rgb_img = cv2.imread(image_paths[i])[..., ::-1]
+    for i, idx in enumerate[int](tqdm(eval_index_list)):
+        # 构建正确的图片路径（使用idx而不是i）
+        image_path = os.path.join(args.json_folder, f'frame_{idx:05d}.jpg')
+        rgb_img = cv2.imread(image_path)[..., ::-1]
         rgb_img = (rgb_img / 255.0).astype(np.float32)
         rgb_img = torch.from_numpy(rgb_img).to(device)
 
-        image_name = Path(args.output_path) / f'{idx+1:0>5}'
+        image_name = Path(args.output_path) / f'frame_{idx:0>5}'
         image_name.mkdir(exist_ok=True, parents=True)
 
         sem_feat = []
@@ -322,7 +343,8 @@ def evaluate_quick(dataset:ModelParams, pipeline:PipelineParams, args):
         dataset.model_path = args.ckpt_paths[0]
         scene = Scene(dataset, combined_gaussians, shuffle=False)
         views = scene.getTrainCameras()
-        view = views[idx]
+        # views是0-indexed数组，但idx是帧号（1-based），所以需要减1
+        view = views[idx - 1]
         checkpoint = os.path.join(args.ckpt_paths[0], f'chkpnt{args.checkpoint}.pth')
         (model_params, first_iter) = torch.load(checkpoint)
         combined_gaussians.restore(model_params, args, mode='test')
@@ -336,7 +358,8 @@ def evaluate_quick(dataset:ModelParams, pipeline:PipelineParams, args):
             checkpoint = os.path.join(args.ckpt_paths[level_idx], f'chkpnt{args.checkpoint}.pth')
             (model_params, first_iter) = torch.load(checkpoint)
             gaussians.restore(model_params, args, mode='test')
-            language_feature_codebooks.append(gaussians._language_feature_codebooks.view(-1, 512))
+            feature_dim = gaussians._language_feature_codebooks.shape[2]
+            language_feature_codebooks.append(gaussians._language_feature_codebooks.view(-1, feature_dim))
             weights, indices = get_weights_and_indices(gaussians._language_feature_logits, 4)
             language_feature_weights.append(weights)
             language_feature_indices.append(indices + int(level_idx * gaussians._language_feature_codebooks.shape[1]))
@@ -349,7 +372,7 @@ def evaluate_quick(dataset:ModelParams, pipeline:PipelineParams, args):
         
         language_feature_image = render_language_feature_map_quick(combined_gaussians, view, pipeline, background, args)
         restored_feat = language_feature_image.permute(0, 2, 3, 1)
-        c_iou_list, c_lvl = segmentation_process_cuda(restored_feat, clip_model, args.mask_thresh, img_ann, list(img_ann.keys()))
+        c_iou_list, c_lvl = segmentation_process_cuda(restored_feat, clip_model, args.mask_thresh, img_ann, list(img_ann.keys()), args.output_path, idx)
         chosen_iou_all.extend(c_iou_list)
         chosen_lvl_list.extend(c_lvl)
         acc_num_img = localization_process_cuda(restored_feat, clip_model, img_ann)
@@ -406,9 +429,21 @@ if __name__ == "__main__":
     parser.add_argument("--checkpoint", type=int, default=10000)
     parser.add_argument("--topk", type=int, default=1)
     #------------------------------------------------------------
+    # 新增：特征对比可视化参数
+    parser.add_argument("--visualize_comparison", action="store_true",
+                       help="Enable feature comparison visualization")
+    parser.add_argument("--gt_feature_dir", type=str, default=None,
+                       help="Directory containing GT features (.pth files)")
+    parser.add_argument("--comparison_scale", type=str, default="Medium",
+                       choices=["Small", "Medium", "Large"],
+                       help="GT feature scale to use for comparison")
+    #------------------------------------------------------------
 
     args = get_combined_args(parser)
-    args.ckpt_paths = [os.path.join(args.ckpt_root_path, args.dataset_name + f"_{args.index}_{level}") for level in [1, 2, 3]]
+
+    # Note: 现在render_lerf_llm.py直接使用-m传入的单个model_path，不再需要ckpt_paths列表
+    # 保留这一行是为了向后兼容，但实际不再使用
+    args.ckpt_paths = [os.path.join(args.ckpt_root_path, args.dataset_name + f"_{args.index}_{level}") for level in [0, 1, 2]]
     args.output_path = os.path.join(args.output_dir, args.dataset_name + f"_{args.index}")
     args.json_folder = os.path.join(args.json_folder, args.dataset_name)
     
@@ -423,6 +458,7 @@ if __name__ == "__main__":
     print(args)
     with torch.no_grad():
         if args.quick_render:
-            evaluate_quick(model.extract(args), pipeline.extract(args), args)
+            render_all_quick(model.extract(args), pipeline.extract(args), args)
         else:
-            evaluate(model.extract(args), pipeline.extract(args), args)
+            render_all(model.extract(args), pipeline.extract(args), args)
+    print("EVAL COMPLETE")

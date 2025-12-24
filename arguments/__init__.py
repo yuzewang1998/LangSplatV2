@@ -49,8 +49,9 @@ class ModelParams(ParamGroup):
         self.sh_degree = 3
         self._source_path = ""
         self._model_path = "" 
-        self._language_features_name = "language_features"
-        self._images = "images"
+        # 默认指向 3584 维 LLaVA 特征目录
+        self._language_features_name = "llava_features_3584_multiscale"
+        self._images = "dense/images"
         self._resolution = -1
         self._white_background = False
         self._feature_level = -1
@@ -73,15 +74,16 @@ class PipelineParams(ParamGroup):
 
 class OptimizationParams(ParamGroup):
     def __init__(self, parser):
-        self.iterations = 30_000
+        self.iterations = 10_000
         self.position_lr_init = 0.00016
         self.position_lr_final = 0.0000016
         self.position_lr_delay_mult = 0.01
         self.position_lr_max_steps = 30_000
         self.feature_lr = 0.0025
         self.opacity_lr = 0.05
-        self.language_feature_lr = 0.0025 # TODO: update
+        self.language_feature_lr = self.feature_lr
         self.include_feature = True # Set to False if train the original gs
+        self.llm_feature = True
         self.quick_render = False
         self.vq_layer_num = 1
         self.codebook_size = 64

@@ -21,18 +21,34 @@ port = 6009
 conn = None
 addr = None
 
-listener = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+listener = None
 
 def init(wish_host, wish_port):
-    global host, port, listener
+    global host, port, listener, conn, addr
     host = wish_host
     port = wish_port
-    listener.bind((host, port))
-    listener.listen()
-    listener.settimeout(0)
+    conn = None
+    addr = None
+    if listener is not None:
+        try:
+            listener.close()
+        except OSError:
+            pass
+        finally:
+            listener = None
+    try:
+        listener = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        listener.bind((host, port))
+        listener.listen()
+        listener.settimeout(0)
+    except (PermissionError, OSError) as exc:
+        print(f"Warning: network GUI disabled (socket unavailable: {exc}).")
+        listener = None
 
 def try_connect():
     global conn, addr, listener
+    if listener is None:
+        return
     try:
         conn, addr = listener.accept()
         print(f"\nConnected by {addr}")

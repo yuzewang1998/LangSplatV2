@@ -12,10 +12,12 @@
 import os
 import torch
 import torch.nn as nn
+import psutil
+import traceback
 from random import randint
 from utils.loss_utils import l1_loss, ssim, cos_loss
 from gaussian_renderer import render, network_gui
-import sys
+import sys # <-- 确保 sys 已导入
 from scene import Scene, GaussianModel
 from utils.general_utils import safe_state
 import uuid
@@ -23,7 +25,8 @@ from tqdm import tqdm
 from utils.image_utils import psnr
 from argparse import ArgumentParser, Namespace
 from arguments import ModelParams, PipelineParams, OptimizationParams
-from utils.vq_utils import load_2d_language_feature, ResidualVectorQuantizationWithClustering
+from utils.vq_utils import load_2d_language_feature, load_2d_lmm_feature, ResidualVectorQuantizationWithClustering
+import torch.nn.functional as F
 try:
     from torch.utils.tensorboard import SummaryWriter
     TENSORBOARD_FOUND = True
@@ -32,11 +35,15 @@ except ImportError:
 
 import matplotlib.pyplot as plt
 
+print(f"DEBUG: sys.argv = {sys.argv}")
+
 
 def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoint_iterations, checkpoint, debug_from, args):
     first_iter = 0
     tb_writer = prepare_output_and_logger(dataset)
-    gaussians = GaussianModel(dataset.sh_degree)
+    # 根据特征类型设置特征维度（LLM特征为 3584 维）
+    language_feature_dim = 3584 if opt.llm_feature else 512
+    gaussians = GaussianModel(dataset.sh_degree, language_feature_dim=language_feature_dim)
     scene = Scene(dataset, gaussians)
     gaussians.training_setup(opt)
 
@@ -44,22 +51,73 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
         if not checkpoint:
             raise ValueError("checkpoint missing!!!!!")
     if checkpoint:
-        (model_params, first_iter) = torch.load(checkpoint)
+        # Handle PyTorch version differences:
+        # - torch>=2.6: default weights_only=True; force weights_only=False
+        # - older torch: no weights_only arg; fall back without it
+        try:
+            (model_params, first_iter) = torch.load(checkpoint, weights_only=False)
+        except TypeError:
+            (model_params, first_iter) = torch.load(checkpoint)
         if len(model_params) == 12 and opt.include_feature:
             first_iter = 0
         gaussians.restore(model_params, opt)
     
     # Initialize language feature codebooks
     if opt.include_feature and first_iter == 0:
+      if not opt.llm_feature:
         device = torch.device("cuda")
         features = load_2d_language_feature(dataset.lf_path, device)
         rvq = ResidualVectorQuantizationWithClustering(opt.vq_layer_num, opt.codebook_size, features.shape[1], device).to(device)
         rvq.fit_quantizers(features)
-        codebooks = torch.stack(rvq.quantizers, dim=0).to(device)
+        codebooks = torch.stack(rvq.quantizers, dim=0).to(device) # [vq_layer_num, codebook_size, feature_dim] e.g. [1,64,512]
         with torch.no_grad():
             gaussians._language_feature_codebooks.data.copy_(codebooks)
+      else: # opt.llm_feature == True
+        # try load from the pre-cached codebooks
+        device = torch.device("cuda")
 
-        
+        # 码本文件名应该包含feature_level，每个level独立的码本
+        level_name = ['small', 'medium', 'large'][dataset.feature_level]
+        codebook_filename = f"llm_codebooks_{opt.codebook_size}_level{dataset.feature_level}_{level_name}.pt"
+        codebook_path = os.path.join(dataset.lf_path, codebook_filename)
+
+        if os.path.exists(codebook_path):
+            print(f"Loading {codebook_filename} from {dataset.lf_path}")
+            try:
+                codebooks = torch.load(codebook_path, weights_only=False).to(device)
+            except TypeError:
+                codebooks = torch.load(codebook_path).to(device)
+            with torch.no_grad():
+                gaussians._language_feature_codebooks.data.copy_(codebooks)
+        else:
+            print(f"{codebook_filename} not found in {dataset.lf_path}, training from scratch.")
+
+            # 根据feature_level选择对应的scale特征
+            load_func = level_name  # 'small', 'medium', 或 'large'
+            print(f"Loading {load_func} scale features for level {dataset.feature_level}")
+
+            features = load_2d_lmm_feature(dataset.lf_path, device, load_func=load_func)
+            first_block = features.peek()
+            feature_dim = first_block.shape[1] if first_block.size else 0
+            print("ResidualVectorQuantizationWithClustering...")
+            rvq = ResidualVectorQuantizationWithClustering(
+                opt.vq_layer_num, opt.codebook_size, feature_dim, device
+            ).to(device)
+            print("Fitting quantizers...")
+            rvq.fit_quantizers(features)
+            print("Stacking...")
+            codebooks = torch.stack(rvq.quantizers, dim=0).to(device) # [vq_layer_num, codebook_size, feature_dim] e.g. [1,64,512]
+            print(codebooks.shape)
+            print(f"Codebooks device: {codebooks.device}, dtype: {codebooks.dtype}")
+            # save the codebooks for future use
+            torch.save(codebooks.cpu(), codebook_path)
+            print(f"Saved codebooks to {codebook_path}")
+            # 重新加载到 GPU（因为上面 .cpu() 可能影响了原始张量）
+            codebooks = codebooks.to(device)
+            with torch.no_grad():
+                gaussians._language_feature_codebooks.data.copy_(codebooks)
+            print(f"Copied codebooks to gaussians, shape: {gaussians._language_feature_codebooks.shape}")
+
     bg_color = [1, 1, 1] if dataset.white_background else [0, 0, 0]
     background = torch.tensor(bg_color, dtype=torch.float32, device="cuda")
 
@@ -91,6 +149,15 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
 
         iter_start.record()
 
+        # Memory logging
+        if iteration % 100 == 0:
+            process = psutil.Process(os.getpid())
+            mem_info = process.memory_info()
+            print(f"\n[ITER {iteration}] RAM: {mem_info.rss / 1024 ** 2:.2f} MB", end="")
+            if torch.cuda.is_available():
+                print(f" | GPU Allocated: {torch.cuda.memory_allocated() / 1024 ** 2:.2f} MB | GPU Reserved: {torch.cuda.memory_reserved() / 1024 ** 2:.2f} MB", end="")
+            print("")
+
         gaussians.update_learning_rate(iteration)
 
         # Every 1000 its we increase the levels of SH up to a maximum degree
@@ -106,32 +173,61 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
         if (iteration - 1) == debug_from:
             pipe.debug = True
         opt.topk = args.topk
-        render_pkg = render(viewpoint_cam, gaussians, pipe, background, opt)
-        image, language_feature_weight_map, viewspace_point_tensor, visibility_filter, radii = render_pkg["render"], render_pkg["language_feature_weight_map"], render_pkg["viewspace_points"], render_pkg["visibility_filter"], render_pkg["radii"]
-        
-        # Loss
-        if opt.include_feature:
-            # gt_language_feature [512 H W]
-            gt_language_feature, language_feature_mask = viewpoint_cam.get_language_feature(language_feature_dir=dataset.lf_path, feature_level=dataset.feature_level)
-            # In this paper, we select layer_num = 1
-            layer_num, _, _ = gaussians.get_language_feature_codebooks.shape
-            layer_idx = min(int(iteration / 10000 * layer_num), layer_num - 1)
-            language_feature = gaussians.compute_layer_feature_map(language_feature_weight_map, layer_idx)
-            if args.normalize:
-                language_feature = language_feature / (language_feature.norm(dim=0, keepdim=True) + 1e-10)
-            loss = 0
-            if args.cos_loss:
-                cosloss = cos_loss(language_feature*language_feature_mask, gt_language_feature*language_feature_mask)
-                loss += cosloss
-            if args.l1_loss:
-                Ll1 = l1_loss(language_feature*language_feature_mask, gt_language_feature*language_feature_mask)   
-                loss += Ll1
+        try:
+            render_pkg = render(viewpoint_cam, gaussians, pipe, background, opt)
+            image, language_feature_weight_map, viewspace_point_tensor, visibility_filter, radii = render_pkg["render"], render_pkg["language_feature_weight_map"], render_pkg["viewspace_points"], render_pkg["visibility_filter"], render_pkg["radii"]
+            
+            # Loss
+            if opt.include_feature:
+                # gt_language_feature [C H W]
+                if not opt.llm_feature:
+                    gt_language_feature, language_feature_mask = viewpoint_cam.get_language_feature(language_feature_dir=dataset.lf_path, feature_level=dataset.feature_level)
+                else:
+                    gt_language_feature, language_feature_mask = viewpoint_cam.get_llm_feature(language_feature_dir=dataset.lf_path, feature_level=dataset.feature_level)
+                # In this paper, we select layer_num = 1
+                layer_num, _, _ = gaussians.get_language_feature_codebooks.shape
+                layer_idx = min(int(iteration / 10000 * layer_num), layer_num - 1)
+                language_feature = gaussians.compute_layer_feature_map(language_feature_weight_map, layer_idx)
+                if args.normalize:
+                    language_feature = language_feature / (language_feature.norm(dim=0, keepdim=True) + 1e-10)
 
-        else:
-            gt_image = viewpoint_cam.original_image.cuda()
-            Ll1 = l1_loss(image, gt_image)
-            loss = (1.0 - opt.lambda_dssim) * Ll1 + opt.lambda_dssim * (1.0 - ssim(image, gt_image))
-        loss.backward()
+                # 对齐空间分辨率（某些场景下解码的 GT 特征与渲染尺寸会有 1px 以内偏差）
+                if language_feature.shape[1:] != gt_language_feature.shape[1:]:
+                    Hp, Wp = language_feature.shape[1], language_feature.shape[2]
+                    Hg, Wg = gt_language_feature.shape[1], gt_language_feature.shape[2]
+                    h = min(Hp, Hg)
+                    w = min(Wp, Wg)
+
+                    def center_crop(t, H, W, h, w):
+                        top = max(0, (H - h) // 2)
+                        left = max(0, (W - w) // 2)
+                        return t[:, top:top + h, left:left + w]
+
+                    language_feature = center_crop(language_feature, Hp, Wp, h, w)
+                    gt_language_feature = center_crop(gt_language_feature, Hg, Wg, h, w)
+                    language_feature_mask = center_crop(language_feature_mask, Hg, Wg, h, w)
+                # 若该帧在所选尺度上没有有效像素，则直接跳过本次迭代
+                if not language_feature_mask.any():
+                    continue
+
+                loss = 0
+                if args.cos_loss:
+                    cosloss = cos_loss(language_feature*language_feature_mask, gt_language_feature*language_feature_mask)
+                    loss += cosloss
+                if args.l1_loss:
+                    Ll1 = l1_loss(language_feature*language_feature_mask, gt_language_feature*language_feature_mask)
+                    loss += Ll1
+
+            else:
+                gt_image = viewpoint_cam.original_image.cuda()
+                Ll1 = l1_loss(image, gt_image)
+                loss = (1.0 - opt.lambda_dssim) * Ll1 + opt.lambda_dssim * (1.0 - ssim(image, gt_image))
+            loss.backward()
+        except Exception as e:
+            print(f"\n[ERROR] Crash at iteration {iteration} with camera {viewpoint_cam.image_name}")
+            if torch.cuda.is_available():
+                print(f"[ERROR] Memory: {torch.cuda.memory_allocated() / 1024**3:.2f} GB allocated, {torch.cuda.memory_reserved() / 1024**3:.2f} GB reserved")
+            raise e
         iter_end.record()
         
         iter_record.append(iteration)
@@ -153,7 +249,7 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
             # Log and save
             # training_report(tb_writer, iteration, Ll1, loss, l1_loss, iter_start.elapsed_time(iter_end), testing_iterations, scene, render, (pipe, background, opt))
             if (iteration in saving_iterations):
-                print("\n[ITER {}] Saving Gaussians".format(iteration))
+                # print("\n[ITER {}] Saving Gaussians".format(iteration))
                 scene.save(iteration)
 
             # Densification
@@ -162,7 +258,6 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
                     # Keep track of max radii in image-space for pruning
                     gaussians.max_radii2D[visibility_filter] = torch.max(gaussians.max_radii2D[visibility_filter], radii[visibility_filter])
                     gaussians.add_densification_stats(viewspace_point_tensor, visibility_filter)
-
                     if iteration > opt.densify_from_iter and iteration % opt.densification_interval == 0:
                         size_threshold = 20 if iteration > opt.opacity_reset_interval else None
                         gaussians.densify_and_prune(opt.densify_grad_threshold, 0.005, scene.cameras_extent, size_threshold)
@@ -176,11 +271,10 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
                 gaussians.optimizer.zero_grad(set_to_none = True)
 
             if (iteration in checkpoint_iterations):
-                print("\n[ITER {}] Saving Checkpoint".format(iteration))
+                # print("\n[ITER {}] Saving Checkpoint".format(iteration))
                 torch.save((gaussians.capture(opt.include_feature), iteration), scene.model_path + "/chkpnt" + str(iteration) + ".pth")
-                if iteration == 10000:
-                    return
-            
+
+    torch.save((gaussians.capture(opt.include_feature), opt.iterations), scene.model_path + "/chkpnt" + str(opt.iterations) + ".pth")        
 def prepare_output_and_logger(args):    
     if not args.model_path:
         if os.getenv('OAR_JOB_ID'):
@@ -190,7 +284,7 @@ def prepare_output_and_logger(args):
         args.model_path = os.path.join("./output/", unique_str[0:10])
         
     # Set up output folder
-    print("Output folder: {}".format(args.model_path))
+    # print("Output folder: {}".format(args.model_path))
     os.makedirs(args.model_path, exist_ok = True)
     with open(os.path.join(args.model_path, "cfg_args"), 'w') as cfg_log_f:
         cfg_log_f.write(str(Namespace(**vars(args))))
@@ -231,7 +325,7 @@ def training_report(tb_writer, iteration, Ll1, loss, l1_loss, elapsed, testing_i
                     psnr_test += psnr(image, gt_image).mean().double()
                 psnr_test /= len(config['cameras'])
                 l1_test /= len(config['cameras'])          
-                print("\n[ITER {}] Evaluating {}: L1 {} PSNR {}".format(iteration, config['name'], l1_test, psnr_test))
+                # print("\n[ITER {}] Evaluating {}: L1 {} PSNR {}".format(iteration, config['name'], l1_test, psnr_test))
                 if tb_writer:
                     tb_writer.add_scalar(config['name'] + '/loss_viewpoint - l1_loss', l1_test, iteration)
                     tb_writer.add_scalar(config['name'] + '/loss_viewpoint - psnr', psnr_test, iteration)
@@ -248,7 +342,7 @@ if __name__ == "__main__":
     op = OptimizationParams(parser)
     pp = PipelineParams(parser)
     parser.add_argument('--ip', type=str, default="127.0.0.1")
-    parser.add_argument('--port', type=int, default=55557)
+    parser.add_argument('--port', type=int, default=8001)
     parser.add_argument('--debug_from', type=int, default=-1)
     parser.add_argument('--detect_anomaly', action='store_true', default=False)
     parser.add_argument("--test_iterations", nargs="+", type=int, default=[2000, 4000, 6000, 8000, 10_000, 30_000])
@@ -261,11 +355,12 @@ if __name__ == "__main__":
     parser.add_argument('--normalize', action='store_true', default=False)
     parser.add_argument('--accum_iter', type=int, default=1)
     parser.add_argument('--topk', type=int, default=1)
+    
     args = parser.parse_args(sys.argv[1:])
     args.save_iterations.append(args.iterations)
-    print(args)
+    # print(args)
     args.model_path = args.model_path + f"_{str(args.feature_level)}"
-    print("Optimizing " + args.model_path)
+    # print("Optimizing " + args.model_path)
 
     # Initialize system state (RNG)
     safe_state(args.quiet)
@@ -273,6 +368,14 @@ if __name__ == "__main__":
     # Start GUI server, configure and run training
     network_gui.init(args.ip, args.port)
     torch.autograd.set_detect_anomaly(args.detect_anomaly)
-    training(lp.extract(args), op.extract(args), pp.extract(args), args.test_iterations, args.save_iterations, args.checkpoint_iterations, args.start_checkpoint, args.debug_from, args)
+    print(f"DEBUG: args.source_path = {args.source_path}")
+    print(f"DEBUG: lp.extract(args).source_path = {lp.extract(args).source_path}")
+    try:
+        training(lp.extract(args), op.extract(args), pp.extract(args), args.test_iterations, args.save_iterations, args.checkpoint_iterations, args.start_checkpoint, args.debug_from, args)
+    except Exception:
+        print("\n\nTraining crashed! Saving traceback to crash_log.txt")
+        traceback.print_exc()
+        with open("crash_log.txt", "w") as f:
+            traceback.print_exc(file=f)
     # All done
-    print("\nTraining complete.")
+    # print("\nTraining complete.")

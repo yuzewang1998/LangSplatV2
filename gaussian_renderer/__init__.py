@@ -21,8 +21,8 @@ def render(viewpoint_camera, pc : GaussianModel, pipe, bg_color : torch.Tensor, 
     Render the scene. 
     
     Background tensor (bg_color) must be on GPU!
-    """
- 
+    """ 
+    
     # Create zero tensor. We will use it to make pytorch return gradients of the 2D (screen-space) means
     screenspace_points = torch.zeros_like(pc.get_xyz, dtype=pc.get_xyz.dtype, requires_grad=True, device="cuda") + 0
     try:
@@ -93,7 +93,7 @@ def render(viewpoint_camera, pc : GaussianModel, pipe, bg_color : torch.Tensor, 
         language_feature_weights = torch.zeros((1,), dtype=opacity.dtype, device=opacity.device)
 
     elif opt.include_feature:
-        language_feature_weights = pc.get_render_weights(opt.topk)
+        language_feature_weights = pc.get_render_weights(opt.topk) # [N, 64]
         language_feature_weights_quick = torch.zeros((1,), dtype=opacity.dtype, device=opacity.device)
         language_feature_indices = torch.zeros((1,), dtype=opacity.dtype, device=opacity.device)
     
@@ -122,8 +122,8 @@ def render(viewpoint_camera, pc : GaussianModel, pipe, bg_color : torch.Tensor, 
     # Those Gaussians that were frustum culled or had a radius of 0 were not visible.
     # They will be excluded from value updates used in the splitting criteria.
     
-    return {"render": rendered_image,
-            "language_feature_weight_map": language_feature_weight_map,
+    return {"render": rendered_image, #[3, w, h]
+            "language_feature_weight_map": language_feature_weight_map, #[64, w, h]
             "viewspace_points": screenspace_points,
             "visibility_filter" : radii > 0,
             "radii": radii}

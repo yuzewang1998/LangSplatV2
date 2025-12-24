@@ -1,12 +1,12 @@
 #!/bin/bash
-DATASET_NAME=$1
-INDEX=$2
-CHECKPOINT=$3
+DATASET_NAME=teatime
+INDEX=test
+CHECKPOINT=10000
 TOPK=4
 
 # path to lerf_ovs/label
-DATASET_ROOT_PATH=../../data/lerf_ovs
-gt_folder=../../data/lerf_ovs/label
+DATASET_ROOT_PATH=/home/wangyz/data/lerf_ovs
+gt_folder=/home/wangyz/data/lerf_ovs/label
 
 ROOT_PATH="."
 

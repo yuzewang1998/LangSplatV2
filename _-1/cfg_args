@@ -1,0 +1,1 @@
+Namespace(sh_degree=3, source_path='/home/wangyz/project/0working/LangSplatV2', model_path='_-1', language_features_name='llava_features_3584_multiscale', images='dense/images', resolution=-1, white_background=False, feature_level=-1, data_device='cuda', eval=False, lf_path='/home/wangyz/project/0working/LangSplatV2/llava_features_3584_multiscale')

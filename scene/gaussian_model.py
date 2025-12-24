@@ -42,8 +42,9 @@ class GaussianModel:
         self.rotation_activation = torch.nn.functional.normalize
 
 
-    def __init__(self, sh_degree : int):
+    def __init__(self, sh_degree : int, language_feature_dim : int = 3584):
         self.active_sh_degree = 0
+        self.language_feature_dim = language_feature_dim
         self.max_sh_degree = sh_degree  
         self._xyz = torch.empty(0)
         self._features_dc = torch.empty(0)
@@ -197,7 +198,7 @@ class GaussianModel:
         rots[:, 0] = 1
 
         opacities = inverse_sigmoid(0.1 * torch.ones((fused_point_cloud.shape[0], 1), dtype=torch.float, device="cuda"))
-        # language_feature = torch.zeros((fused_point_cloud.shape[0], 512), device="cuda")
+        # language_feature = torch.zeros((fused_point_cloud.shape[0], self.language_feature_dim), device="cuda")
         
         self._xyz = nn.Parameter(fused_point_cloud.requires_grad_(True))
         self._features_dc = nn.Parameter(features[:,:,0:1].transpose(1, 2).contiguous().requires_grad_(True))
@@ -215,10 +216,17 @@ class GaussianModel:
         self.denom = torch.zeros((self.get_xyz.shape[0], 1), device="cuda")
         
         if training_args.include_feature:
-            if self._language_feature_logits is None or self._language_feature_logits.shape[0] != self._xyz.shape[0]:
+            expected_logits_dim = training_args.vq_layer_num * training_args.codebook_size
+            need_reinit = (
+                self._language_feature_logits is None or
+                self._language_feature_logits.shape[0] != self._xyz.shape[0] or
+                self._language_feature_logits.shape[1] != expected_logits_dim
+            )
+
+            if need_reinit:
                 # initialize language feature logits and codebooks
-                language_feature_logits = torch.zeros((self._xyz.shape[0], training_args.vq_layer_num * training_args.codebook_size), device="cuda")
-                language_feature_codebooks = torch.randn((training_args.vq_layer_num, training_args.codebook_size, 512), device="cuda")
+                language_feature_logits = torch.zeros((self._xyz.shape[0], expected_logits_dim), device="cuda")
+                language_feature_codebooks = torch.randn((training_args.vq_layer_num, training_args.codebook_size, self.language_feature_dim), device="cuda")
                 self._language_feature_logits = nn.Parameter(language_feature_logits.requires_grad_(True))
                 self._language_feature_codebooks = nn.Parameter(language_feature_codebooks.requires_grad_(True))
                 
@@ -514,7 +522,7 @@ class GaussianModel:
         layer_num, codebook_size, _ = self._language_feature_codebooks.shape
         for i in range(layer_num):
             language_feature = self.get_language_feature_codebooks[i].T @ language_feature_weight_map[i * codebook_size:(i+1)*codebook_size]
-            language_feature = language_feature.view(512, H, W)
+            language_feature = language_feature.view(self.language_feature_dim, H, W)
             if i > 0:
                 language_feature += language_features[-1].detach()
             language_features.append(language_feature)
@@ -526,15 +534,44 @@ class GaussianModel:
         layer_num, codebook_size, _ = self._language_feature_codebooks.shape
         for i in range(layer_idx + 1):
             language_feature = self.get_language_feature_codebooks[i].T @ language_feature_weight_map[i * codebook_size:(i+1)*codebook_size]
-            language_feature = language_feature.view(512, H, W)
+            language_feature = language_feature.view(self.language_feature_dim, H, W)
             if i > 0:
                 language_feature += language_feature_before.detach()
             language_feature_before = language_feature
         return language_feature
+
+    def compute_layer_feature_map_tile(self, language_feature_weight_map, layer_idx, ys, ye, xs, xe):
+        """
+        Compute a spatial tile of the feature map to reduce peak memory.
+        Returns [C, h, w] where h=ye-ys and w=xe-xs.
+        """
+        D, H, W = language_feature_weight_map.shape
+        ys = max(0, int(ys)); xe = min(int(xe), W)
+        xs = max(0, int(xs)); ye = min(int(ye), H)
+        h = max(0, ye - ys); w = max(0, xe - xs)
+        if h == 0 or w == 0:
+            return torch.zeros(self.language_feature_dim, h, w, device=language_feature_weight_map.device, dtype=torch.float32)
+
+        # [D, h*w]
+        tile_wmap = language_feature_weight_map[:, ys:ye, xs:xe].reshape(D, -1)
+        layer_num, codebook_size, _ = self._language_feature_codebooks.shape
+        language_feature_before = None
+        for i in range(layer_idx + 1):
+            # [C, D_layer] @ [D_layer, h*w] -> [C, h*w]
+            start = i * codebook_size
+            end = (i + 1) * codebook_size
+            codebook_T = self.get_language_feature_codebooks[i].T  # [C, K]
+            tile = codebook_T @ tile_wmap[start:end]
+            tile = tile.view(self.language_feature_dim, h, w)
+            if i > 0 and language_feature_before is not None:
+                tile = tile + language_feature_before.detach()
+            language_feature_before = tile
+        return language_feature_before
     
     def compute_final_feature_map(self, language_feature_weight_map):
         D, H, W = language_feature_weight_map.shape
-        language_feature_weight_map = language_feature_weight_map.view(D, -1) 
-        language_feature = self.get_language_feature_codebooks.view(-1, 512).T @ language_feature_weight_map
-        language_feature = language_feature.view(512, H, W)
-        return language_feature
+        language_feature_weight_map = language_feature_weight_map.view(D, -1) # [64, N]
+        # self.get_language_feature_codebooks [1,64,1152]
+        language_feature = self.get_language_feature_codebooks.view(-1, self.language_feature_dim).T @ language_feature_weight_map
+        language_feature = language_feature.view(self.language_feature_dim, H, W)
+        return language_feature 
