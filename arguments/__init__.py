@@ -86,7 +86,7 @@ class OptimizationParams(ParamGroup):
         self.llm_feature = True
         self.quick_render = False
         self.vq_layer_num = 1
-        self.codebook_size = 64
+        self.codebook_size = 128#64 as default
         self.scaling_lr = 0.005
         self.rotation_lr = 0.001
         self.percent_dense = 0.01
