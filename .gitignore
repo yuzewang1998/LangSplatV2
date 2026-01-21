@@ -1,3 +1,5 @@
+submodules/
+rag_data/
 output/
 eval_result/
 # Byte-compiled / optimized / DLL files

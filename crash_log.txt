@@ -1,10 +1,12 @@
 Traceback (most recent call last):
-  File "train.py", line 366, in <module>
+  File "train.py", line 374, in <module>
     training(lp.extract(args), op.extract(args), pp.extract(args), args.test_iterations, args.save_iterations, args.checkpoint_iterations, args.start_checkpoint, args.debug_from, args)
-  File "train.py", line 91, in training
-    features = load_2d_lmm_feature(dataset.lf_path, device)
-  File "/home/wangyz/project/0working/LangSplatV2/utils/vq_utils.py", line 614, in load_2d_lmm_feature
-    stream = LMMFeatureStream(data_dir, load_func=load_func)
-  File "/home/wangyz/project/0working/LangSplatV2/utils/vq_utils.py", line 435, in __init__
-    raise FileNotFoundError(f"No .pth feature files found under {data_dir}")
-FileNotFoundError: No .pth feature files found under /mnt/data/wangyz/PT/brandenburg_gate/llava_features_3584_multiscale
+  File "train.py", line 230, in training
+    raise e
+  File "train.py", line 186, in training
+    gt_language_feature, language_feature_mask = viewpoint_cam.get_llm_feature(language_feature_dir=dataset.lf_path, feature_level=dataset.feature_level)
+  File "/home/wangyz/project/0working/LangSplatV2/scene/cameras.py", line 202, in get_llm_feature
+    return point_feature.cuda(), mask.cuda()
+RuntimeError: CUDA error: an illegal memory access was encountered
+CUDA kernel errors might be asynchronously reported at some other API call,so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1.

@@ -444,7 +444,9 @@ if __name__ == "__main__":
     # Note: 现在render_lerf_llm.py直接使用-m传入的单个model_path，不再需要ckpt_paths列表
     # 保留这一行是为了向后兼容，但实际不再使用
     args.ckpt_paths = [os.path.join(args.ckpt_root_path, args.dataset_name + f"_{args.index}_{level}") for level in [0, 1, 2]]
-    args.output_path = os.path.join(args.output_dir, args.dataset_name + f"_{args.index}")
+    # 新目录结构：output_dir已包含实验索引和level信息，只需加dataset_name
+    # 例如：eval_result/{INDEX}/level{0,1,2}/{dataset_name}/
+    args.output_path = os.path.join(args.output_dir, args.dataset_name)
     args.json_folder = os.path.join(args.json_folder, args.dataset_name)
     
     os.makedirs(args.output_path, exist_ok=True)
