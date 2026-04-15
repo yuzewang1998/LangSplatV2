@@ -14,10 +14,11 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from pathlib import Path
 import torch.nn.functional as F
+from sklearn.decomposition import PCA
 
 def load_gt_feature_map(gt_path: str, scale_name: str = 'Medium'):
     """加载 GT 特征（使用 no_interp 方法，避免 averaging 和 bilinear interpolation）"""
-    data = torch.load(gt_path, map_location='cpu')
+    data = torch.load(gt_path, map_location='cpu', weights_only=False)
 
     if 'feature_maps' not in data:
         raise ValueError(f"文件格式错误：缺少 'feature_maps' 键")
@@ -38,18 +39,6 @@ def load_gt_feature_map(gt_path: str, scale_name: str = 'Medium'):
 
     H, W = image_size[1], image_size[0]
 
-    # 如果只有一个 crop，直接返回
-    if len(crop_features) == 1:
-        feature = crop_features[0]['feature']  # [H_crop, W_crop, C]
-        feature_np = feature.numpy() if isinstance(feature, torch.Tensor) else np.asarray(feature)
-        H_crop, W_crop, C = feature_np.shape
-
-        # 生成全覆盖 mask
-        mask = np.ones((H_crop, W_crop), dtype=bool)
-
-        return feature_np, mask
-
-    # 多个 crops: 使用 last-write-wins（不做 averaging）
     C = crop_features[0]['feature'].shape[-1]
     feature_map = np.zeros((H, W, C), dtype=np.float32)
     mask = np.zeros((H, W), dtype=bool)
@@ -80,7 +69,7 @@ def load_gt_feature_map(gt_path: str, scale_name: str = 'Medium'):
 
 def load_rendered_feature_map(rendered_path: str):
     """加载渲染特征"""
-    data = torch.load(rendered_path, map_location='cpu')
+    data = torch.load(rendered_path, map_location='cpu', weights_only=False)
     if isinstance(data, torch.Tensor):
         if data.dim() == 4 and data.shape[0] == 1:
             data = data.squeeze(0)
@@ -140,52 +129,69 @@ def compute_metrics(rendered_feat: np.ndarray, gt_feat: np.ndarray, mask: np.nda
     }
 
 
-def features_to_rgb_simple(features: np.ndarray, mask: np.ndarray = None):
+def project_features_to_rgb_joint(rendered_feat: np.ndarray, gt_feat: np.ndarray, mask: np.ndarray = None):
     """
-    最简单的特征可视化：直接用前3个维度作为RGB
+    使用联合 PCA 和共享归一化把 GT / rendered 特征投影到同一个 RGB 空间。
+    这样两张图的颜色才是可比较的。
     """
-    H, W, C = features.shape
-    print(f"  Feature shape: {features.shape}")
+    H, W, C = rendered_feat.shape
+    print(f"  Feature shape: rendered={rendered_feat.shape}, gt={gt_feat.shape}")
 
-    # 取前3个维度
-    rgb_features = features[:, :, :3]  # [H, W, 3]
+    rendered_flat = rendered_feat.reshape(-1, C)
+    gt_flat = gt_feat.reshape(-1, C)
 
-    # 归一化到[0, 1]
     if mask is not None:
-        # 只考虑有效区域的统计
-        valid_features = rgb_features[mask]
-        for i in range(3):
-            channel = rgb_features[:, :, i]
-            valid_channel = channel[mask]
-
-            low = np.percentile(valid_channel, 2)
-            high = np.percentile(valid_channel, 98)
-
-            if high - low > 1e-6:
-                channel_norm = np.clip((channel - low) / (high - low), 0, 1)
-            else:
-                channel_norm = np.ones_like(channel) * 0.5
-
-            rgb_features[:, :, i] = channel_norm
-
-        # 无效区域设为灰色
-        rgb_features[~mask] = 0.5
+        valid_mask = mask.reshape(-1)
     else:
-        # 全局归一化
-        for i in range(3):
-            channel = rgb_features[:, :, i]
-            low = np.percentile(channel, 2)
-            high = np.percentile(channel, 98)
+        valid_mask = np.ones(H * W, dtype=bool)
 
-            if high - low > 1e-6:
-                rgb_features[:, :, i] = np.clip((channel - low) / (high - low), 0, 1)
-            else:
-                rgb_features[:, :, i] = 0.5
+    finite_mask = np.isfinite(rendered_flat).all(axis=1) & np.isfinite(gt_flat).all(axis=1)
+    fit_mask = valid_mask & finite_mask
 
-    # 转uint8
-    rgb_image = (rgb_features * 255).astype(np.uint8)
+    rendered_valid = rendered_flat[fit_mask]
+    gt_valid = gt_flat[fit_mask]
+    fit_data = np.concatenate([gt_valid, rendered_valid], axis=0)
 
-    return rgb_image
+    if fit_data.shape[0] == 0:
+        raise ValueError("No valid features available for RGB projection")
+
+    # 过大时下采样，避免 PCA 太慢
+    max_fit_samples = 50000
+    if fit_data.shape[0] > max_fit_samples:
+        indices = np.linspace(0, fit_data.shape[0] - 1, max_fit_samples, dtype=np.int64)
+        fit_data = fit_data[indices]
+
+    pca = PCA(n_components=3)
+    pca.fit(fit_data)
+
+    rendered_rgb = pca.transform(rendered_flat).reshape(H, W, 3)
+    gt_rgb = pca.transform(gt_flat).reshape(H, W, 3)
+
+    if mask is not None:
+        shared_valid = np.concatenate([gt_rgb[mask], rendered_rgb[mask]], axis=0)
+    else:
+        shared_valid = np.concatenate([gt_rgb.reshape(-1, 3), rendered_rgb.reshape(-1, 3)], axis=0)
+
+    for channel_idx in range(3):
+        low = np.percentile(shared_valid[:, channel_idx], 2)
+        high = np.percentile(shared_valid[:, channel_idx], 98)
+        if high - low > 1e-6:
+            gt_rgb[:, :, channel_idx] = np.clip((gt_rgb[:, :, channel_idx] - low) / (high - low), 0, 1)
+            rendered_rgb[:, :, channel_idx] = np.clip((rendered_rgb[:, :, channel_idx] - low) / (high - low), 0, 1)
+        else:
+            gt_rgb[:, :, channel_idx] = 0.5
+            rendered_rgb[:, :, channel_idx] = 0.5
+
+    if mask is not None:
+        gt_rgb[~mask] = 0.5
+        rendered_rgb[~mask] = 0.5
+
+    explained_var = pca.explained_variance_ratio_
+    print("  Joint PCA explained variance: [{:.1%}, {:.1%}, {:.1%}]".format(
+        explained_var[0], explained_var[1], explained_var[2]
+    ))
+
+    return (gt_rgb * 255).astype(np.uint8), (rendered_rgb * 255).astype(np.uint8)
 
 
 def visualize_comparison(rendered_path: str, gt_path: str, image_path: str,
@@ -211,12 +217,12 @@ def visualize_comparison(rendered_path: str, gt_path: str, image_path: str,
 
     # 确保尺寸一致
     if rendered_feat.shape[:2] != gt_feat.shape[:2]:
-        print("\n3. Resizing GT feature...")
+        print("\n3. Resizing GT feature with nearest...")
         gt_feat_tensor = torch.from_numpy(gt_feat).permute(2, 0, 1).unsqueeze(0)
         gt_mask_tensor = torch.from_numpy(gt_mask.astype(np.float32)).unsqueeze(0).unsqueeze(0)
 
         target_size = rendered_feat.shape[:2]
-        gt_feat_tensor = F.interpolate(gt_feat_tensor, size=target_size, mode='bilinear', align_corners=False)
+        gt_feat_tensor = F.interpolate(gt_feat_tensor, size=target_size, mode='nearest')
         gt_mask_tensor = F.interpolate(gt_mask_tensor, size=target_size, mode='nearest')
 
         gt_feat = gt_feat_tensor.squeeze(0).permute(1, 2, 0).numpy()
@@ -237,13 +243,9 @@ def visualize_comparison(rendered_path: str, gt_path: str, image_path: str,
         else:
             print(f"   {k}: {v}")
 
-    # 简单RGB可视化 - 直接用前3维
-    print("\n6. Generating RGB visualizations (first 3 dimensions)...")
-    print("   GT features:")
-    gt_rgb = features_to_rgb_simple(gt_feat, gt_mask)
-
-    print("   Rendered features:")
-    rendered_rgb = features_to_rgb_simple(rendered_feat, None)
+    # 联合 PCA 可视化 - GT / rendered 共用同一投影和同一归一化
+    print("\n6. Generating RGB visualizations (joint PCA with shared normalization)...")
+    gt_rgb, rendered_rgb = project_features_to_rgb_joint(rendered_feat, gt_feat, gt_mask)
 
     # 差异图
     print("\n7. Computing difference map...")
@@ -310,8 +312,8 @@ L2 Distance: {metrics['l2_distance']:.4f}
 Valid Pixels: {metrics['valid_pixels']:,} / {metrics['total_pixels']:,}
 Coverage: {metrics['coverage']:.2%}
 ━━━━━━━━━━━━━━━━━━━━━━
-Note: Using first 3 dimensions as RGB (no PCA)
-"""
+    Note: Using joint PCA with shared normalization
+    """
 
     fig.text(0.5, 0.02, metrics_text, ha='center', va='bottom',
              fontsize=12, family='monospace',

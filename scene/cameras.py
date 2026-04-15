@@ -43,19 +43,6 @@ def _decode_crop_features_to_full_map(scale_data, overlap_mode='average'):
 
     H, W = image_size[1], image_size[0]
 
-    # 单个crop：直接返回
-    if len(crop_features) == 1:
-        feature = crop_features[0]['feature']
-        if torch.is_tensor(feature):
-            feature_np = feature.numpy()
-        else:
-            feature_np = np.asarray(feature)
-
-        H_crop, W_crop, C = feature_np.shape
-        mask = np.ones((H_crop, W_crop), dtype=bool)
-        return feature_np, mask
-
-    # 多个crops：使用last-write-wins（不做averaging）
     C = crop_features[0]['feature'].shape[-1]
     feature_map = np.zeros((H, W, C), dtype=np.float32)
     mask = np.zeros((H, W), dtype=bool)

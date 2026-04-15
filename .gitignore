@@ -103,9 +103,13 @@ Desktop.ini
 *.bak
 *.tmp
 *.temp
+events.out.tfevents.*
+_-1/
+.codex
 
 # Editor backups
 *~
 
 # Caches
 .cache/
+.omx/

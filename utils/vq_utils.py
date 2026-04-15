@@ -477,14 +477,6 @@ class LMMFeatureStream:
             crop_features = scale_data['crop_features']
             image_size = scale_data['image_size']  # (W, H)
 
-            # 如果只有一个crop，直接返回它（最常见情况）
-            if len(crop_features) == 1:
-                feature = crop_features[0]['feature']  # [H_crop, W_crop, C]
-                feature_np = feature.numpy() if hasattr(feature, 'numpy') else np.asarray(feature)
-                H, W, C = feature_np.shape
-                return feature_np.reshape(H * W, C)
-
-            # 多个crops：使用last-write-wins策略（不做averaging）
             H, W = image_size[1], image_size[0]
             C = crop_features[0]['feature'].shape[-1]
             feature_map = np.zeros((H, W, C), dtype=np.float32)

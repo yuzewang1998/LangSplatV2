@@ -136,6 +136,131 @@ The pipeline for training LangSplat V2 and evaluation.
   bash eval_lerf.sh $scene_name $model_idx $checkpoint
   ```
 
+## Experiment Runner
+
+For the cleaned PT workflow, use the single experiment entrypoint:
+
+```bash
+bash bash_run/exp_0402.sh
+```
+
+Default configuration in `bash_run/exp_0402.sh`:
+
+- dataset root: `/mnt/data/wangyz/PT`
+- dataset: `brandenburg_gate`
+- experiment id: `0402`
+- iterations: `10000`
+- top-k: `4`
+- codebook size: `128`
+
+This one script runs:
+
+- training
+- rendering
+- evaluation without RAG
+- evaluation with RAG
+- JudgeLM-based RAG comparison report
+
+Outputs are now grouped under a single namespace instead of mixing with old runs:
+
+- checkpoints: `output/exp_0402/`
+- rendered/eval results: `eval_result/exp_0402/`
+
+You can override the main settings inline when needed:
+
+```bash
+GPU=1 DATASET_NAME=brandenburg_gate bash bash_run/exp_0402.sh
+```
+
+Or pass through any `run_all.sh` flags, for example:
+
+```bash
+bash bash_run/exp_0402.sh --skip_train --skip_render
+```
+
+RAG 对比阶段现在默认使用本地 JudgeLM 作为 `llm-as-a-judge`：
+
+- conda env: `judgelm`
+- JudgeLM project: `/home/wangyz/project/2past_project/JudgeLM-main`
+- default model: `JudgeLM-7B-v1.0`
+
+JudgeLM 对比脚本入口：
+
+```bash
+conda run -n judgelm python LLaVA-NeXT/compare_rag_results.py \
+    --no_rag_dir /abs/path/to/analysis_no_rag \
+    --with_rag_dir /abs/path/to/analysis_with_rag \
+    --output_dir /abs/path/to/comparison \
+    --index your_index
+```
+
+JudgeLM 会对每个图像、每个问题、每个 scale 的 `无RAG回答` 和 `有RAG回答` 做成对打分，并输出：
+
+- 每个 scale 的平均 Judge score
+- RAG 胜 / 无RAG 胜 / 平局数量
+- 显著改进与显著退步案例
+- 最终 `rag_comparison_report.txt`
+
+## Image Filtering
+
+For PT-style datasets, you can now run the image filtering pipeline directly from this repository.
+
+Expected dataset layout:
+
+```text
+<dataset_dir>/
+├── dense/
+│   └── images/
+└── <xxx>.tsv
+```
+
+Run the generic filtering entrypoint:
+
+```bash
+bash tools/filtering/run_filter_pipeline.sh \
+    --dataset_dir /abs/path/to/dataset \
+    --input_tsv xxx.tsv \
+    --landmark_name "Your Landmark Name"
+```
+
+This will automatically generate:
+
+- `<dataset_dir>/<xxx>_filtered.tsv`
+- `<dataset_dir>/<xxx>_filtered_decisions.jsonl`
+- `eval_result/filtering/<dataset_name>/<xxx>_filtered/`
+
+Example:
+
+```bash
+bash tools/filtering/run_filter_pipeline.sh \
+    --dataset_dir /home/wangyz/data/PT/brandenburg_gate \
+    --input_tsv brandenburg.tsv \
+    --landmark_name "Brandenburg Gate"
+```
+
+You can also debug a single image before the full run:
+
+```bash
+python tools/filtering/test_vlm_filter.py \
+    --image_path /abs/path/to/image.jpg \
+    --ollama_host 192.168.192.124 \
+    --model_name llava:34b \
+    --landmark_name "Your Landmark Name" \
+    --request_timeout 180
+```
+
+The filtering visualizer can be rerun manually if needed:
+
+```bash
+python tools/filtering/visualize_filtered_images.py \
+    --filtered_tsv /abs/path/to/xxx_filtered.tsv \
+    --image_dir /abs/path/to/dataset/dense/images \
+    --output_dir /abs/path/to/output_dir \
+    --save_full_grid
+```
+
+The current prompt is conservative: it prioritizes removing real people, vehicles, flags, heavy clutter, and obviously stylized or unnatural images. For Brandenburg Gate, the Quadriga statue is explicitly treated as part of the landmark rather than a person.
+
 ## TODO list:
 - [x] update the arxiv link
 - [ ] release more model weights
@@ -156,4 +281,3 @@ The pipeline for training LangSplat V2 and evaluation.
 }</code></pre>
   </div>
 </section>
-
