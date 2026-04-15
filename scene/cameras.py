@@ -83,6 +83,26 @@ def _decode_crop_features_to_full_map(scale_data, overlap_mode='average'):
 
     return feature_map, mask
 
+def _resize_crop_feature_map(feature_map, target_hw):
+    """Resize [H, W, C] crop features with nearest-neighbor interpolation."""
+    if torch.is_tensor(feature_map):
+        feature_t = feature_map.detach().cpu()
+    else:
+        feature_t = torch.from_numpy(np.asarray(feature_map))
+
+    if feature_t.ndim != 3:
+        raise ValueError(f"Expected 3D feature map, got shape {tuple(feature_t.shape)}")
+
+    target_h, target_w = int(target_hw[0]), int(target_hw[1])
+    if feature_t.shape[0] == target_h and feature_t.shape[1] == target_w:
+        return feature_t.numpy()
+
+    feature_t = feature_t.permute(2, 0, 1).unsqueeze(0).float()
+    feature_t = torch.nn.functional.interpolate(
+        feature_t, size=(target_h, target_w), mode='nearest'
+    )
+    return feature_t.squeeze(0).permute(1, 2, 0).contiguous().numpy()
+
 _CODEC_OK = True  # 使用本地实现，不再依赖外部codec
 
 class Camera(nn.Module):
@@ -253,8 +273,8 @@ class Camera(nn.Module):
             if ox1 >= ox2 or oy1 >= oy2:
                 continue
 
-            # Resize crop feature to its bbox size once using the local nearest-neighbor decoder.
-            resized = _resize_crop_feature_map(cf, int(ch), int(cw))  # [ch, cw, 3584]
+            # Resize crop feature to its bbox size once
+            resized = _resize_crop_feature_map(cf, (ch, cw))  # [ch, cw, 3584]
 
             # Region within crop
             cx1, cy1 = ox1 - x, oy1 - y

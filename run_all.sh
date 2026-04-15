@@ -95,8 +95,9 @@ FORCE_REBUILD_RAG=false
 AUTO_INDEX=true
 
 # 路径
-LANGSPLAT_DIR=/home/wangyz/project/0working/LangSplatV2
-LLAVA_DIR=/home/wangyz/project/0working/LangSplatV2/LLaVA-NeXT
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+LANGSPLAT_DIR="${SCRIPT_DIR}"
+LLAVA_DIR="${LANGSPLAT_DIR}/LLaVA-NeXT"
 RAG_CACHE_DIR=${LANGSPLAT_DIR}/rag_data
 
 # ============================================================================
