@@ -25,6 +25,26 @@ if __name__ == "__main__":
 
 from utils.graphics_utils import getWorld2View2, getProjectionMatrix
 
+def _resize_crop_feature_map(feature, target_h, target_w):
+    """Resize an HWC crop feature map with nearest-neighbor interpolation."""
+    if torch.is_tensor(feature):
+        feature_torch = feature.detach().cpu()
+    else:
+        feature_torch = torch.as_tensor(feature)
+
+    if feature_torch.ndim != 3:
+        raise ValueError(f"Expected crop feature map with shape [H, W, C], got {tuple(feature_torch.shape)}")
+
+    if feature_torch.shape[0] == target_h and feature_torch.shape[1] == target_w:
+        return feature_torch.contiguous()
+
+    resized = torch.nn.functional.interpolate(
+        feature_torch.permute(2, 0, 1).unsqueeze(0).float(),
+        size=(target_h, target_w),
+        mode='nearest'
+    )
+    return resized.squeeze(0).permute(1, 2, 0).contiguous()
+
 # 本地实现的crop特征解码函数（替代已删除的CropFeatureCodec）
 def _decode_crop_features_to_full_map(scale_data, overlap_mode='average'):
     """
@@ -51,23 +71,11 @@ def _decode_crop_features_to_full_map(scale_data, overlap_mode='average'):
         feature = crop_data['feature']
         bbox = crop_data['bbox']  # (x, y, w, h)
 
-        if torch.is_tensor(feature):
-            feature_np = feature.numpy()
-        else:
-            feature_np = np.asarray(feature)
-
         x, y, w, h = bbox
         x2, y2 = x + w, y + h
 
         crop_h, crop_w = int(y2 - y), int(x2 - x)
-
-        # 如果尺寸不匹配，使用nearest neighbor resize
-        if feature_np.shape[0] != crop_h or feature_np.shape[1] != crop_w:
-            feature_torch = torch.from_numpy(feature_np).permute(2, 0, 1).unsqueeze(0)
-            feature_torch = torch.nn.functional.interpolate(
-                feature_torch, size=(crop_h, crop_w), mode='nearest'
-            )
-            feature_np = feature_torch.squeeze(0).permute(1, 2, 0).numpy()
+        feature_np = _resize_crop_feature_map(feature, crop_h, crop_w).numpy()
 
         # 直接覆盖（last-write-wins）
         feature_map[y:y2, x:x2] = feature_np
@@ -235,7 +243,7 @@ class Camera(nn.Module):
         tile_mask = torch.zeros(h, w, dtype=torch.bool)
 
         for crop in encoded['crop_features']:
-            cf = crop['feature']  # [27, 27, 3584]
+            cf = crop['feature']  # [Hc, Wc, 3584]
             x, y, cw, ch = crop['bbox']
             x2, y2 = x + cw, y + ch
 
@@ -245,8 +253,8 @@ class Camera(nn.Module):
             if ox1 >= ox2 or oy1 >= oy2:
                 continue
 
-            # Resize crop feature to its bbox size once
-            resized = CropFeatureCodec._resize_feature_map(cf, (ch, cw))  # [ch, cw, 3584]
+            # Resize crop feature to its bbox size once using the local nearest-neighbor decoder.
+            resized = _resize_crop_feature_map(cf, int(ch), int(cw))  # [ch, cw, 3584]
 
             # Region within crop
             cx1, cy1 = ox1 - x, oy1 - y
