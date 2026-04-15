@@ -216,6 +216,14 @@ def render_language_feature_map_quick(gaussians:GaussianModel, view, pipeline, b
     return language_feature_map
 
 
+def load_checkpoint_compat(checkpoint_path):
+    """Load checkpoints across PyTorch versions where weights_only default changed."""
+    try:
+        return torch.load(checkpoint_path, weights_only=False)
+    except TypeError:
+        return torch.load(checkpoint_path)
+
+
 def render_all(dataset:ModelParams, pipeline:PipelineParams, args):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     colormap_options = colormaps.ColormapOptions(
@@ -262,7 +270,7 @@ def render_all(dataset:ModelParams, pipeline:PipelineParams, args):
 
         # 使用-m传入的model_path加载checkpoint
         checkpoint = os.path.join(dataset.model_path, f'chkpnt{args.checkpoint}.pth')
-        (model_params, first_iter) = torch.load(checkpoint)
+        (model_params, first_iter) = load_checkpoint_compat(checkpoint)
         gaussians.restore(model_params, args, mode='test')
 
         language_feature_image = render_language_feature_map(gaussians, view, pipeline, background, args)
@@ -346,7 +354,7 @@ def render_all_quick(dataset:ModelParams, pipeline:PipelineParams, args):
         # views是0-indexed数组，但idx是帧号（1-based），所以需要减1
         view = views[idx - 1]
         checkpoint = os.path.join(args.ckpt_paths[0], f'chkpnt{args.checkpoint}.pth')
-        (model_params, first_iter) = torch.load(checkpoint)
+        (model_params, first_iter) = load_checkpoint_compat(checkpoint)
         combined_gaussians.restore(model_params, args, mode='test')
         img_ann = gt_ann[f'{idx}']
         clip_model.set_positives(list(img_ann.keys()))
@@ -356,7 +364,7 @@ def render_all_quick(dataset:ModelParams, pipeline:PipelineParams, args):
             # restore gaussian model
             gaussians = GaussianModel(dataset.sh_degree)
             checkpoint = os.path.join(args.ckpt_paths[level_idx], f'chkpnt{args.checkpoint}.pth')
-            (model_params, first_iter) = torch.load(checkpoint)
+            (model_params, first_iter) = load_checkpoint_compat(checkpoint)
             gaussians.restore(model_params, args, mode='test')
             feature_dim = gaussians._language_feature_codebooks.shape[2]
             language_feature_codebooks.append(gaussians._language_feature_codebooks.view(-1, feature_dim))
