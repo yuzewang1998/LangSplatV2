@@ -262,15 +262,16 @@ def mask_nms(masks, scores, iou_thr=0.7, score_thr=0.1, inner_thr=0.2, **kwargs)
     keep_inner_l = inner_iou_max_l <= 1 - inner_thr
     
     # If there are no masks with scores above threshold, the top 3 masks are selected
-    if keep_conf.sum() == 0:
-        index = scores.topk(3).indices
-        keep_conf[index, 0] = True
-    if keep_inner_u.sum() == 0:
-        index = scores.topk(3).indices
-        keep_inner_u[index, 0] = True
-    if keep_inner_l.sum() == 0:
-        index = scores.topk(3).indices
-        keep_inner_l[index, 0] = True
+    fallback_k = min(3, scores.numel())
+    if keep_conf.sum() == 0 and fallback_k > 0:
+        index = scores.topk(fallback_k).indices
+        keep_conf[index] = True
+    if keep_inner_u.sum() == 0 and fallback_k > 0:
+        index = scores.topk(fallback_k).indices
+        keep_inner_u[index] = True
+    if keep_inner_l.sum() == 0 and fallback_k > 0:
+        index = scores.topk(fallback_k).indices
+        keep_inner_l[index] = True
     keep *= keep_conf
     keep *= keep_inner_u
     keep *= keep_inner_l
