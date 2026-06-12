@@ -480,7 +480,15 @@ class LMMFeatureStream:
             H, W = image_size[1], image_size[0]
             C = crop_features[0]['feature'].shape[-1]
             feature_map = np.zeros((H, W, C), dtype=np.float32)
+            weight_map = np.zeros((H, W), dtype=np.float32)
             mask = np.zeros((H, W), dtype=bool)
+
+            def _center_weight_map(height, width):
+                ys = np.linspace(-1.0, 1.0, height, dtype=np.float32)
+                xs = np.linspace(-1.0, 1.0, width, dtype=np.float32)
+                yy, xx = np.meshgrid(ys, xs, indexing='ij')
+                dist2 = xx * xx + yy * yy
+                return np.exp(-2.0 * dist2).astype(np.float32)
 
             for crop_data in crop_features:
                 feature = crop_data['feature']
@@ -499,9 +507,13 @@ class LMMFeatureStream:
                     )
                     feature_np = feature_torch.squeeze(0).permute(1, 2, 0).numpy()
 
-                # 直接覆盖（last-write-wins，不averaging）
-                feature_map[y:y2, x:x2] = feature_np
+                weights = _center_weight_map(crop_h, crop_w)
+                feature_map[y:y2, x:x2] += feature_np * weights[..., None]
+                weight_map[y:y2, x:x2] += weights
                 mask[y:y2, x:x2] = True
+
+            valid = weight_map > 1e-6
+            feature_map[valid] = feature_map[valid] / weight_map[valid, None]
 
             # 只返回有效区域的特征
             return feature_map.reshape(H * W, C)[mask.reshape(H * W)]

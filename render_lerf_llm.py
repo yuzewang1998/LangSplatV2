@@ -248,22 +248,34 @@ def render_all(dataset:ModelParams, pipeline:PipelineParams, args):
         rgb_img = torch.from_numpy(rgb_img).to(device)
         image_name = Path(args.output_path) / f'{idx}'
         image_name.mkdir(exist_ok=True, parents=True)
+        rendered_feature_path = image_name / f'feature_map_{idx}.pt'
+        if getattr(args, "skip_existing", False) and rendered_feature_path.exists() and rendered_feature_path.stat().st_size > 0:
+            logger.info(f"Skipping existing rendered feature map: {rendered_feature_path}")
+            continue
         img_ann = gt_ann[f'{idx}']
         # 直接使用-m传入的model_path（不循环，不hardcode）
         # dataset.model_path已经通过-m参数设置
         gaussians = GaussianModel(dataset.sh_degree)
         scene = Scene(dataset, gaussians, shuffle=False)
+        # 在训练和测试视角中都搜索（某些 eval 图像可能在测试集中）
         views = scene.getTrainCameras()
+        test_views = scene.getTestCameras()
 
         # 找到匹配的view
         view = None
         for v in views:
-            print(v, idx)
             if v.image_name == idx.split('/')[-1]:
                 view = v
                 break
-        if view == None:
-            raise ValueError(f'View not found for {idx}')
+        if view is None:
+            for v in test_views:
+                if v.image_name == idx.split('/')[-1]:
+                    view = v
+                    logger.info(f'View found in test set for {idx}')
+                    break
+        if view is None:
+            logger.warning(f'View not found for {idx}, skipping this frame')
+            continue
 
         bg_color = [1, 1, 1] if dataset.white_background else [0, 0, 0]
         background = torch.tensor(bg_color, dtype=torch.float32, device="cuda")
@@ -285,7 +297,6 @@ def render_all(dataset:ModelParams, pipeline:PipelineParams, args):
         img_ann = gt_ann[f'{idx}']
 
         # save feature map
-        rendered_feature_path = image_name / f'feature_map_{idx}.pt'
         torch.save(restored_feat.cpu(), rendered_feature_path)
 
         # 特征对比可视化（如果启用）
@@ -320,95 +331,12 @@ def render_all(dataset:ModelParams, pipeline:PipelineParams, args):
     return
 
 def render_all_quick(dataset:ModelParams, pipeline:PipelineParams, args):
-  #TODO: not implemented yet
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    colormap_options = colormaps.ColormapOptions(
-        colormap="turbo",
-        normalize=True,
-        colormap_min=-1.0,
-        colormap_max=1.0,
+    raise NotImplementedError(
+        "--quick_render is currently disabled because the legacy quick-render "
+        "path is out of sync with the current annotation/key format and checkpoint "
+        "loading flow. Use the default render path instead until this branch is "
+        "fully migrated and validated."
     )
-    # load test data
-    gt_ann, image_shape, image_paths = eval_gt_lerfdata(Path(args.json_folder), Path(args.output_path))
-    eval_index_list = [int(idx) for idx in list(gt_ann.keys())]
-    clip_model = OpenCLIPNetwork(device)
-
-    chosen_iou_all, chosen_lvl_list = [], []
-    acc_num = 0
-
-    for i, idx in enumerate[int](tqdm(eval_index_list)):
-        # 构建正确的图片路径（使用idx而不是i）
-        image_path = os.path.join(args.json_folder, f'frame_{idx:05d}.jpg')
-        rgb_img = cv2.imread(image_path)[..., ::-1]
-        rgb_img = (rgb_img / 255.0).astype(np.float32)
-        rgb_img = torch.from_numpy(rgb_img).to(device)
-
-        image_name = Path(args.output_path) / f'frame_{idx:0>5}'
-        image_name.mkdir(exist_ok=True, parents=True)
-
-        sem_feat = []
-        language_feature_weights = []
-        language_feature_indices = []
-        language_feature_codebooks = []
-        combined_gaussians = GaussianModel(dataset.sh_degree)
-        dataset.model_path = args.ckpt_paths[0]
-        scene = Scene(dataset, combined_gaussians, shuffle=False)
-        views = scene.getTrainCameras()
-        # views是0-indexed数组，但idx是帧号（1-based），所以需要减1
-        view = views[idx - 1]
-        checkpoint = os.path.join(args.ckpt_paths[0], f'chkpnt{args.checkpoint}.pth')
-        try:
-            (model_params, first_iter) = torch.load(checkpoint, weights_only=False)
-        except TypeError:
-            (model_params, first_iter) = torch.load(checkpoint)
-        combined_gaussians.restore(model_params, args, mode='test')
-        img_ann = gt_ann[f'{idx}']
-        clip_model.set_positives(list(img_ann.keys()))
-        bg_color = [1,1,1] if dataset.white_background else [0, 0, 0]
-        background = torch.tensor(bg_color, dtype=torch.float32, device="cuda")
-        for level_idx in range(3):
-            # restore gaussian model
-            gaussians = GaussianModel(dataset.sh_degree)
-            checkpoint = os.path.join(args.ckpt_paths[level_idx], f'chkpnt{args.checkpoint}.pth')
-            try:
-                (model_params, first_iter) = torch.load(checkpoint, weights_only=False)
-            except TypeError:
-                (model_params, first_iter) = torch.load(checkpoint)
-            gaussians.restore(model_params, args, mode='test')
-            feature_dim = gaussians._language_feature_codebooks.shape[2]
-            language_feature_codebooks.append(gaussians._language_feature_codebooks.view(-1, feature_dim))
-            weights, indices = get_weights_and_indices(gaussians._language_feature_logits, 4)
-            language_feature_weights.append(weights)
-            language_feature_indices.append(indices + int(level_idx * gaussians._language_feature_codebooks.shape[1]))
-        language_feature_codebooks = torch.stack(language_feature_codebooks, dim=0)
-        language_feature_weights = torch.cat(language_feature_weights, dim=1)
-        language_feature_indices = torch.cat(language_feature_indices, dim=1)
-        combined_gaussians._language_feature_codebooks = language_feature_codebooks
-        combined_gaussians._language_feature_weights = language_feature_weights
-        combined_gaussians._language_feature_indices = torch.from_numpy(language_feature_indices.detach().cpu().numpy()).to(combined_gaussians._language_feature_weights.device)
-        
-        language_feature_image = render_language_feature_map_quick(combined_gaussians, view, pipeline, background, args)
-        restored_feat = language_feature_image.permute(0, 2, 3, 1)
-        c_iou_list, c_lvl = segmentation_process_cuda(restored_feat, clip_model, args.mask_thresh, img_ann, list(img_ann.keys()), args.output_path, idx)
-        chosen_iou_all.extend(c_iou_list)
-        chosen_lvl_list.extend(c_lvl)
-        acc_num_img = localization_process_cuda(restored_feat, clip_model, img_ann)
-        acc_num += acc_num_img
-
-    logger.info(f'checkpoint: {args.checkpoint}')
-    mean_iou_chosen = sum(chosen_iou_all) / len(chosen_iou_all)
-    logger.info(f'trunc thresh: {args.mask_thresh}')
-    logger.info(f"iou chosen: {mean_iou_chosen:.4f}")
-    logger.info(f"chosen_lvl: \n{chosen_lvl_list}")
-
-    # localization acc
-    total_bboxes = 0
-    for img_ann in gt_ann.values():
-        total_bboxes += len(list(img_ann.keys()))
-    acc = acc_num / total_bboxes
-    logger.info("Localization accuracy: " + f'{acc:.4f}')
-
-    return
 
 def seed_everything(seed_value):
     random.seed(seed_value)
@@ -445,6 +373,13 @@ if __name__ == "__main__":
     parser.add_argument("--mask_thresh", type=float, default=0.4)
     parser.add_argument("--checkpoint", type=int, default=10000)
     parser.add_argument("--topk", type=int, default=1)
+    parser.add_argument(
+        "--raster_feature_channels",
+        type=int,
+        default=-1,
+        help="Compiled CUDA rasterizer language-feature capacity; Exp10 passes K*L after per-experiment rebuild.",
+    )
+    parser.add_argument("--skip_existing", action="store_true", help="Skip frames whose rendered feature_map_<id>.pt already exists.")
     #------------------------------------------------------------
     # 新增：特征对比可视化参数
     parser.add_argument("--visualize_comparison", action="store_true",

@@ -43,6 +43,14 @@ def _resize_feature_map_nearest(feature, target_hw):
     )
     return feature_torch.squeeze(0).permute(1, 2, 0).numpy()
 
+
+def _center_weight_map(height, width):
+    ys = np.linspace(-1.0, 1.0, height, dtype=np.float32)
+    xs = np.linspace(-1.0, 1.0, width, dtype=np.float32)
+    yy, xx = np.meshgrid(ys, xs, indexing='ij')
+    dist2 = xx * xx + yy * yy
+    return np.exp(-2.0 * dist2).astype(np.float32)
+
 # 本地实现的crop特征解码函数（替代已删除的CropFeatureCodec）
 def _decode_crop_features_to_full_map(scale_data, overlap_mode='average'):
     """
@@ -63,6 +71,7 @@ def _decode_crop_features_to_full_map(scale_data, overlap_mode='average'):
 
     C = crop_features[0]['feature'].shape[-1]
     feature_map = np.zeros((H, W, C), dtype=np.float32)
+    weight_map = np.zeros((H, W), dtype=np.float32)
     mask = np.zeros((H, W), dtype=bool)
 
     for crop_data in crop_features:
@@ -77,9 +86,21 @@ def _decode_crop_features_to_full_map(scale_data, overlap_mode='average'):
         # 如果尺寸不匹配，使用nearest neighbor resize
         feature_np = _resize_feature_map_nearest(feature, (crop_h, crop_w))
 
-        # 直接覆盖（last-write-wins）
-        feature_map[y:y2, x:x2] = feature_np
+        if overlap_mode == 'last':
+            feature_map[y:y2, x:x2] = feature_np
+            weight_map[y:y2, x:x2] = 1.0
+        elif overlap_mode == 'center_weighted':
+            weights = _center_weight_map(crop_h, crop_w)
+            feature_map[y:y2, x:x2] += feature_np * weights[..., None]
+            weight_map[y:y2, x:x2] += weights
+        else:
+            feature_map[y:y2, x:x2] += feature_np
+            weight_map[y:y2, x:x2] += 1.0
         mask[y:y2, x:x2] = True
+
+    if overlap_mode in ('average', 'center_weighted'):
+        valid = weight_map > 1e-6
+        feature_map[valid] = feature_map[valid] / weight_map[valid, None]
 
     return feature_map, mask
 
@@ -126,14 +147,16 @@ class Camera(nn.Module):
             print(f"[Warning] Custom device {data_device} failed, fallback to default cuda device" )
             self.data_device = torch.device("cuda")
 
-        self.original_image = image.clamp(0.0, 1.0).to(self.data_device)
+        # Keep camera images on CPU to avoid loading the entire training set into GPU
+        # memory during Scene initialisation. Call sites move them to CUDA on demand.
+        self.original_image = image.clamp(0.0, 1.0).contiguous()
         self.image_width = self.original_image.shape[2]
         self.image_height = self.original_image.shape[1]
 
         if gt_alpha_mask is not None:
-            self.original_image *= gt_alpha_mask.to(self.data_device)
+            self.original_image *= gt_alpha_mask
         else:
-            self.original_image *= torch.ones((1, self.image_height, self.image_width), device=self.data_device)
+            self.original_image *= torch.ones((1, self.image_height, self.image_width), device=self.original_image.device)
             
         self.zfar = 100.0
         self.znear = 0.01
@@ -145,6 +168,121 @@ class Camera(nn.Module):
         self.projection_matrix = getProjectionMatrix(znear=self.znear, zfar=self.zfar, fovX=self.FoVx, fovY=self.FoVy).transpose(0,1).cuda()
         self.full_proj_transform = (self.world_view_transform.unsqueeze(0).bmm(self.projection_matrix.unsqueeze(0))).squeeze(0)
         self.camera_center = self.world_view_transform.inverse()[3, :3]
+
+    # === 投影与可见性工具方法（CUDA 兼容语义） ===
+
+    def project_points_to_screen(self, points_3d):
+        """
+        将世界坐标 3D 点投影到本相机的屏幕坐标（CUDA 兼容管线）。
+        使用 CUDA 相同的 transformPoint4x4 + 1/|w| 透视除法 + ndc2Pix。
+
+        Args:
+            points_3d: [N, 3] torch.Tensor，世界坐标系下的 3D 点。
+
+        Returns:
+            pixel_xy: [N, 2] torch.Tensor，像素坐标 (x, y)。
+            p_proj: [N, 3] torch.Tensor，透视除法后的投影坐标。
+        """
+        from utils.graphics_utils import project_points_to_screen
+        return project_points_to_screen(
+            points_3d, self.full_proj_transform,
+            self.image_width, self.image_height
+        )
+
+    def world_to_view(self, points_3d):
+        """
+        将世界坐标 3D 点转换到本相机的 view 空间。
+
+        Args:
+            points_3d: [N, 3] torch.Tensor。
+
+        Returns:
+            p_view: [N, 3] torch.Tensor，view-space 坐标。
+        """
+        from utils.graphics_utils import world_to_view
+        return world_to_view(points_3d, self.world_view_transform)
+
+    def check_points_in_front(self, points_3d, threshold=0.2):
+        """
+        判断 3D 点是否在相机前方（与 CUDA in_frustum 一致）。
+
+        CUDA 条件: p_view.z <= 0.2（对于相机前方，view-space z 为负值）。
+
+        Args:
+            points_3d: [N, 3] torch.Tensor。
+            threshold: float，view-space z 阈值（默认 0.2，与 CUDA 一致）。
+
+        Returns:
+            in_front: [N] bool torch.Tensor。
+            p_view: [N, 3] torch.Tensor。
+        """
+        p_view = self.world_to_view(points_3d)
+        in_front = p_view[:, 2] <= threshold
+        return in_front, p_view
+
+    def check_points_on_screen(self, pixel_xy, margin=0.0):
+        """
+        判断像素坐标点是否在本相机的图像边界内。
+
+        Args:
+            pixel_xy: [N, 2] torch.Tensor，像素坐标。
+            margin: float，边界裕量（像素）。
+
+        Returns:
+            on_screen: [N] bool torch.Tensor。
+        """
+        on_screen = (
+            (pixel_xy[:, 0] >= -margin) & (pixel_xy[:, 0] < self.image_width + margin) &
+            (pixel_xy[:, 1] >= -margin) & (pixel_xy[:, 1] < self.image_height + margin)
+        )
+        return on_screen
+
+    def check_visibility(self, points_3d, margin=0.0, z_threshold=0.2):
+        """
+        综合判断 3D 点是否从本相机视角可见（与 CUDA 光栅化器一致）。
+
+        可见条件:
+            1. p_view.z <= z_threshold（点在相机前方，CUDA in_frustum 条件）
+            2. 投影后像素坐标在 [0, W) x [0, H) 范围内
+
+        Args:
+            points_3d: [N, 3] torch.Tensor，世界坐标 3D 点。
+            margin: float，边界裕量（像素）。
+            z_threshold: float，view-space z 阈值（默认 0.2）。
+
+        Returns:
+            visible: [N] bool torch.Tensor，True 表示可见。
+            pixel_xy: [N, 2] torch.Tensor，对应的像素坐标。
+            p_proj: [N, 3] torch.Tensor，透视除法后的投影坐标。
+            p_view: [N, 3] torch.Tensor，view-space 坐标。
+        """
+        p_view = self.world_to_view(points_3d)
+        in_frustum_cuda = p_view[:, 2] <= z_threshold
+
+        pixel_xy, p_proj = self.project_points_to_screen(points_3d)
+        on_screen = self.check_points_on_screen(pixel_xy, margin)
+
+        visible = in_frustum_cuda & on_screen
+        return visible, pixel_xy, p_proj, p_view
+
+    def get_gaussian_visibility(self, gaussians, margin=0.0, z_threshold=0.2):
+        """
+        判断所有高斯点是否从本相机视角可见。
+        便捷方法，直接传入 GaussianModel 实例。
+
+        Args:
+            gaussians: GaussianModel 实例。
+            margin: float，边界裕量（像素）。
+            z_threshold: float，view-space z 阈值（默认 0.2）。
+
+        Returns:
+            visible: [N] bool torch.Tensor。
+            pixel_xy: [N, 2] torch.Tensor。
+            p_proj: [N, 3] torch.Tensor。
+            p_view: [N, 3] torch.Tensor。
+        """
+        return self.check_visibility(gaussians.get_xyz, margin, z_threshold)
+
     def get_language_feature(self, language_feature_dir, feature_level):
         language_feature_name = os.path.join(language_feature_dir, self.image_name)
         seg_map = torch.from_numpy(np.load(language_feature_name + '_s.npy'))
@@ -171,6 +309,34 @@ class Camera(nn.Module):
             raise ValueError("feature_level=", feature_level)
         point_feature = point_feature1.reshape(self.image_height, self.image_width, -1).permute(2, 0, 1)
         return point_feature.cuda(), mask.cuda() # [512,512,512],[1,512,512]
+
+    def _llm_scale_name(self, feature_level):
+        if feature_level == 0:
+            return "Small"
+        if feature_level == 1:
+            return "Medium"
+        if feature_level == 2:
+            return "Large"
+        raise ValueError("feature_level=", feature_level)
+
+    def _load_llm_feature_maps(self, language_feature_dir):
+        file_path = os.path.join(language_feature_dir, self.image_name + ".pth")
+        try:
+            data = torch.load(file_path, map_location='cpu', weights_only=False)
+        except TypeError:
+            data = torch.load(file_path, map_location='cpu')
+        return data["feature_maps"]
+
+    def get_llm_scale_data(self, language_feature_dir, feature_level):
+        """Return encoded crop-level LLaVA data for a scale, or None when absent."""
+        feature_maps = self._load_llm_feature_maps(language_feature_dir)
+        return feature_maps.get(self._llm_scale_name(feature_level))
+
+    def has_llm_feature(self, language_feature_dir, feature_level):
+        """Cheap validity check for crop-native supervision without dense decode."""
+        encoded = self.get_llm_scale_data(language_feature_dir, feature_level)
+        return bool(encoded and encoded.get('crop_features'))
+
     def get_llm_feature(self, language_feature_dir, feature_level):
         """
         读取并解码 3584 维 LLaVA crop-level 特征。
@@ -181,21 +347,8 @@ class Camera(nn.Module):
         """
         assert _CODEC_OK, "CropFeatureCodec not available; cannot decode LLM features"
 
-        file_path = os.path.join(language_feature_dir, self.image_name + ".pth")
-        try:
-            data = torch.load(file_path, map_location='cpu', weights_only=False)
-        except TypeError:
-            data = torch.load(file_path, map_location='cpu')
-        feature_maps = data["feature_maps"]
-
-        if feature_level == 0:
-            scale_name = "Small"
-        elif feature_level == 1:
-            scale_name = "Medium"
-        elif feature_level == 2:
-            scale_name = "Large"
-        else:
-            raise ValueError("feature_level=", feature_level)
+        feature_maps = self._load_llm_feature_maps(language_feature_dir)
+        scale_name = self._llm_scale_name(feature_level)
 
         # 若指定尺度缺失：不回退，直接返回空掩码（训练时将跳过该帧）
         if scale_name not in feature_maps:
@@ -205,7 +358,7 @@ class Camera(nn.Module):
             return feat, msk
 
         encoded = feature_maps[scale_name]
-        feature_map, valid_mask = _decode_crop_features_to_full_map(encoded, overlap_mode='average')
+        feature_map, valid_mask = _decode_crop_features_to_full_map(encoded, overlap_mode='center_weighted')
 
         # Convert to torch tensors: [H,W,C] -> [C,H,W]; mask -> [1,H,W]
         feature_map_torch = torch.from_numpy(feature_map) if isinstance(feature_map, np.ndarray) else feature_map
@@ -216,28 +369,15 @@ class Camera(nn.Module):
 
         return point_feature.cuda(), mask.cuda()
 
-    def get_llm_feature_tile(self, language_feature_dir, feature_level, ys, ye, xs, xe, overlap_mode='average'):
+    def get_llm_feature_tile(self, language_feature_dir, feature_level, ys, ye, xs, xe, overlap_mode='center_weighted'):
         """
         Decode a spatial tile of the 3584-dim LLaVA crop-level feature map to avoid full-image allocation.
         Returns [C, h, w] and [1, h, w] on CUDA where h=ye-ys, w=xe-xs.
         """
         assert _CODEC_OK, "CropFeatureCodec not available; cannot decode LLM features"
 
-        file_path = os.path.join(language_feature_dir, self.image_name + ".pth")
-        try:
-            data = torch.load(file_path, map_location='cpu', weights_only=False)
-        except TypeError:
-            data = torch.load(file_path, map_location='cpu')
-        feature_maps = data["feature_maps"]
-
-        if feature_level == 0:
-            scale_name = "Small"
-        elif feature_level == 1:
-            scale_name = "Medium"
-        elif feature_level == 2:
-            scale_name = "Large"
-        else:
-            raise ValueError("feature_level=", feature_level)
+        feature_maps = self._load_llm_feature_maps(language_feature_dir)
+        scale_name = self._llm_scale_name(feature_level)
 
         if scale_name not in feature_maps:
             h = max(0, int(ye) - int(ys))
@@ -259,7 +399,7 @@ class Camera(nn.Module):
 
         # Accumulators on CPU to reduce GPU memory; move to CUDA at the end for loss
         tile_feature = torch.zeros(h, w, 3584, dtype=torch.float32)
-        tile_count = torch.zeros(h, w, dtype=torch.int32)
+        tile_weight = torch.zeros(h, w, dtype=torch.float32)
         tile_mask = torch.zeros(h, w, dtype=torch.bool)
 
         for crop in encoded['crop_features']:
@@ -285,13 +425,21 @@ class Camera(nn.Module):
             tx1, ty1 = ox1 - xs, oy1 - ys
             tx2, ty2 = ox2 - xs, oy2 - ys
 
-            tile_feature[ty1:ty2, tx1:tx2, :] += region
-            tile_count[ty1:ty2, tx1:tx2] += 1
+            if overlap_mode == 'last':
+                tile_feature[ty1:ty2, tx1:tx2, :] = torch.from_numpy(region)
+                tile_weight[ty1:ty2, tx1:tx2] = 1.0
+            elif overlap_mode == 'center_weighted':
+                weights = torch.from_numpy(_center_weight_map(ch, cw)[cy1:cy2, cx1:cx2])
+                tile_feature[ty1:ty2, tx1:tx2, :] += torch.from_numpy(region) * weights.unsqueeze(-1)
+                tile_weight[ty1:ty2, tx1:tx2] += weights
+            else:
+                tile_feature[ty1:ty2, tx1:tx2, :] += torch.from_numpy(region)
+                tile_weight[ty1:ty2, tx1:tx2] += 1.0
             tile_mask[ty1:ty2, tx1:tx2] = True
 
-        if overlap_mode == 'average':
-            overlap = tile_count > 0
-            tile_feature[overlap] = tile_feature[overlap] / tile_count[overlap].unsqueeze(-1).float()
+        if overlap_mode in ('average', 'center_weighted'):
+            overlap = tile_weight > 1e-6
+            tile_feature[overlap] = tile_feature[overlap] / tile_weight[overlap].unsqueeze(-1)
 
         # [H,W,C] -> [C,H,W]
         point_feature = tile_feature.permute(2, 0, 1).contiguous()

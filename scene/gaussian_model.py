@@ -570,8 +570,17 @@ class GaussianModel:
     
     def compute_final_feature_map(self, language_feature_weight_map):
         D, H, W = language_feature_weight_map.shape
-        language_feature_weight_map = language_feature_weight_map.view(D, -1) # [64, N]
-        # self.get_language_feature_codebooks [1,64,1152]
-        language_feature = self.get_language_feature_codebooks.view(-1, self.language_feature_dim).T @ language_feature_weight_map
+        language_feature_weight_map = language_feature_weight_map.view(D, -1)
+        layer_num, codebook_size, _ = self._language_feature_codebooks.shape
+        language_feature = None
+        for i in range(layer_num):
+            start = i * codebook_size
+            end = (i + 1) * codebook_size
+            if end > D:
+                raise RuntimeError(
+                    f"Rendered language feature map has {D} channels, but codebooks require {end}."
+                )
+            layer_feature = self.get_language_feature_codebooks[i].T @ language_feature_weight_map[start:end]
+            language_feature = layer_feature if language_feature is None else language_feature + layer_feature
         language_feature = language_feature.view(self.language_feature_dim, H, W)
-        return language_feature 
+        return language_feature

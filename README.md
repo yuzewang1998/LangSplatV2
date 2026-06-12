@@ -166,6 +166,14 @@ Outputs are now grouped under a single namespace instead of mixing with old runs
 - checkpoints: `output/exp_0402/`
 - rendered/eval results: `eval_result/exp_0402/`
 
+This is the recommended directory convention. If you invoke `run_all.sh`
+directly, explicitly pass the same namespace roots instead of relying on the
+bare defaults:
+
+```bash
+bash run_all.sh --output_root output/exp_0402 --eval_root eval_result/exp_0402 ...
+```
+
 You can override the main settings inline when needed:
 
 ```bash

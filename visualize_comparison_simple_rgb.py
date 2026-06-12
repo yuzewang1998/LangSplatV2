@@ -16,9 +16,16 @@ from pathlib import Path
 import torch.nn.functional as F
 from sklearn.decomposition import PCA
 
+def load_torch_compat(path: str, map_location='cpu'):
+    """Load torch checkpoints across PyTorch versions where weights_only may not exist."""
+    try:
+        return torch.load(path, map_location=map_location, weights_only=False)
+    except TypeError:
+        return torch.load(path, map_location=map_location)
+
 def load_gt_feature_map(gt_path: str, scale_name: str = 'Medium'):
     """加载 GT 特征（使用 no_interp 方法，避免 averaging 和 bilinear interpolation）"""
-    data = torch.load(gt_path, map_location='cpu', weights_only=False)
+    data = load_torch_compat(gt_path, map_location='cpu')
 
     if 'feature_maps' not in data:
         raise ValueError(f"文件格式错误：缺少 'feature_maps' 键")
@@ -69,7 +76,7 @@ def load_gt_feature_map(gt_path: str, scale_name: str = 'Medium'):
 
 def load_rendered_feature_map(rendered_path: str):
     """加载渲染特征"""
-    data = torch.load(rendered_path, map_location='cpu', weights_only=False)
+    data = load_torch_compat(rendered_path, map_location='cpu')
     if isinstance(data, torch.Tensor):
         if data.dim() == 4 and data.shape[0] == 1:
             data = data.squeeze(0)

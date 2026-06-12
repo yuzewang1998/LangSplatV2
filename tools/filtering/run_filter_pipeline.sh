@@ -12,9 +12,12 @@ OLLAMA_HOST="192.168.192.124"
 OLLAMA_PORT="11434"
 MODEL_NAME="llava:34b"
 REQUEST_TIMEOUT="180"
+FILTER_MODE="strict"
 RESUME_FROM="0"
 NUM_SAMPLES="20"
 FULL_GRID_COLS="15"
+PRIORITY_FILENAMES=""
+SKIP_EXISTING_DECISIONS="0"
 
 usage() {
     cat <<EOF
@@ -31,9 +34,12 @@ usage() {
   --ollama_port PORT       Ollama 端口，默认 11434
   --model_name NAME        VLM 模型，默认 llava:34b
   --request_timeout SEC    单次请求超时，默认 180
+  --filter_mode MODE       strict 或 benchmark_permissive，默认 strict
   --resume_from N          从第 N 行继续，默认 0
   --num_samples N          可视化随机样本数，默认 20
   --full_grid_cols N       全量总览图列数，默认 15
+  --priority_filenames P   可选：优先处理的文件名列表，每行一个文件名
+  --skip_existing_decisions 根据判定日志跳过已处理文件，便于断点续跑
   -h, --help               显示本帮助
 
 输出:
@@ -61,9 +67,12 @@ while [[ $# -gt 0 ]]; do
         --ollama_port) OLLAMA_PORT="$2"; shift 2 ;;
         --model_name) MODEL_NAME="$2"; shift 2 ;;
         --request_timeout) REQUEST_TIMEOUT="$2"; shift 2 ;;
+        --filter_mode) FILTER_MODE="$2"; shift 2 ;;
         --resume_from) RESUME_FROM="$2"; shift 2 ;;
         --num_samples) NUM_SAMPLES="$2"; shift 2 ;;
         --full_grid_cols) FULL_GRID_COLS="$2"; shift 2 ;;
+        --priority_filenames) PRIORITY_FILENAMES="$2"; shift 2 ;;
+        --skip_existing_decisions) SKIP_EXISTING_DECISIONS="1"; shift ;;
         -h|--help) usage; exit 0 ;;
         *) echo "未知参数: $1"; usage; exit 1 ;;
     esac
@@ -115,7 +124,14 @@ echo "可视化目录: ${VIS_OUTPUT_DIR}"
 echo "地标名称: ${LANDMARK_NAME}"
 echo "Ollama 服务: ${OLLAMA_HOST}:${OLLAMA_PORT}"
 echo "模型: ${MODEL_NAME}"
+echo "过滤模式: ${FILTER_MODE}"
 echo "超时: ${REQUEST_TIMEOUT}s"
+if [[ -n "${PRIORITY_FILENAMES}" ]]; then
+    echo "优先文件列表: ${PRIORITY_FILENAMES}"
+fi
+if [[ "${SKIP_EXISTING_DECISIONS}" = "1" ]]; then
+    echo "断点模式: skip_existing_decisions=True"
+fi
 echo "========================================"
 echo ""
 
@@ -148,8 +164,11 @@ python "${REPO_ROOT}/filter_images_with_vlm.py" \
     --ollama_port "${OLLAMA_PORT}" \
     --model_name "${MODEL_NAME}" \
     --landmark_name "${LANDMARK_NAME}" \
+    --filter_mode "${FILTER_MODE}" \
     --request_timeout "${REQUEST_TIMEOUT}" \
-    --resume_from "${RESUME_FROM}"
+    --resume_from "${RESUME_FROM}" \
+    ${PRIORITY_FILENAMES:+--priority_filenames "${PRIORITY_FILENAMES}"} \
+    $(if [[ "${SKIP_EXISTING_DECISIONS}" = "1" ]]; then printf '%s' "--skip_existing_decisions"; fi)
 
 echo ""
 echo "生成可视化..."

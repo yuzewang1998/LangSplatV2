@@ -87,6 +87,10 @@ class OptimizationParams(ParamGroup):
         self.quick_render = False
         self.vq_layer_num = 1
         self.codebook_size = 128#64 as default
+        # Must match cuda_rasterizer/config.h::NUM_CHANNELS_language_feature.
+        # -1 means auto-detect/cache the compiled capacity in gaussian_renderer.
+        # Exp10 passes K*L explicitly after per-experiment recompilation.
+        self.raster_feature_channels = -1
         self.scaling_lr = 0.005
         self.rotation_lr = 0.001
         self.percent_dense = 0.01

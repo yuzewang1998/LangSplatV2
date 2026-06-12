@@ -38,8 +38,201 @@ import matplotlib.pyplot as plt
 print(f"DEBUG: sys.argv = {sys.argv}")
 
 
+def log_stage(message):
+    print(f"\n[STAGE] {message}", flush=True)
+
+
+def load_checkpoint_compat(checkpoint_path):
+    """Load checkpoints across PyTorch versions where weights_only default changed."""
+    try:
+        return torch.load(checkpoint_path, weights_only=False)
+    except TypeError:
+        return torch.load(checkpoint_path)
+
+
+def get_gt_feature_for_training(viewpoint_cam, dataset, opt):
+    """Load GT feature/mask for the current camera and indicate whether it is usable."""
+    if not opt.include_feature:
+        return None, None, True
+
+    if not opt.llm_feature:
+        gt_language_feature, language_feature_mask = viewpoint_cam.get_language_feature(
+            language_feature_dir=dataset.lf_path,
+            feature_level=dataset.feature_level,
+        )
+    else:
+        gt_language_feature, language_feature_mask = viewpoint_cam.get_llm_feature(
+            language_feature_dir=dataset.lf_path,
+            feature_level=dataset.feature_level,
+        )
+
+    has_valid_mask = bool(language_feature_mask.any().item())
+    return gt_language_feature, language_feature_mask, has_valid_mask
+
+
+
+def _resize_chw(tensor, target_hw, mode):
+    """Resize a [C,H,W] tensor with a torch interpolation mode."""
+    if tensor.shape[1:] == target_hw:
+        return tensor
+    kwargs = {"size": target_hw, "mode": mode}
+    if mode in ("linear", "bilinear", "bicubic", "trilinear"):
+        kwargs["align_corners"] = False
+    return F.interpolate(tensor.unsqueeze(0).float(), **kwargs).squeeze(0).to(dtype=tensor.dtype)
+
+
+def _resize_mask_chw(mask, target_hw):
+    """Resize a [1,H,W] mask with nearest interpolation and keep it boolean-like."""
+    if mask.shape[1:] == target_hw:
+        return mask.bool()
+    resized = F.interpolate(mask.unsqueeze(0).float(), size=target_hw, mode="nearest").squeeze(0)
+    return resized > 0.5
+
+
+def _center_crop_chw(tensor, target_hw):
+    """Center-crop [C,H,W] tensor to target_hw."""
+    target_h, target_w = target_hw
+    _, H, W = tensor.shape
+    h = min(H, target_h)
+    w = min(W, target_w)
+    top = max(0, (H - h) // 2)
+    left = max(0, (W - w) // 2)
+    return tensor[:, top:top + h, left:left + w]
+
+
+def align_feature_supervision(language_feature, gt_language_feature, language_feature_mask, args):
+    """
+    Align rendered and GT feature maps for reconstruction-resolution ablations.
+
+    The old crop-only fallback is kept as an explicit mode for 1px legacy drift, but
+    RF/down_scale mismatch experiments should use resize_gt_to_render or
+    resize_render_to_gt so the supervision grid is intentional and reproducible.
+    """
+    if language_feature.shape[1:] == gt_language_feature.shape[1:]:
+        return language_feature, gt_language_feature, language_feature_mask
+
+    mode = args.feature_align_mode
+    interp = args.feature_interp
+    pred_hw = language_feature.shape[1:]
+    gt_hw = gt_language_feature.shape[1:]
+
+    if mode == "strict":
+        raise RuntimeError(
+            f"Feature resolution mismatch: rendered={pred_hw}, gt={gt_hw}. "
+            "Use --feature_align_mode resize_gt_to_render/resize_render_to_gt/crop_only."
+        )
+
+    if mode == "resize_gt_to_render":
+        gt_language_feature = _resize_chw(gt_language_feature, pred_hw, interp)
+        language_feature_mask = _resize_mask_chw(language_feature_mask, pred_hw)
+    elif mode == "resize_render_to_gt":
+        language_feature = _resize_chw(language_feature, gt_hw, interp)
+    elif mode == "crop_only":
+        h = min(pred_hw[0], gt_hw[0])
+        w = min(pred_hw[1], gt_hw[1])
+        target_hw = (h, w)
+        language_feature = _center_crop_chw(language_feature, target_hw)
+        gt_language_feature = _center_crop_chw(gt_language_feature, target_hw)
+        language_feature_mask = _center_crop_chw(language_feature_mask, target_hw).bool()
+    else:
+        raise ValueError(f"Unknown --feature_align_mode: {mode}")
+
+    if args.log_feature_alignment:
+        print(
+            f"[ALIGN] {mode}: rendered {pred_hw} vs gt {gt_hw} -> "
+            f"rendered {tuple(language_feature.shape[1:])}, gt {tuple(gt_language_feature.shape[1:])}",
+            flush=True,
+        )
+    return language_feature, gt_language_feature, language_feature_mask
+
+
+def masked_cos_loss(network_output, gt, mask):
+    """Cosine loss on valid pixels without materialising full masked copies."""
+    valid = mask.bool().squeeze(0)
+    if not valid.any():
+        raise RuntimeError("masked_cos_loss received an empty valid mask")
+    pred = network_output[:, valid]
+    target = gt[:, valid]
+    return 1 - F.cosine_similarity(pred, target, dim=0).mean()
+
+
+def masked_l1_loss(network_output, gt, mask):
+    """L1 loss on valid pixels without materialising full masked copies."""
+    valid = mask.bool().squeeze(0)
+    if not valid.any():
+        raise RuntimeError("masked_l1_loss received an empty valid mask")
+    return torch.abs(network_output[:, valid] - gt[:, valid]).mean()
+
+
+def llm_crop_native_supervision_loss(viewpoint_cam, dataset, language_feature, args):
+    """
+    Compare rendered LLaVA features against native 27x27 crop features.
+
+    The dense-map path expands every crop to full image resolution before resizing
+    back to the render grid. For 3584-dim LLaVA features this is CPU-bound and can
+    make the GPU appear idle. This path keeps supervision on the stored crop grid:
+    crop rendered features by bbox, resize that prediction to the native crop
+    tensor size, and average crop losses.
+    """
+    encoded = viewpoint_cam.get_llm_scale_data(dataset.lf_path, dataset.feature_level)
+    if not encoded or not encoded.get('crop_features'):
+        raise RuntimeError(
+            f"No encoded LLM crop features for {viewpoint_cam.image_name} "
+            f"at feature_level={dataset.feature_level}"
+        )
+
+    image_w, image_h = encoded['image_size']
+    _, render_h, render_w = language_feature.shape
+    device = language_feature.device
+    dtype = language_feature.dtype
+    weighted_loss = language_feature.new_tensor(0.0)
+    total_weight = 0
+
+    for crop_data in encoded['crop_features']:
+        gt_feature = crop_data['feature']
+        if not torch.is_tensor(gt_feature):
+            gt_feature = torch.from_numpy(gt_feature)
+        if gt_feature.numel() == 0:
+            continue
+
+        x, y, w, h = crop_data['bbox']
+        x1 = max(0, min(render_w, int(round(float(x) * render_w / image_w))))
+        x2 = max(0, min(render_w, int(round(float(x + w) * render_w / image_w))))
+        y1 = max(0, min(render_h, int(round(float(y) * render_h / image_h))))
+        y2 = max(0, min(render_h, int(round(float(y + h) * render_h / image_h))))
+        if x2 <= x1 or y2 <= y1:
+            continue
+
+        gt_chw = gt_feature.permute(2, 0, 1).contiguous().to(device=device, dtype=dtype)
+        pred_crop = language_feature[:, y1:y2, x1:x2]
+        interp_kwargs = {
+            "size": gt_chw.shape[1:],
+            "mode": args.feature_interp,
+        }
+        if args.feature_interp in ("bilinear", "bicubic"):
+            interp_kwargs["align_corners"] = False
+        pred_native = F.interpolate(pred_crop.unsqueeze(0).float(), **interp_kwargs).squeeze(0).to(dtype=dtype)
+
+        crop_weight = int(gt_chw.shape[1] * gt_chw.shape[2])
+        crop_loss = language_feature.new_tensor(0.0)
+        if args.cos_loss:
+            crop_loss = crop_loss + (1 - F.cosine_similarity(pred_native, gt_chw, dim=0).mean())
+        if args.l1_loss:
+            crop_loss = crop_loss + torch.abs(pred_native - gt_chw).mean()
+        weighted_loss = weighted_loss + crop_loss * crop_weight
+        total_weight += crop_weight
+
+    if total_weight == 0:
+        raise RuntimeError(
+            f"No valid LLM crop supervision regions for {viewpoint_cam.image_name} "
+            f"at feature_level={dataset.feature_level}"
+        )
+    return weighted_loss / total_weight
+
+
 def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoint_iterations, checkpoint, debug_from, args):
     first_iter = 0
+    log_stage("Preparing output, scene, Gaussian model, and optimizer")
     tb_writer = prepare_output_and_logger(dataset)
     # 根据特征类型设置特征维度（LLM特征为 3584 维）
     language_feature_dim = 3584 if opt.llm_feature else 512
@@ -54,17 +247,16 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
         # Handle PyTorch version differences:
         # - torch>=2.6: default weights_only=True; force weights_only=False
         # - older torch: no weights_only arg; fall back without it
-        try:
-            (model_params, first_iter) = torch.load(checkpoint, weights_only=False)
-        except TypeError:
-            (model_params, first_iter) = torch.load(checkpoint)
+        (model_params, first_iter) = load_checkpoint_compat(checkpoint)
         if len(model_params) == 12 and opt.include_feature:
             first_iter = 0
         gaussians.restore(model_params, opt)
+        log_stage(f"Restored checkpoint from {checkpoint}; first_iter={first_iter}")
     
     # Initialize language feature codebooks
     if opt.include_feature and first_iter == 0:
       if not opt.llm_feature:
+        log_stage("Loading 2D language features and fitting CLIP codebook")
         device = torch.device("cuda")
         features = load_2d_language_feature(dataset.lf_path, device)
         rvq = ResidualVectorQuantizationWithClustering(opt.vq_layer_num, opt.codebook_size, features.shape[1], device).to(device)
@@ -76,36 +268,50 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
         # try load from the pre-cached codebooks
         device = torch.device("cuda")
 
-        # 码本文件名应该包含feature_level，每个level独立的码本
+        # 码本文件名包含 feature_level 和 vq_layer_num；避免 L=1/L=2 ablation 复用错误缓存。
         level_name = ['small', 'medium', 'large'][dataset.feature_level]
-        codebook_filename = f"llm_codebooks_{opt.codebook_size}_level{dataset.feature_level}_{level_name}.pt"
+        codebook_filename = (
+            f"llm_codebooks_L{opt.vq_layer_num}_K{opt.codebook_size}"
+            f"_level{dataset.feature_level}_{level_name}.pt"
+        )
         codebook_path = os.path.join(dataset.lf_path, codebook_filename)
+        legacy_codebook_filename = f"llm_codebooks_{opt.codebook_size}_level{dataset.feature_level}_{level_name}.pt"
+        legacy_codebook_path = os.path.join(dataset.lf_path, legacy_codebook_filename)
+        if opt.vq_layer_num == 1 and not os.path.exists(codebook_path) and os.path.exists(legacy_codebook_path):
+            codebook_path = legacy_codebook_path
+            codebook_filename = legacy_codebook_filename
+        log_stage(
+            f"Preparing LLM codebook for feature_level={dataset.feature_level} "
+            f"({level_name}); expected cache={codebook_path}"
+        )
 
         if os.path.exists(codebook_path):
-            print(f"Loading {codebook_filename} from {dataset.lf_path}")
-            try:
-                codebooks = torch.load(codebook_path, weights_only=False).to(device)
-            except TypeError:
-                codebooks = torch.load(codebook_path).to(device)
+            log_stage(f"Loading cached LLM codebook: {codebook_filename}")
+            codebooks = load_checkpoint_compat(codebook_path).to(device)
+            expected_shape = (opt.vq_layer_num, opt.codebook_size, gaussians.language_feature_dim)
+            if tuple(codebooks.shape) != expected_shape:
+                raise RuntimeError(
+                    f"Cached codebook shape {tuple(codebooks.shape)} does not match expected {expected_shape}: {codebook_path}"
+                )
             with torch.no_grad():
                 gaussians._language_feature_codebooks.data.copy_(codebooks)
         else:
-            print(f"{codebook_filename} not found in {dataset.lf_path}, training from scratch.")
+            log_stage(f"{codebook_filename} not found; fitting LLM codebook from feature files")
 
             # 根据feature_level选择对应的scale特征
             load_func = level_name  # 'small', 'medium', 或 'large'
-            print(f"Loading {load_func} scale features for level {dataset.feature_level}")
+            log_stage(f"Preparing {load_func} scale feature stream for level {dataset.feature_level}")
 
             features = load_2d_lmm_feature(dataset.lf_path, device, load_func=load_func)
             first_block = features.peek()
             feature_dim = first_block.shape[1] if first_block.size else 0
-            print("ResidualVectorQuantizationWithClustering...")
+            log_stage(f"Initialising RVQ with feature_dim={feature_dim}, codebook_size={opt.codebook_size}")
             rvq = ResidualVectorQuantizationWithClustering(
                 opt.vq_layer_num, opt.codebook_size, feature_dim, device
             ).to(device)
-            print("Fitting quantizers...")
+            log_stage("Fitting quantizers; this can be slow and CPU-heavy")
             rvq.fit_quantizers(features)
-            print("Stacking...")
+            log_stage("Stacking learned quantizers and saving codebook cache")
             codebooks = torch.stack(rvq.quantizers, dim=0).to(device) # [vq_layer_num, codebook_size, feature_dim] e.g. [1,64,512]
             print(codebooks.shape)
             print(f"Codebooks device: {codebooks.device}, dtype: {codebooks.dtype}")
@@ -118,6 +324,7 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
                 gaussians._language_feature_codebooks.data.copy_(codebooks)
             print(f"Copied codebooks to gaussians, shape: {gaussians._language_feature_codebooks.shape}")
 
+    log_stage("Entering main training loop")
     bg_color = [1, 1, 1] if dataset.white_background else [0, 0, 0]
     background = torch.tensor(bg_color, dtype=torch.float32, device="cuda")
 
@@ -167,7 +374,30 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
         # Pick a random Camera
         if not viewpoint_stack:
             viewpoint_stack = scene.getTrainCameras().copy()
-        viewpoint_cam = viewpoint_stack.pop(randint(0, len(viewpoint_stack)-1))
+        viewpoint_cam = None
+        gt_language_feature = None
+        language_feature_mask = None
+        while viewpoint_stack:
+            candidate_cam = viewpoint_stack.pop(randint(0, len(viewpoint_stack)-1))
+            if opt.include_feature and opt.llm_feature and args.llm_supervision_mode == "crop_native":
+                has_valid_mask = candidate_cam.has_llm_feature(dataset.lf_path, dataset.feature_level)
+            else:
+                gt_language_feature, language_feature_mask, has_valid_mask = get_gt_feature_for_training(
+                    candidate_cam, dataset, opt
+                )
+            if has_valid_mask:
+                viewpoint_cam = candidate_cam
+                break
+            print(
+                f"[WARN] Skipping camera {candidate_cam.image_name}: empty GT feature mask "
+                f"at feature_level={dataset.feature_level}",
+                flush=True,
+            )
+        if viewpoint_cam is None:
+            raise RuntimeError(
+                f"No valid GT feature mask found for feature_level={dataset.feature_level} "
+                f"across the available training cameras."
+            )
         
         # Render
         if (iteration - 1) == debug_from:
@@ -179,11 +409,6 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
             
             # Loss
             if opt.include_feature:
-                # gt_language_feature [C H W]
-                if not opt.llm_feature:
-                    gt_language_feature, language_feature_mask = viewpoint_cam.get_language_feature(language_feature_dir=dataset.lf_path, feature_level=dataset.feature_level)
-                else:
-                    gt_language_feature, language_feature_mask = viewpoint_cam.get_llm_feature(language_feature_dir=dataset.lf_path, feature_level=dataset.feature_level)
                 # In this paper, we select layer_num = 1
                 layer_num, _, _ = gaussians.get_language_feature_codebooks.shape
                 layer_idx = min(int(iteration / 10000 * layer_num), layer_num - 1)
@@ -191,32 +416,30 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
                 if args.normalize:
                     language_feature = language_feature / (language_feature.norm(dim=0, keepdim=True) + 1e-10)
 
-                # 对齐空间分辨率（某些场景下解码的 GT 特征与渲染尺寸会有 1px 以内偏差）
-                if language_feature.shape[1:] != gt_language_feature.shape[1:]:
-                    Hp, Wp = language_feature.shape[1], language_feature.shape[2]
-                    Hg, Wg = gt_language_feature.shape[1], gt_language_feature.shape[2]
-                    h = min(Hp, Hg)
-                    w = min(Wp, Wg)
+                if opt.llm_feature and args.llm_supervision_mode == "crop_native":
+                    loss = llm_crop_native_supervision_loss(viewpoint_cam, dataset, language_feature, args)
+                else:
+                    # Align spatial grids for RF resolution vs LLaVA down_scale ablations.
+                    language_feature, gt_language_feature, language_feature_mask = align_feature_supervision(
+                        language_feature,
+                        gt_language_feature,
+                        language_feature_mask,
+                        args,
+                    )
+                    # 这里理论上不应再出现空 mask：view 已在采样前筛选过
+                    if not language_feature_mask.any():
+                        raise RuntimeError(
+                            f"Training camera {viewpoint_cam.image_name} lost all valid GT pixels after crop alignment "
+                            f"at feature_level={dataset.feature_level}."
+                        )
 
-                    def center_crop(t, H, W, h, w):
-                        top = max(0, (H - h) // 2)
-                        left = max(0, (W - w) // 2)
-                        return t[:, top:top + h, left:left + w]
-
-                    language_feature = center_crop(language_feature, Hp, Wp, h, w)
-                    gt_language_feature = center_crop(gt_language_feature, Hg, Wg, h, w)
-                    language_feature_mask = center_crop(language_feature_mask, Hg, Wg, h, w)
-                # 若该帧在所选尺度上没有有效像素，则直接跳过本次迭代
-                if not language_feature_mask.any():
-                    continue
-
-                loss = 0
-                if args.cos_loss:
-                    cosloss = cos_loss(language_feature*language_feature_mask, gt_language_feature*language_feature_mask)
-                    loss += cosloss
-                if args.l1_loss:
-                    Ll1 = l1_loss(language_feature*language_feature_mask, gt_language_feature*language_feature_mask)
-                    loss += Ll1
+                    loss = 0
+                    if args.cos_loss:
+                        cosloss = masked_cos_loss(language_feature, gt_language_feature, language_feature_mask)
+                        loss += cosloss
+                    if args.l1_loss:
+                        Ll1 = masked_l1_loss(language_feature, gt_language_feature, language_feature_mask)
+                        loss += Ll1
 
             else:
                 gt_image = viewpoint_cam.original_image.cuda()
@@ -355,6 +578,33 @@ if __name__ == "__main__":
     parser.add_argument('--normalize', action='store_true', default=False)
     parser.add_argument('--accum_iter', type=int, default=1)
     parser.add_argument('--topk', type=int, default=1)
+    parser.add_argument(
+        '--feature_align_mode',
+        type=str,
+        default='resize_gt_to_render',
+        choices=['resize_gt_to_render', 'resize_render_to_gt', 'crop_only', 'strict'],
+        help='How to align rendered feature maps with GT LLaVA maps when RF -r and feature down_scale differ.',
+    )
+    parser.add_argument(
+        '--feature_interp',
+        type=str,
+        default='bilinear',
+        choices=['nearest', 'bilinear', 'bicubic'],
+        help='Interpolation mode for feature-map resizing in --feature_align_mode resize_* modes.',
+    )
+    parser.add_argument(
+        '--log_feature_alignment',
+        action='store_true',
+        default=False,
+        help='Print every feature-resolution alignment operation for debugging ablations.',
+    )
+    parser.add_argument(
+        '--llm_supervision_mode',
+        type=str,
+        default='dense_map',
+        choices=['dense_map', 'crop_native'],
+        help='dense_map decodes LLaVA crops to a full map; crop_native supervises on stored crop grids to avoid CPU-heavy dense decode.',
+    )
     
     args = parser.parse_args(sys.argv[1:])
     args.save_iterations.append(args.iterations)

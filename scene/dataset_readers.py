@@ -18,6 +18,7 @@ from scene.colmap_loader import read_extrinsics_text, read_intrinsics_text, qvec
 from utils.graphics_utils import getWorld2View2, focal2fov, fov2focal
 import numpy as np
 import json
+import csv
 from pathlib import Path
 from plyfile import PlyData, PlyElement
 from utils.sh_utils import SH2RGB
@@ -65,15 +66,26 @@ def getNerfppNorm(cam_info):
 
     return {"translate": translate, "radius": radius}
 
-def readColmapCameras(cam_extrinsics, cam_intrinsics, images_folder):
+def readColmapCameras(cam_extrinsics, cam_intrinsics, images_folder, include_image_names=None):
     cam_infos = []
-    for idx, key in enumerate(cam_extrinsics):
+    include_image_names = set(include_image_names) if include_image_names else None
+    total = len(cam_extrinsics) if include_image_names is None else sum(
+        1 for extr in cam_extrinsics.values()
+        if os.path.basename(extr.name) in include_image_names
+    )
+    read_idx = 0
+    for key in cam_extrinsics:
+        extr = cam_extrinsics[key]
+        image_basename = os.path.basename(extr.name)
+        if include_image_names is not None and image_basename not in include_image_names:
+            continue
+
+        read_idx += 1
         sys.stdout.write('\r')
         # the exact output you're looking for:
-        sys.stdout.write("Reading camera {}/{}".format(idx+1, len(cam_extrinsics)))
+        sys.stdout.write("Reading camera {}/{}".format(read_idx, total))
         sys.stdout.flush()
 
-        extr = cam_extrinsics[key]
         intr = cam_intrinsics[extr.camera_id]
         height = intr.height
         width = intr.width
@@ -98,11 +110,11 @@ def readColmapCameras(cam_extrinsics, cam_intrinsics, images_folder):
         else:
             assert False, "Colmap camera model not handled: only undistorted datasets (PINHOLE or SIMPLE_PINHOLE cameras) supported!"
 
-        image_path = os.path.join(images_folder, os.path.basename(extr.name))
+        image_path = os.path.join(images_folder, image_basename)
         image_name = os.path.basename(image_path).split(".")[0]
 
         image = Image.open(image_path)
-     
+
         cam_info = CameraInfo(uid=uid, R=R, T=T, FovY=FovY, FovX=FovX, image=image, image_path=image_path, image_name=image_name, width=width, height=height)
         cam_infos.append(cam_info)
     sys.stdout.write('\n')
@@ -193,26 +205,45 @@ def readPTSceneInfo(path, images, eval, llffhold=8):
         cam_extrinsics = read_extrinsics_text(cameras_extrinsic_file)
         cam_intrinsics = read_intrinsics_text(cameras_intrinsic_file)
 
-    reading_dir = "dense" if images == None else images
-    # reading_dir_F = "language_feature" if language_feature == None else language_feature
-    cam_infos_unsorted = readColmapCameras(cam_extrinsics=cam_extrinsics, cam_intrinsics=cam_intrinsics, images_folder=os.path.join(path, reading_dir))
-    # cam_infos = sorted(cam_infos_unsorted.copy(), key = lambda x : x.image_name)for cam in cam_infos_unsorted:
-    cam_infos_dict = {}
-    for cam in cam_infos_unsorted:
-      cam_infos_dict[cam.image_name+'.jpg'] = cam
     split_file_name = path.split('/')[-1].split('_')[0] + '_filtered.tsv'
-    # open tsv file
-    with open(os.path.join(path, split_file_name), 'r') as file:
-        lines = file.readlines()
-        train_cam_infos = []
-        test_cam_infos = []
-        for line in lines[1::]:
-            line = line.split('\t')
-            if line[2] == 'train':
-                train_cam_infos.append(cam_infos_dict[line[0]])
-            else:
-                test_cam_infos.append(cam_infos_dict[line[0]])
+    split_path = os.path.join(path, split_file_name)
+    split_rows = []
+    with open(split_path, 'r') as file:
+        reader = csv.DictReader(file, delimiter='\t')
+        for row in reader:
+            filename = row.get('filename')
+            split = row.get('split')
+            if filename and split:
+                split_rows.append((filename, split))
 
+    reading_dir = "dense" if images == None else images
+    # PT COLMAP files can reference images removed by the benchmark filter.
+    # Load only filtered images before opening RGB files so stale COLMAP entries
+    # do not abort scene training.
+    wanted_filenames = {filename for filename, _ in split_rows}
+    cam_infos_unsorted = readColmapCameras(
+        cam_extrinsics=cam_extrinsics,
+        cam_intrinsics=cam_intrinsics,
+        images_folder=os.path.join(path, reading_dir),
+        include_image_names=wanted_filenames,
+    )
+    cam_infos_dict = {os.path.basename(cam.image_path): cam for cam in cam_infos_unsorted}
+    train_cam_infos = []
+    test_cam_infos = []
+    missing_cameras = []
+    for filename, split in split_rows:
+        cam = cam_infos_dict.get(filename)
+        if cam is None:
+            missing_cameras.append(filename)
+            continue
+        if split == 'train':
+            train_cam_infos.append(cam)
+        else:
+            test_cam_infos.append(cam)
+    if missing_cameras:
+        print(f"Warning: skipped {len(missing_cameras)} filtered PT images without COLMAP cameras: {missing_cameras[:5]}")
+    if not train_cam_infos:
+        raise RuntimeError(f"No train cameras loaded from {split_path}")
 
     nerf_normalization = getNerfppNorm(train_cam_infos)
 

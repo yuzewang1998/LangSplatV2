@@ -9,12 +9,52 @@
 # For inquiries contact  george.drettakis@inria.fr
 #
 import time
+from pathlib import Path
 
 import torch
 import math
 from diff_gaussian_rasterization import GaussianRasterizationSettings, GaussianRasterizer
 from scene.gaussian_model import GaussianModel
 from utils.sh_utils import eval_sh
+
+
+def _read_compiled_language_feature_channels(default=128):
+    """Return the rasterizer capacity from the checked-out CUDA config.
+
+    The extension uses this value as a compile-time constant. Cache it at module
+    import so a long-running process remains consistent even if another Exp10
+    job recompiles the extension for a different K*L after this process has
+    already imported diff_gaussian_rasterization._C.
+    """
+    config_path = (
+        Path(__file__).resolve().parents[1]
+        / "submodules"
+        / "efficient-langsplat-rasterization"
+        / "cuda_rasterizer"
+        / "config.h"
+    )
+    try:
+        for line in config_path.read_text().splitlines():
+            if "NUM_CHANNELS_language_feature" in line and line.lstrip().startswith("#define"):
+                parts = line.split()
+                return int(parts[2])
+    except Exception:
+        pass
+    return default
+
+
+_COMPILED_LANGUAGE_FEATURE_CHANNELS = _read_compiled_language_feature_channels()
+
+
+def _resolve_raster_feature_channels(opt):
+    requested = getattr(opt, "raster_feature_channels", -1)
+    try:
+        requested = int(requested)
+    except (TypeError, ValueError):
+        requested = -1
+    if requested > 0:
+        return requested
+    return _COMPILED_LANGUAGE_FEATURE_CHANNELS
 
 def render(viewpoint_camera, pc : GaussianModel, pipe, bg_color : torch.Tensor, opt, scaling_modifier = 1.0, override_color = None):
     """
@@ -93,7 +133,25 @@ def render(viewpoint_camera, pc : GaussianModel, pipe, bg_color : torch.Tensor, 
         language_feature_weights = torch.zeros((1,), dtype=opacity.dtype, device=opacity.device)
 
     elif opt.include_feature:
-        language_feature_weights = pc.get_render_weights(opt.topk) # [N, 64]
+        language_feature_weights = pc.get_render_weights(opt.topk) # [N, L*K]
+        # The CUDA rasterizer is compiled with a fixed language-feature channel
+        # count (currently 128). K/L ablations can produce fewer channels
+        # (e.g. L=1,K=64); pad before rasterization so the kernel never reads
+        # past the input tensor. Downstream code slices back to the active
+        # codebook channels, so padded channels carry zero signal/gradient.
+        raster_feature_channels = _resolve_raster_feature_channels(opt)
+        if language_feature_weights.shape[1] > raster_feature_channels:
+            raise ValueError(
+                f"language feature channels {language_feature_weights.shape[1]} exceed "
+                f"compiled rasterizer capacity {raster_feature_channels}."
+            )
+        if language_feature_weights.shape[1] < raster_feature_channels:
+            pad = torch.zeros(
+                (language_feature_weights.shape[0], raster_feature_channels - language_feature_weights.shape[1]),
+                dtype=language_feature_weights.dtype,
+                device=language_feature_weights.device,
+            )
+            language_feature_weights = torch.cat([language_feature_weights, pad], dim=1)
         language_feature_weights_quick = torch.zeros((1,), dtype=opacity.dtype, device=opacity.device)
         language_feature_indices = torch.zeros((1,), dtype=opacity.dtype, device=opacity.device)
     

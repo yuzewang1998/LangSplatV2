@@ -24,6 +24,7 @@
 #   --sampling STRATEGY    采样策略: diverse/uniform/grid/hierarchical (默认: diverse)
 #   --grid_size NUM        网格大小 (默认: 5)
 #   --semantic_pooling     仅在语义mask区域内采样（默认关闭）
+#   --render_comparison    渲染阶段生成 GT vs Render 可视化对比图（默认关闭）
 #
 # 索引命名规则:
 #   有exp_id: {exp_id}_iter{N}_topk{K}_cb{C}
@@ -60,11 +61,22 @@ ITERATIONS=10000
 TOPK=4
 CHECKPOINT=${ITERATIONS}
 CODEBOOK_SIZE=64
+VQ_LAYER_NUM=1
+RF_RESOLUTION=2
+FEATURE_DOWNSCALE=2
+FEATURE_ALIGN_MODE=resize_gt_to_render
+FEATURE_INTERP=bilinear
+LLM_SUPERVISION_MODE=crop_native
+LANGUAGE_FEATURES_NAME=llava_features_3584_multiscale
+START_CHECKPOINT=""
+TARGET_TOKENS=512
+LABEL_ROOT=/mnt/data/wangyz/PT/label_llm
 
 # 评估参数
-SAMPLING_STRATEGY=diverse
+SAMPLING_STRATEGY=global_random
 GRID_SIZE=5
 USE_SEMANTIC_POOLING=false
+ENABLE_RENDER_COMPARISON=false
 
 # 输出路径
 OUTPUT_ROOT_PATH=output
@@ -113,6 +125,16 @@ while [[ $# -gt 0 ]]; do
         --iterations) ITERATIONS="$2"; CHECKPOINT="$2"; shift 2 ;;
         --topk) TOPK="$2"; shift 2 ;;
         --codebook_size) CODEBOOK_SIZE="$2"; shift 2 ;;
+        --vq_layer_num) VQ_LAYER_NUM="$2"; shift 2 ;;
+        --rf_resolution) RF_RESOLUTION="$2"; shift 2 ;;
+        --feature_downscale) FEATURE_DOWNSCALE="$2"; shift 2 ;;
+        --feature_align_mode) FEATURE_ALIGN_MODE="$2"; shift 2 ;;
+        --feature_interp) FEATURE_INTERP="$2"; shift 2 ;;
+        --llm_supervision_mode) LLM_SUPERVISION_MODE="$2"; shift 2 ;;
+        --language_features_name) LANGUAGE_FEATURES_NAME="$2"; shift 2 ;;
+        --start_checkpoint) START_CHECKPOINT="$2"; shift 2 ;;
+        --target_tokens) TARGET_TOKENS="$2"; shift 2 ;;
+        --label_root|--qa_root) LABEL_ROOT="$2"; shift 2 ;;
         --output_root) OUTPUT_ROOT_PATH="$2"; shift 2 ;;
         --eval_root) EVAL_ROOT_PATH="$2"; shift 2 ;;
         --judge_method) JUDGE_METHOD="$2"; shift 2 ;;
@@ -127,6 +149,7 @@ while [[ $# -gt 0 ]]; do
         --sampling) SAMPLING_STRATEGY="$2"; shift 2 ;;
         --grid_size) GRID_SIZE="$2"; shift 2 ;;
         --semantic_pooling) USE_SEMANTIC_POOLING=true; shift ;;
+        --render_comparison) ENABLE_RENDER_COMPARISON=true; shift ;;
         --skip_train) SKIP_TRAIN=true; shift ;;
         --skip_render) SKIP_RENDER=true; shift ;;
         --skip_rag) SKIP_RAG=true; USE_RAG=false; shift ;;
@@ -137,6 +160,39 @@ while [[ $# -gt 0 ]]; do
         *) echo "未知参数: $1"; exit 1 ;;
     esac
 done
+
+count_expected_eval_images() {
+    local qa_dir="$1"
+    if [ -d "$qa_dir" ]; then
+        find "$qa_dir" -maxdepth 1 -type f -name '*.json' | wc -l | tr -d ' '
+    else
+        echo "0"
+    fi
+}
+
+is_render_level_complete() {
+    local render_dir="$1"
+    local expected_images="$2"
+
+    if [ ! -d "$render_dir" ]; then
+        return 1
+    fi
+
+    if [ "$expected_images" -le 0 ]; then
+        # 没有可用 QA JSON 时，至少要求目录非空且存在 feature_map
+        find "$render_dir" -type f -name 'feature_map_*.pt' | grep -q .
+        return $?
+    fi
+
+    local valid_image_dirs=0
+    while IFS= read -r image_dir; do
+        if find "$image_dir" -maxdepth 1 -type f -name 'feature_map_*.pt' | grep -q .; then
+            valid_image_dirs=$((valid_image_dirs + 1))
+        fi
+    done < <(find "$render_dir" -mindepth 1 -maxdepth 1 -type d | sort)
+
+    [ "$valid_image_dirs" -ge "$expected_images" ]
+}
 
 resolve_repo_path() {
     case "$1" in
@@ -178,8 +234,10 @@ echo "║ 数据集: ${DATASET_NAME}"
 echo "║ 数据路径: ${DATASET_ROOT_PATH}/${DATASET_NAME}"
 echo "║ GPU: ${GPU}"
 echo "╠────────────────────────────────────────────────────────────────────────────╣"
-echo "║ 训练参数: iterations=${ITERATIONS}, topk=${TOPK}, codebook=${CODEBOOK_SIZE}"
-echo "║ 评估参数: sampling=${SAMPLING_STRATEGY}, grid=${GRID_SIZE}x${GRID_SIZE}, semantic_pooling=${USE_SEMANTIC_POOLING}, 评估所有图像"
+echo "║ 训练参数: iterations=${ITERATIONS}, topk=${TOPK}, codebook=${CODEBOOK_SIZE}, vq_layers=${VQ_LAYER_NUM}, rf_r=${RF_RESOLUTION}"
+echo "║ 评估参数: sampling=${SAMPLING_STRATEGY}, target_tokens=${TARGET_TOKENS}, grid=${GRID_SIZE}x${GRID_SIZE}, semantic_pooling=${USE_SEMANTIC_POOLING}, 评估所有图像"
+echo "║ 特征目录: ${LANGUAGE_FEATURES_NAME}, align=${FEATURE_ALIGN_MODE}/${FEATURE_INTERP}, llm_supervision=${LLM_SUPERVISION_MODE}"
+echo "║ 渲染对比图: $([ "$ENABLE_RENDER_COMPARISON" = true ] && echo "启用" || echo "禁用")"
 echo "║ RAG增强: $([ "$USE_RAG" = true ] && echo "启用" || echo "禁用")"
 echo "║ 对比Judge: ${JUDGE_METHOD}"
 echo "║ 输出根目录: ${OUTPUT_ROOT}"
@@ -191,6 +249,35 @@ echo ""
 
 # 增加文件句柄限制
 ulimit -n 65535
+
+if [ -z "${START_CHECKPOINT}" ]; then
+    START_CHECKPOINT="${DATASET_ROOT_PATH}/${DATASET_NAME}/${DATASET_NAME}_vanilla3DGS/chkpnt30000.pth"
+fi
+
+GT_FEATURE_DIR="${DATASET_ROOT_PATH}/${DATASET_NAME}/${LANGUAGE_FEATURES_NAME}"
+QA_JSON_DIR="${LABEL_ROOT}/${DATASET_NAME}"
+SEMANTIC_DIR="${DATASET_ROOT_PATH}/${DATASET_NAME}/rgb_feature_langseg"
+
+if [ "$SKIP_TRAIN" = false ] || [ "$SKIP_RENDER" = false ] || [ "$SKIP_EVAL" = false ]; then
+    if [ ! -d "${QA_JSON_DIR}" ]; then
+        echo "❌ QA/label directory not found: ${QA_JSON_DIR}"
+        exit 10
+    fi
+fi
+
+if [ "$SKIP_TRAIN" = false ] || [ "$SKIP_EVAL" = false ]; then
+    if [ ! -d "${GT_FEATURE_DIR}" ]; then
+        echo "❌ LLaVA feature directory not found: ${GT_FEATURE_DIR}"
+        exit 11
+    fi
+fi
+
+if [ "$SKIP_TRAIN" = false ]; then
+    if [ ! -f "${START_CHECKPOINT}" ]; then
+        echo "❌ Start checkpoint not found: ${START_CHECKPOINT}"
+        exit 12
+    fi
+fi
 
 # ============================================================================
 # Step 1: 训练 (langsplat_v2 环境)
@@ -231,14 +318,24 @@ if [ "$SKIP_TRAIN" = false ]; then
             conda run -n langsplat_v2 python train.py \
                 -s ${DATASET_ROOT_PATH}/${DATASET_NAME} \
                 -m ${OUTPUT_ROOT}/${DATASET_NAME}_${INDEX} \
-                --start_checkpoint ${DATASET_ROOT_PATH}/${DATASET_NAME}/${DATASET_NAME}_vanilla3DGS/chkpnt30000.pth \
+                --language_features_name ${LANGUAGE_FEATURES_NAME} \
+                --start_checkpoint ${START_CHECKPOINT} \
                 --feature_level ${level} \
-                --vq_layer_num 1 \
+                --vq_layer_num ${VQ_LAYER_NUM} \
                 --codebook_size ${CODEBOOK_SIZE} \
                 --cos_loss \
-                -r 2 \
+                -r ${RF_RESOLUTION} \
+                --feature_align_mode ${FEATURE_ALIGN_MODE} \
+                --feature_interp ${FEATURE_INTERP} \
+                --llm_supervision_mode ${LLM_SUPERVISION_MODE} \
                 --topk ${TOPK} \
                 --iterations ${ITERATIONS}
+
+            if [ ! -f "$CKPT_PATH" ]; then
+                echo "❌ Missing expected checkpoint after train: ${CKPT_PATH}"
+                echo "   train.py may have caught an exception internally; inspect the log above and crash_log.txt"
+                exit 13
+            fi
 
             echo ">>> Level ${level} 训练完成 <<<"
         fi
@@ -271,8 +368,9 @@ if [ "$SKIP_RENDER" = false ]; then
     cd ${LANGSPLAT_DIR}
     export CUDA_VISIBLE_DEVICES=${GPU}
 
-    GT_FEATURE_DIR=${DATASET_ROOT_PATH}/${DATASET_NAME}/llava_features_3584_multiscale
-    GT_FOLDER=${DATASET_ROOT_PATH}/label_llm
+    GT_FOLDER=${LABEL_ROOT}
+    EXPECTED_EVAL_IMAGES=$(count_expected_eval_images "${QA_JSON_DIR}")
+    echo "📋 预期渲染图像数（按 QA JSON 统计）: ${EXPECTED_EVAL_IMAGES}"
 
     # 实验输出根目录
     EXP_OUTPUT_DIR="${EVAL_ROOT}/${INDEX}"
@@ -292,7 +390,7 @@ if [ "$SKIP_RENDER" = false ]; then
         # 检查渲染结果是否已存在（新目录结构）
         RENDER_DIR="${EXP_OUTPUT_DIR}/level${level}/${DATASET_NAME}"
 
-        if [ -d "$RENDER_DIR" ] && [ "$(ls -A $RENDER_DIR 2>/dev/null)" ]; then
+        if is_render_level_complete "$RENDER_DIR" "${EXPECTED_EVAL_IMAGES}"; then
             echo "⏭️  Level ${level} (${SCALE_NAME}) 已渲染完成，跳过"
             echo "   输出目录: ${RENDER_DIR}"
         else
@@ -300,6 +398,21 @@ if [ "$SKIP_RENDER" = false ]; then
             echo ""
             echo ">>> 渲染 Level ${level} (${SCALE_NAME}) <<<"
             echo ""
+
+            RENDER_COMPARISON_ARGS=()
+            if [ "$ENABLE_RENDER_COMPARISON" = true ]; then
+                RENDER_COMPARISON_ARGS=(
+                    --visualize_comparison
+                    --gt_feature_dir ${GT_FEATURE_DIR}
+                    --comparison_scale ${SCALE_NAME}
+                )
+            fi
+
+            MODEL_CKPT="${OUTPUT_ROOT}/${DATASET_NAME}_${INDEX}_${level}/chkpnt${CHECKPOINT}.pth"
+            if [ ! -f "${MODEL_CKPT}" ]; then
+                echo "❌ Missing model checkpoint before render: ${MODEL_CKPT}"
+                exit 14
+            fi
 
             conda run -n langsplat_v2 python render_lerf_llm.py \
                 -s ${DATASET_ROOT_PATH}/${DATASET_NAME} \
@@ -313,10 +426,14 @@ if [ "$SKIP_RENDER" = false ]; then
                 --checkpoint ${CHECKPOINT} \
                 --include_feature \
                 --topk ${TOPK} \
-                -r 2 \
-                --visualize_comparison \
-                --gt_feature_dir ${GT_FEATURE_DIR} \
-                --comparison_scale ${SCALE_NAME}
+                -r ${RF_RESOLUTION} \
+                "${RENDER_COMPARISON_ARGS[@]}"
+
+            if ! is_render_level_complete "$RENDER_DIR" "${EXPECTED_EVAL_IMAGES}"; then
+                echo "❌ Render output incomplete for level ${level}: ${RENDER_DIR}"
+                echo "   expected images with feature_map_*.pt: ${EXPECTED_EVAL_IMAGES}"
+                exit 15
+            fi
 
             echo ">>> Level ${level} 渲染完成 <<<"
         fi
@@ -350,7 +467,7 @@ if [ "$SKIP_RAG" = false ] && [ "$USE_RAG" = true ]; then
     export CUDA_VISIBLE_DEVICES=${GPU}
 
     # 问答JSON目录
-    QA_JSON_DIR=${DATASET_ROOT_PATH}/label_llm/${DATASET_NAME}
+    QA_JSON_DIR=${LABEL_ROOT}/${DATASET_NAME}
 
     # RAG缓存目录
     RAG_DATASET_DIR=${RAG_CACHE_DIR}/${DATASET_NAME}
@@ -427,6 +544,7 @@ if [ "$SKIP_EVAL" = false ]; then
 
     # 渲染特征基础目录
     RENDERED_BASE_DIR="${EVAL_ROOT}/${INDEX}"
+    GT_FEATURE_DIR=${DATASET_ROOT_PATH}/${DATASET_NAME}/${LANGUAGE_FEATURES_NAME}
 
     # 评估结果目录
     NO_RAG_OUTPUT_DIR="${EVAL_ROOT}/${INDEX}/analysis_no_rag"
@@ -448,9 +566,14 @@ if [ "$SKIP_EVAL" = false ]; then
     CUDA_VISIBLE_DEVICES=${GPU} conda run -n llava python verify_reconstruction_quality.py \
         --index ${INDEX} \
         --rendered_base_dir ${RENDERED_BASE_DIR} \
+        --gt_dir ${GT_FEATURE_DIR} \
         --eval_all \
         --use_qa_json \
+        --qa_json_dir ${QA_JSON_DIR} \
+        --rgb_image_dir ${QA_JSON_DIR} \
+        --semantic_dir ${SEMANTIC_DIR} \
         --sampling_strategy ${SAMPLING_STRATEGY} \
+        --target_tokens ${TARGET_TOKENS} \
         --grid_size ${GRID_SIZE} \
         --qa_output_dir ${NO_RAG_OUTPUT_DIR} \
         --dataset_name ${DATASET_NAME} \
@@ -472,9 +595,14 @@ if [ "$SKIP_EVAL" = false ]; then
         CUDA_VISIBLE_DEVICES=${GPU} conda run -n llava python verify_reconstruction_quality.py \
             --index ${INDEX} \
             --rendered_base_dir ${RENDERED_BASE_DIR} \
+            --gt_dir ${GT_FEATURE_DIR} \
             --eval_all \
             --use_qa_json \
+            --qa_json_dir ${QA_JSON_DIR} \
+            --rgb_image_dir ${QA_JSON_DIR} \
+            --semantic_dir ${SEMANTIC_DIR} \
             --sampling_strategy ${SAMPLING_STRATEGY} \
+            --target_tokens ${TARGET_TOKENS} \
             --grid_size ${GRID_SIZE} \
             --qa_output_dir ${WITH_RAG_OUTPUT_DIR} \
             --dataset_name ${DATASET_NAME} \

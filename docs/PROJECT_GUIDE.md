@@ -38,6 +38,72 @@
 - `tools/filtering/test_vlm_filter.py`
 - `tools/filtering/visualize_filtered_images.py`
 
+## Codex / 登录切换恢复 Tip
+
+如果以后再次遇到 `codex-switch openai` 还在要求登录，或者 `codex` 打开后 provider / telemetry 看起来不对，按下面流程排查，通常可以快速恢复：
+
+1. **先确认本地认证已经导入**
+   - 将已有凭证放到 `~/.codex/auth.json`
+   - 再执行 `codex login status`
+   - 正常情况下应显示 `Logged in using ChatGPT`
+
+2. **记住入口分工**
+   - `codex` 是真正进入交互界面的入口
+   - `codex-switch openai` / `codex-switch mirror` 只是切换后端 provider
+   - 如果还看到登录页，通常不是“切换命令没跑”，而是本地认证或残留进程有问题
+
+3. **如果切换后 `/status` 还是旧 provider，优先查残留 app-server**
+   - 重点看 `~/.codex/app-server-control/app-server.log`
+   - 检查是否有旧的 `codex app-server` / proxy 链路还在
+   - 这类残留会把 config/auth 缓存在内存里，表现为 `codex-switch mirror` 后 `/status` 仍显示 openai
+   - 当前修复在 `~/.local/bin/codex-switch`：切换 provider 后会刷新本用户的 app-server/proxy helper，但不会杀普通交互式 `codex` 会话
+
+4. **避免切换后 conversation 丢失，同时保持“一个文件夹一组会话”**
+   - openai/mirror 可以共享同一个 `CODEX_HOME`，但 `/resume` 必须按**精确当前 `cwd`**过滤
+   - 不要把子目录合并到项目根目录：`ArchStudio` 和 `ArchStudio/stage1` 必须是两组不同会话
+   - `codex-switch` 只能同步“当前精确目录”的 SQLite thread provider 和对应 rollout `session_meta.model_provider`，不能全局改所有项目，也不能把父/子目录归一到一起
+   - 不要重建全局 `~/.codex/session_index.jsonl`；它没有 cwd 字段，容易让所有 project 的会话混在一起
+   - 当前已把坏的全局索引移到 `~/.codex/session_index.jsonl.global-bad-20260520`，并移除 `~/.codex-live/session_index.jsonl` 链接，让 Codex 走 SQLite 的 cwd 过滤
+   - 验证命令：`sqlite3 ~/.codex/state_5.sqlite "SELECT cwd, model_provider, COUNT(*) FROM threads GROUP BY cwd, model_provider;"`
+
+5. **如果需要 daemon 管理但启动失败**
+   - 先检查 `~/.codex/packages/standalone/current/codex` 是否存在
+   - 不存在时不要卡在 daemon 上，直接用 `codex` 主入口即可
+
+6. **排障时可打开调试**
+   - `CODEX_WRAPPER_DEBUG=1 codex ...`
+   - 这样更容易确认当前到底用了哪个 binary、home 和 provider
+
+7. **最后提醒**
+   - 不要把任何 token 或敏感认证内容写进仓库
+   - 只保留流程说明和排障线索即可
+
+## 结果目录约定（重要）
+
+当前推荐的唯一结果目录约定是：
+
+- checkpoint 根目录：`output/exp_0402/`
+- 渲染/评估根目录：`eval_result/exp_0402/`
+
+也就是说，默认应该通过：
+
+- `bash_run/exp_0402.sh`
+
+来启动实验。
+
+如果你直接调用 `run_all.sh`，也建议显式传：
+
+```bash
+bash run_all.sh --output_root output/exp_0402 --eval_root eval_result/exp_0402 ...
+```
+
+避免再次出现：
+
+- `eval_result/{index}`
+- `eval_result/exp_0402/{index}`
+
+两棵结果树同时存在、人工复盘时容易拿错的问题。
+
 ## 图像过滤目前的状态
 
 过滤链路现在已经具备这几部分：
