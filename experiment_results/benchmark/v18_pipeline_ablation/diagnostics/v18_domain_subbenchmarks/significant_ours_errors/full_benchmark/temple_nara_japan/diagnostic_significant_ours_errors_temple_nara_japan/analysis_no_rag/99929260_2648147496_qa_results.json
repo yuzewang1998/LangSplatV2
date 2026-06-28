@@ -1,0 +1,61 @@
+{
+  "image_name": "99929260_2648147496",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.2852593660354614,
+      "rendered_std": 0.37574321031570435
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.4219914674758911,
+      "rendered_std": 0.39492353796958923
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.4777228832244873,
+      "rendered_std": 0.5379317998886108
+    }
+  },
+  "questions": [
+    {
+      "question_index": 11,
+      "question": "Answer with a number only. How many major roof tiers are visible on the main temple building?",
+      "expected": "2",
+      "rgb_answer": "3",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "3",
+        "Medium": "3",
+        "Large": "3"
+      },
+      "rendered_answers": {
+        "Small": "3",
+        "Medium": "3",
+        "Large": "Three"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "3",
+        "reason": "",
+        "raw_output": "Large: 3"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Three",
+        "reason": "",
+        "raw_output": "Large: Three"
+      }
+    }
+  ],
+  "diagnostic_subset": "significant_ours_errors"
+}

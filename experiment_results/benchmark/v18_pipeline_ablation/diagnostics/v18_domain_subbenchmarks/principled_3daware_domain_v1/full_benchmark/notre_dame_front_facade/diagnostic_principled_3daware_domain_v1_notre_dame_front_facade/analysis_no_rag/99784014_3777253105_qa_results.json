@@ -1,0 +1,91 @@
+{
+  "image_name": "99784014_3777253105",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.3151113986968994,
+      "rendered_std": 0.4765097200870514
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.5213682651519775,
+      "rendered_std": 0.6901580691337585
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.5496890544891357,
+      "rendered_std": 0.7717891335487366
+    }
+  },
+  "questions": [
+    {
+      "question_index": 2,
+      "question": "Answer with the option letter only. Which of these architectural or landmark components is visibly present in this image? A. rose window B. tympanum C. door D. onion dome",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Large: A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Small: A"
+      }
+    },
+    {
+      "question_index": 4,
+      "question": "Answer with a number only. How many distinct rose window components are visible?",
+      "expected": "1",
+      "rgb_answer": "12",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "12",
+        "Medium": "12",
+        "Large": "12"
+      },
+      "rendered_answers": {
+        "Small": "12",
+        "Medium": "12",
+        "Large": "12"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "12",
+        "reason": "",
+        "raw_output": "Small: 12"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "12",
+        "reason": "The image shows a rose window with multiple components, and there are twelve distinct parts visible.",
+        "raw_output": "Small: 12\nREASON: The image shows a rose window with multiple components, and there are twelve distinct parts visible."
+      }
+    }
+  ],
+  "diagnostic_subset": "principled_3daware_domain_v1"
+}

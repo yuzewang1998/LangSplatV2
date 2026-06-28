@@ -1,0 +1,541 @@
+{
+  "image_name": "02904481_13883419663",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.3533031940460205,
+      "rendered_std": 0.5597586631774902
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.6703544855117798,
+      "rendered_std": 0.6973493695259094
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.675187110900879,
+      "rendered_std": 0.8953928351402283
+    }
+  },
+  "questions": [
+    {
+      "question_index": 1,
+      "question": "What famous landmark or landmark scene is shown in this image?",
+      "expected": "The Trevi Fountain.",
+      "rgb_answer": "The image shows the Trevi Fountain, a famous Baroque-style fountain located in Rome, Italy. It is one of the most iconic landmarks in the city and is known for its grandeur and the legend that if you throw a coin into the water, you will one day return to Rome.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The image shows a famous landmark scene, the Trevi Fountain in Rome.",
+        "Medium": "The image shows the Trevi Fountain, a famous landmark in Rome.",
+        "Large": "The image shows the Trevi Fountain, which is a famous landmark located in Rome, Italy. It's one of the most iconic Baroque fountains in the world and is known for its grandeur and the tradition of throwing a coin into the water to ensure a return to Rome."
+      },
+      "rendered_answers": {
+        "Small": "The image shows a famous landmark scene with a fountain and classical architecture.",
+        "Medium": "The image shows a famous landmark scene with a grand building adorned with intricate sculptures and a large fountain.",
+        "Large": "The image shows the Trevi Fountain, a renowned landmark in Rome."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The image shows the Trevi Fountain, which is a famous landmark located in Rome, Italy. It's one of the most iconic Baroque fountains in the world and is known for its grandeur and the tradition of throwing a coin into the water to ensure a return to Rome.",
+        "reason": "The image clearly depicts the Trevi Fountain, a well-known landmark in Rome, Italy.",
+        "raw_output": "Large: The image shows the Trevi Fountain, which is a famous landmark located in Rome, Italy. It's one of the most iconic Baroque fountains in the world and is known for its grandeur and the tradition of throwing a coin into the water to ensure a return to Rome.\nBEST_SCALE: Large\nREASON: The image clearly depicts the Trevi Fountain, a well-known landmark in Rome, Italy."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The image shows the Trevi Fountain, a renowned landmark in Rome.",
+        "reason": "The image features the iconic Trevi Fountain, which is a famous landmark in Rome known for its grandeur and intricate sculptures.",
+        "raw_output": "Large: The image shows the Trevi Fountain, a renowned landmark in Rome.\nREASON: The image features the iconic Trevi Fountain, which is a famous landmark in Rome known for its grandeur and intricate sculptures."
+      }
+    },
+    {
+      "question_index": 2,
+      "question": "Answer with the option letter only. Which feature is most clearly visible at the base of the landmark in the image?\nA. Flowing water and a basin\nB. A staircase only\nC. A dry courtyard\nD. A bell tower",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 3,
+      "question": "Answer with yes or no only. Is the column visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes",
+        "Large": "yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "yes",
+        "reason": "",
+        "raw_output": "Large: yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "",
+        "raw_output": "Large: Yes."
+      }
+    },
+    {
+      "question_index": 4,
+      "question": "Answer with yes or no only. Is the Oceanus visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "",
+        "raw_output": "Large: Yes."
+      }
+    },
+    {
+      "question_index": 5,
+      "question": "Answer with yes or no only. Are the winged horses visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "No",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No.",
+        "Medium": "No",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes.",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Small: No."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "",
+        "raw_output": "Large: Yes."
+      }
+    },
+    {
+      "question_index": 6,
+      "question": "Answer with a number only. How many sea horses are visible in the sculptural group of the landmark in the image?",
+      "expected": "2",
+      "rgb_answer": "3",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Two",
+        "Medium": "3",
+        "Large": "3"
+      },
+      "rendered_answers": {
+        "Small": "Two",
+        "Medium": "Two",
+        "Large": "Three"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "3",
+        "reason": "",
+        "raw_output": "Small: Two"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Three",
+        "reason": "",
+        "raw_output": "Small: Two"
+      }
+    },
+    {
+      "question_index": 7,
+      "question": "Answer with a number only. How many human-like sculpted figures are visible in the main fountain sculptures and side niches, excluding figures in relief panels?",
+      "expected": "5",
+      "rgb_answer": "10",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "5",
+        "Medium": "10",
+        "Large": "12"
+      },
+      "rendered_answers": {
+        "Small": "10",
+        "Medium": "10",
+        "Large": "10"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "12",
+        "reason": "",
+        "raw_output": "Small: 5"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "10",
+        "reason": "",
+        "raw_output": "Small: 10"
+      }
+    },
+    {
+      "question_index": 8,
+      "question": "Answer with the option letter only. Which component appears higher than Oceanus in the image?\nA. Decorative relief panels\nB. Sea horses\nC. Water basin\nD. Pool edge",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 9,
+      "question": "Answer with the option letter only. Who is the central figure in the main sculptural group of the landmark in the image?\nA. Julius Caesar\nB. Apollo\nC. Neptune\nD. Oceanus",
+      "expected": "D",
+      "rgb_answer": "D",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "D",
+        "Medium": "D",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "D",
+        "Medium": "D",
+        "Large": "D"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "D"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "D",
+        "reason": "",
+        "raw_output": "D"
+      }
+    },
+    {
+      "question_index": 10,
+      "question": "What type of landmark scene is visible in this image?",
+      "expected": "A monumental fountain.",
+      "rgb_answer": "The image depicts a grand baroque-style building with intricate sculptures and a large fountain in the foreground. This is indicative of a significant historical or cultural landmark, likely a famous square or public space in a city known for its rich history and artistry. The architecture and sculpture style suggest it could be in Europe, possibly Italy, given the style which is characteristic of Roman and Italian baroque architecture.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The image showcases a grand architectural scene with classical elements.",
+        "Medium": "The image shows a grand, classical architectural structure with intricate carvings and statues.",
+        "Large": "The image depicts a grand baroque-style fountain, which is likely a significant historical and cultural landmark. The intricate sculptures and architectural details suggest it could be a famous site, possibly in Europe given the style and materials used."
+      },
+      "rendered_answers": {
+        "Small": "The image shows a classical architectural scene with intricate carvings and statues.",
+        "Medium": "The image shows a grand architectural scene with intricate sculptures and a flowing water feature.",
+        "Large": "The image showcases a grand architectural scene, likely a historical landmark."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The image depicts a grand baroque-style fountain, which is likely a significant historical and cultural landmark. The intricate sculptures and architectural details suggest it could be a famous site, possibly in Europe given the style and materials used.",
+        "reason": "",
+        "raw_output": "Large: The image depicts a grand baroque-style fountain, which is likely a significant historical and cultural landmark. The intricate sculptures and architectural details suggest it could be a famous site, possibly in Europe given the style and materials used."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The image showcases a grand architectural scene, likely a historical landmark.",
+        "reason": "",
+        "raw_output": "Large: The image showcases a grand architectural scene, likely a historical landmark."
+      }
+    },
+    {
+      "question_index": 11,
+      "question": "Answer with the option letter only. Which type of landmark is shown in the image?\nA. City fountain\nB. Cathedral façade\nC. Ancient gate\nD. Stone bridge",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 12,
+      "question": "Answer with yes or no only. Are sculpture combined in the visible landmark?",
+      "expected": "Yes",
+      "rgb_answer": "yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "",
+        "raw_output": "Large: Yes."
+      }
+    },
+    {
+      "question_index": 13,
+      "question": "Answer with the option letter only. Which component is NOT visibly present in this image? A. column B. Oceanus C. papal coat of arms D. winged horses",
+      "expected": "C",
+      "rgb_answer": "D",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "C",
+        "Medium": "C",
+        "Large": "C"
+      },
+      "rendered_answers": {
+        "Small": "C",
+        "Medium": "C",
+        "Large": "C"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "C",
+        "reason": "",
+        "raw_output": "Large: D"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "C",
+        "reason": "",
+        "raw_output": "Small: C"
+      }
+    },
+    {
+      "question_index": 14,
+      "question": "Answer with yes or no only. Is the papal coat of arms clearly visible in this image?",
+      "expected": "No",
+      "rgb_answer": "No",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No.",
+        "Medium": "No",
+        "Large": "No"
+      },
+      "rendered_answers": {
+        "Small": "No.",
+        "Medium": "No.",
+        "Large": "No."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "",
+        "raw_output": "Small: No."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "No.",
+        "reason": "The papal coat of arms is not clearly visible in this image.",
+        "raw_output": "Small: No.\nREASON: The papal coat of arms is not clearly visible in this image."
+      }
+    },
+    {
+      "question_index": 15,
+      "question": "Answer with the option letter only. Which column style do the visible columns or pilasters on the façade in the image most closely resemble?\nA. Doric\nB. Ionic\nC. Corinthian\nD. Gothic",
+      "expected": "C",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 17,
+      "question": "What visible component matches this description: the central mythological male figure?",
+      "expected": "Oceanus",
+      "rgb_answer": "The central mythological male figure is the one standing upright with a beard, located on the right side of the façade. He is holding what appears to be a scroll or a book in his left hand and has a muscular build. This figure is part of the sculptural group that adorns the central part of the building, above the cascading water.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The central mythological male figure is a statue.",
+        "Medium": "The central mythological male figure is a statue.",
+        "Large": "The central mythological male figure is the statue of Oceanus, which is part of the Fontana di Trevi."
+      },
+      "rendered_answers": {
+        "Small": "The central mythological male figure is a visible component that matches this description.",
+        "Medium": "The central mythological male figure is a statue.",
+        "Large": "The central mythological male figure is a prominent statue."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The central mythological male figure is the statue of Oceanus, which is part of the Fontana di Trevi.",
+        "reason": "The statue of Oceanus is a prominent feature of the Fontana di Trevi in Rome.",
+        "raw_output": "Large: The central mythological male figure is the statue of Oceanus, which is part of the Fontana di Trevi.\nREASON: The statue of Oceanus is a prominent feature of the Fontana di Trevi in Rome."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The central mythological male figure is a prominent statue.",
+        "reason": "The statue is the most prominent feature in the image.",
+        "raw_output": "Large: The central mythological male figure is a prominent statue.\nREASON: The statue is the most prominent feature in the image."
+      }
+    },
+    {
+      "question_index": 18,
+      "question": "Answer with the option letter only. Which visible component is most directly associated with central mythological figure? A. Oceanus B. papal coat of arms C. water D. onion dome",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "C",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Large: A"
+      }
+    }
+  ],
+  "diagnostic_subset": "full_minus_rgb_only_correct_v1"
+}

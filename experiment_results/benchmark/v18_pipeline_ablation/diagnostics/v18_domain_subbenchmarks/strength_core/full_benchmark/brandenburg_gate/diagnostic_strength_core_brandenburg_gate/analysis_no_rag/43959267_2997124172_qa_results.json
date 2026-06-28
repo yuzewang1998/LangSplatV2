@@ -1,0 +1,211 @@
+{
+  "image_name": "43959267_2997124172",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.0289137363433838,
+      "rendered_std": 0.36496031284332275
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.2542868852615356,
+      "rendered_std": 0.3318667411804199
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.1793694496154785,
+      "rendered_std": 0.3799850344657898
+    }
+  },
+  "questions": [
+    {
+      "question_index": 7,
+      "question": "What color appearance does the sculpture have in this image?",
+      "expected": "A green patina.",
+      "rgb_answer": "green",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The sculpture in the image appears to have a greenish hue, which is characteristic of copper or bronze statues that have been exposed to the elements and have developed a patina over time. This patina is a chemical compound formed on the surface of the metal due to oxidation, which gives it a distinctive green color.",
+        "Medium": "The sculpture in this image appears to have a greenish patina, which is commonly associated with copper or bronze statues that have been exposed to the elements over time. This green coloration is often referred to as \"copper verdigris\" and can give the sculpture an aged and historical appearance.",
+        "Large": "The sculpture in this image appears to have a greenish patina, which is typical for bronze statues that have been exposed to the elements over time. This green coloration is caused by the oxidation of the copper in the bronze alloy, forming a layer of corrosion called verdigris."
+      },
+      "rendered_answers": {
+        "Small": "The sculpture has a greenish hue, possibly due to the lighting or the material's color.",
+        "Medium": "The sculpture has a greenish appearance, likely due to the patina on the bronze.",
+        "Large": "The sculpture has a greenish appearance, likely due to the patina on the bronze."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The sculpture in this image appears to have a greenish patina, which is typical for bronze statues that have been exposed to the elements over time. This green coloration is caused by the oxidation of the copper in the bronze alloy, forming a layer of corrosion called verdigris.",
+        "reason": "The description provided indicates that the sculpture has a greenish hue, which is characteristic of copper or bronze statues that have been exposed to the elements and have developed a patina over time. This patina is a chemical compound formed on the surface of the metal due to oxidation, which gives it a distinctive green color.",
+        "raw_output": "Large: The sculpture in this image appears to have a greenish patina, which is typical for bronze statues that have been exposed to the elements over time. This green coloration is caused by the oxidation of the copper in the bronze alloy, forming a layer of corrosion called verdigris.\nBEST_SCALE: Large\nREASON: The description provided indicates that the sculpture has a greenish hue, which is characteristic of copper or bronze statues that have been exposed to the elements and have developed a patina over time. This patina is a chemical compound formed on the surface of the metal due to oxidation, which gives it a distinctive green color."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The sculpture has a greenish appearance, likely due to the patina on the bronze.",
+        "reason": "The sculpture in the image appears to have a greenish tint, which could be due to the natural patina that forms on bronze over time.",
+        "raw_output": "Large: The sculpture has a greenish hue, possibly due to the lighting or the material's color.\nREASON: The sculpture in the image appears to have a greenish tint, which could be due to the natural patina that forms on bronze over time."
+      }
+    },
+    {
+      "question_index": 8,
+      "question": "What famous landmark is shown in this image?",
+      "expected": "The Brandenburg Gate.",
+      "rgb_answer": "The image shows the Brandenburg Gate (Brandenburger Tor) in Berlin, Germany. This neoclassical monument is one of the most famous landmarks in Berlin and a symbol of the city's history, particularly its role as the gateway to Berlin during the Cold War era. The sculpture on top of the gate, known as the Quadriga, represents the goddess Victoria, who is often associated with victory and peace.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The image shows the Brandenburg Gate, which is a neoclassical monument in Berlin, Germany. It's one of the most famous landmarks in the city and a symbol of Berlin's history, including its role as a symbol of the division between East and West during the Cold War.",
+        "Medium": "The image shows the Brandenburg Gate, which is a neoclassical monument in Berlin, Germany. It's one of the most famous landmarks in the city and a symbol of Berlin's history, including its role as a symbol of the division between East and West during the Cold War.",
+        "Large": "The image shows the Brandenburg Gate, a neoclassical monument in Berlin, Germany. It's one of the most famous landmarks in the city and is often associated with the fall of the Berlin Wall in 1989."
+      },
+      "rendered_answers": {
+        "Small": "The image shows the iconic Big Ben clock tower in London.",
+        "Medium": "The image shows the Brandenburg Gate, a famous landmark in Berlin.",
+        "Large": "The Brandenburg Gate is shown in this image."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The image shows the Brandenburg Gate, a neoclassical monument in Berlin, Germany. It's one of the most famous landmarks in the city and is often associated with the fall of the Berlin Wall in 1989.",
+        "reason": "",
+        "raw_output": "Small: The image shows the Brandenburg Gate, which is a neoclassical monument in Berlin, Germany. It's one of the most famous landmarks in the city and a symbol of Berlin's history, including its role as a symbol of the division between East and West during the Cold War."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The Brandenburg Gate is shown in this image.",
+        "reason": "The Brandenburg Gate is a famous landmark in Berlin, Germany, and the image shows its distinctive neoclassical architecture with sculptures and columns.",
+        "raw_output": "Large: The Brandenburg Gate is shown in this image.\nREASON: The Brandenburg Gate is a famous landmark in Berlin, Germany, and the image shows its distinctive neoclassical architecture with sculptures and columns."
+      }
+    },
+    {
+      "question_index": 10,
+      "question": "Based on the landmark shown in the image, which city and country is it located in?",
+      "expected": "Berlin, Germany.",
+      "rgb_answer": "The landmark in the image is the Brandenburg Gate, located in Berlin, Germany. This can be inferred from the distinctive neoclassical architecture and the presence of the Quadriga statue on top, which are iconic features of this particular monument.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The image alone does not provide enough information to determine the exact city and country where this landmark is located. However, given the style of the sculpture and the architectural elements, it could be inferred that the landmark might be in a European city, possibly France or Italy, where such classical architecture and sculptures are common. To identify the specific location, additional context or information would be needed.",
+        "Medium": "The landmark in the image is the Brandenburg Gate, which is located in Berlin, Germany.",
+        "Large": "The landmark in the image is the Brandenburg Gate, which is located in Berlin, Germany."
+      },
+      "rendered_answers": {
+        "Small": "The landmark is located in Paris, France.",
+        "Medium": "The landmark is located in Berlin, Germany.",
+        "Large": "The Brandenburg Gate is located in Berlin, Germany."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The landmark in the image is the Brandenburg Gate, which is located in Berlin, Germany.",
+        "reason": "The Brandenburg Gate is a famous landmark in Berlin, Germany, and is known for its neoclassical architecture and sculptures.",
+        "raw_output": "Large: The landmark in the image is the Brandenburg Gate, which is located in Berlin, Germany.\nREASON: The Brandenburg Gate is a famous landmark in Berlin, Germany, and is known for its neoclassical architecture and sculptures."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The Brandenburg Gate is located in Berlin, Germany.",
+        "reason": "The Brandenburg Gate is a famous landmark in Berlin, Germany.",
+        "raw_output": "Large: The Brandenburg Gate is located in Berlin, Germany.\nREASON: The Brandenburg Gate is a famous landmark in Berlin, Germany."
+      }
+    },
+    {
+      "question_index": 14,
+      "question": "Answer with the option letter only. Which top profile is more consistent with what is visible above the gate? A. A triangular pediment B. A flat entablature with no triangular pediment C. A round dome D. A pointed spire",
+      "expected": "B",
+      "rgb_answer": "B",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "rendered_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      }
+    },
+    {
+      "question_index": 15,
+      "question": "Answer with yes or no only. Is the sculpture group centered over the visible architectural section?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes",
+        "Medium": "Yes.",
+        "Large": "Yes"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      }
+    },
+    {
+      "question_index": 16,
+      "question": "What is the name of the sculpture group on top of the gate?",
+      "expected": "Quadriga.",
+      "rgb_answer": "The sculpture group on top of the gate is known as the Quadriga. It is a chariot drawn by four horses abreast, with a figure of Victoria, the Roman goddess of victory, at its center. The Quadriga is a famous landmark located on the Brandenburg Gate in Berlin, Germany.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Based on the image alone, it is not possible to determine the exact name of the sculpture group as there are no visible titles or inscriptions that provide this information. The style and subject matter suggest it could be a historical or mythological scene, but without more context or a clearer view of any identifying features, the specific name cannot be accurately provided.",
+        "Medium": "The sculpture group on top of the gate is known as the Quadriga.",
+        "Large": "The sculpture group on top of the gate is known as the Quadriga."
+      },
+      "rendered_answers": {
+        "Small": "The name of the sculpture group is \"Horseman\".",
+        "Medium": "The sculpture group on top of the gate is named 'Horsemen'.",
+        "Large": "The sculpture group on top of the gate is known as the Quadriga."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The sculpture group on top of the gate is known as the Quadriga.",
+        "reason": "The Quadriga is a famous sculpture group located on top of the Brandenburg Gate in Berlin, Germany. It consists of a chariot drawn by four horses abreast, with the goddess Victoria at its center.",
+        "raw_output": "BEST_SCALE: Large\nREASON: The Quadriga is a famous sculpture group located on top of the Brandenburg Gate in Berlin, Germany. It consists of a chariot drawn by four horses abreast, with the goddess Victoria at its center."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The sculpture group on top of the gate is known as the Quadriga.",
+        "reason": "The Quadriga is a famous sculpture in Berlin, Germany, and it is depicted on top of the Brandenburg Gate.",
+        "raw_output": "Large: The sculpture group on top of the gate is known as the Quadriga.\nREASON: The Quadriga is a famous sculpture in Berlin, Germany, and it is depicted on top of the Brandenburg Gate."
+      }
+    }
+  ],
+  "diagnostic_subset": "strength_core"
+}

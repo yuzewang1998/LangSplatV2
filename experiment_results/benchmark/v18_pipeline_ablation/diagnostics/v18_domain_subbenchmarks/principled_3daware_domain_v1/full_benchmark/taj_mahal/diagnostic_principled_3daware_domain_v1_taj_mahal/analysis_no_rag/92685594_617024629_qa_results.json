@@ -1,0 +1,151 @@
+{
+  "image_name": "92685594_617024629",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.3457027673721313,
+      "rendered_std": 0.4122042953968048
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.6016504764556885,
+      "rendered_std": 0.46601998805999756
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.6318180561065674,
+      "rendered_std": 0.5542622804641724
+    }
+  },
+  "questions": [
+    {
+      "question_index": 5,
+      "question": "Answer with a number only. How many distinct onion dome components are visible?",
+      "expected": "3",
+      "rgb_answer": "4",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "3",
+        "Medium": "3",
+        "Large": "3"
+      },
+      "rendered_answers": {
+        "Small": "2",
+        "Medium": "3",
+        "Large": "3"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "3",
+        "reason": "",
+        "raw_output": "Large: 3"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "3",
+        "reason": "",
+        "raw_output": "Small: 2"
+      }
+    },
+    {
+      "question_index": 6,
+      "question": "Answer with the option letter only. Which visible component is higher in the image? A. onion dome B. arch-shaped doorways",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Large: A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Large: A"
+      }
+    },
+    {
+      "question_index": 13,
+      "question": "Answer with a number only. How many separate onion dome instances are visible?",
+      "expected": "3",
+      "rgb_answer": "3",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "2",
+        "Medium": "3",
+        "Large": "3"
+      },
+      "rendered_answers": {
+        "Small": "2",
+        "Medium": "3",
+        "Large": "3"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "3",
+        "reason": "",
+        "raw_output": "Small: 2"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "3",
+        "reason": "",
+        "raw_output": "Small: 2"
+      }
+    },
+    {
+      "question_index": 15,
+      "question": "Answer with a number only. How many minarets are visible around the main mausoleum in this image?",
+      "expected": "0",
+      "rgb_answer": "4",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "3",
+        "Medium": "4",
+        "Large": "4"
+      },
+      "rendered_answers": {
+        "Small": "4",
+        "Medium": "4",
+        "Large": "4"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "4",
+        "reason": "",
+        "raw_output": "Large: 4"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "4",
+        "reason": "",
+        "raw_output": "Large: 4"
+      }
+    }
+  ],
+  "diagnostic_subset": "principled_3daware_domain_v1"
+}

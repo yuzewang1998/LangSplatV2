@@ -1,0 +1,37 @@
+{
+  "experiment_id": "v18_2donly_rep2d_none3d_m2tokcat_m3none_mmnone_odirect_T512_R0_C1",
+  "status": "completed",
+  "updated_at": "2026-06-24T22:06:05+0800",
+  "scene_count": 8,
+  "image_count": 74,
+  "question_count": 1061,
+  "objective_count": 764,
+  "judge_count": 297,
+  "judge_required_count": 297,
+  "objective_accuracy": 0.756544502617801,
+  "rgb_objective_accuracy": 0.7971204188481675,
+  "judgelm_score": 7.818181818181818,
+  "rgb_judgelm_score": 8.030303030303031,
+  "full_benchmark_complete": true,
+  "required_scope": {
+    "scenes": 8,
+    "vqa": "all",
+    "objective": true,
+    "judgelm": true
+  },
+  "fields": {
+    "pipe": "2donly",
+    "s2d": "rep2d",
+    "s3d": "none3d",
+    "ms2d": "m2tokcat",
+    "ms3d": "m3none",
+    "mm": "mmnone",
+    "out": "odirect",
+    "T": "T512",
+    "R": "R0",
+    "C": "C1"
+  },
+  "research_question": "2D feature 代表性采样是否更好？",
+  "unique_variable": "s2d = rep2d",
+  "fixed_conditions": "2donly; none3d; m2tokcat; m3none; mmnone; odirect; T512_R0_C1; full8 + all VQA + Objective + JudgeLM"
+}

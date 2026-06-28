@@ -1,0 +1,331 @@
+{
+  "image_name": "03801357_3078387778",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.2945655584335327,
+      "rendered_std": 0.5096533298492432
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.5652525424957275,
+      "rendered_std": 0.7223232388496399
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.5499515533447266,
+      "rendered_std": 0.9149924516677856
+    }
+  },
+  "questions": [
+    {
+      "question_index": 1,
+      "question": "What famous landmark or landmark scene is shown in this image?",
+      "expected": "The Trevi Fountain.",
+      "rgb_answer": "The image depicts the Trevi Fountain, a renowned Baroque-style fountain located in Rome, Italy. It is one of the most famous landmarks in the city and is known for its intricate sculptures and the tradition of throwing a coin into the water to ensure a return to Rome.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The image shows a famous landmark scene, likely the Trevi Fountain in Rome.",
+        "Medium": "The image shows a famous landmark scene, which is the Trevi Fountain in Rome.",
+        "Large": "The image shows the Trevi Fountain, which is a famous landmark located in Rome, Italy. It's one of the most iconic Baroque fountains in the world and is known for its grandeur and the tradition of throwing a coin into the water to ensure a return to Rome."
+      },
+      "rendered_answers": {
+        "Small": "The image shows a famous landmark scene with a fountain and statues.",
+        "Medium": "The image shows a famous landmark or landmark scene, but it is not specified what it is.",
+        "Large": "The image shows the Trevi Fountain, a famous landmark in Rome."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The image shows the Trevi Fountain, which is a famous landmark located in Rome, Italy. It's one of the most iconic Baroque fountains in the world and is known for its grandeur and the tradition of throwing a coin into the water to ensure a return to Rome.",
+        "reason": "The image depicts a fountain with classical sculptures and a cascading water feature, which is characteristic of the Trevi Fountain in Rome.",
+        "raw_output": "Large: The image shows the Trevi Fountain, which is a famous landmark located in Rome, Italy. It's one of the most iconic Baroque fountains in the world and is known for its grandeur and the tradition of throwing a coin into the water to ensure a return to Rome.\nREASON: The image depicts a fountain with classical sculptures and a cascading water feature, which is characteristic of the Trevi Fountain in Rome."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The image shows the Trevi Fountain, a famous landmark in Rome.",
+        "reason": "The image depicts the Trevi Fountain, which is a well-known and iconic landmark in Rome, Italy.",
+        "raw_output": "Large: The image shows the Trevi Fountain, a famous landmark in Rome.\nREASON: The image depicts the Trevi Fountain, which is a well-known and iconic landmark in Rome, Italy."
+      }
+    },
+    {
+      "question_index": 2,
+      "question": "Answer with yes or no only. Is the column visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      }
+    },
+    {
+      "question_index": 3,
+      "question": "Answer with yes or no only. Is the Oceanus visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      }
+    },
+    {
+      "question_index": 4,
+      "question": "Answer with yes or no only. Are the winged horses visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No.",
+        "Medium": "No",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Small: No."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      }
+    },
+    {
+      "question_index": 7,
+      "question": "Answer with the option letter only. Who is the central figure in the main sculptural group of the landmark in the image?\nA. Julius Caesar\nB. Apollo\nC. Neptune\nD. Oceanus",
+      "expected": "D",
+      "rgb_answer": "D",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "D",
+        "Medium": "D",
+        "Large": "D"
+      },
+      "rendered_answers": {
+        "Small": "B",
+        "Medium": "D",
+        "Large": "D"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "D",
+        "reason": "",
+        "raw_output": "D"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "D",
+        "reason": "",
+        "raw_output": "Large: D"
+      }
+    },
+    {
+      "question_index": 8,
+      "question": "What type of landmark scene is visible in this image?",
+      "expected": "A monumental fountain.",
+      "rgb_answer": "The image depicts a grand baroque-style fountain, which is a type of landmark scene often found in European cities, particularly in Rome. This specific fountain is the Fontana di Trevi, one of the most famous landmarks in Rome, Italy. It features a central figure of Oceanus, the god of the sea, surrounded by other figures and horses, all sculpted in white marble. The water cascades down from the top, creating a dynamic and visually striking scene.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The image shows a classical architectural scene with a fountain and statues.",
+        "Medium": "The image shows a grand architectural scene with a fountain and statues.",
+        "Large": "The image depicts a classical architectural scene, likely from a European city, featuring a grand fountain with sculptural elements. The style of the architecture and the presence of the fountain suggest it could be a significant historical or cultural landmark, possibly in Rome, Italy, given the resemblance to famous fountains like the Trevi Fountain."
+      },
+      "rendered_answers": {
+        "Small": "The image shows a classical architectural scene with statues and columns.",
+        "Medium": "The image shows a grand and ornate fountain with classical architecture.",
+        "Large": "The image shows a grand and ornate fountain with intricate sculptures."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The image depicts a classical architectural scene, likely from a European city, featuring a grand fountain with sculptural elements. The style of the architecture and the presence of the fountain suggest it could be a significant historical or cultural landmark, possibly in Rome, Italy, given the resemblance to famous fountains like the Trevi Fountain.",
+        "reason": "",
+        "raw_output": "Large: The image depicts a classical architectural scene, likely from a European city, featuring a grand fountain with sculptural elements. The style of the architecture and the presence of the fountain suggest it could be a significant historical or cultural landmark, possibly in Rome, Italy, given the resemblance to famous fountains like the Trevi Fountain."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The image shows a grand and ornate fountain with intricate sculptures.",
+        "reason": "The image features a large, elaborate fountain with multiple statues and detailed carvings, set against a backdrop of classical architecture.",
+        "raw_output": "Large: The image shows a grand and ornate fountain with intricate sculptures.\nREASON: The image features a large, elaborate fountain with multiple statues and detailed carvings, set against a backdrop of classical architecture."
+      }
+    },
+    {
+      "question_index": 9,
+      "question": "Answer with the option letter only. Which type of landmark is shown in the image?\nA. City fountain\nB. Cathedral façade\nC. Ancient gate\nD. Stone bridge",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 10,
+      "question": "Answer with yes or no only. Are sculpture combined in the visible landmark?",
+      "expected": "Yes",
+      "rgb_answer": "yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      }
+    },
+    {
+      "question_index": 11,
+      "question": "Answer with the option letter only. Which component is NOT visibly present in this image? A. column B. Oceanus C. papal coat of arms D. winged horses",
+      "expected": "C",
+      "rgb_answer": "C",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "C",
+        "Medium": "C",
+        "Large": "C"
+      },
+      "rendered_answers": {
+        "Small": "C",
+        "Medium": "C",
+        "Large": "C"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "C",
+        "reason": "",
+        "raw_output": "Small: C"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "C",
+        "reason": "",
+        "raw_output": "Small: C"
+      }
+    },
+    {
+      "question_index": 12,
+      "question": "Answer with yes or no only. Is the papal coat of arms clearly visible in this image?",
+      "expected": "No",
+      "rgb_answer": "No",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No.",
+        "Medium": "No.",
+        "Large": "No"
+      },
+      "rendered_answers": {
+        "Small": "No.",
+        "Medium": "No",
+        "Large": "No"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "",
+        "raw_output": "Small: No."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "The papal coat of arms is not visible in the image.",
+        "raw_output": "Small: No.\nREASON: The papal coat of arms is not visible in the image."
+      }
+    }
+  ],
+  "diagnostic_subset": "strength_trimmed"
+}

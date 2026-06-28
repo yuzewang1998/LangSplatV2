@@ -1,0 +1,91 @@
+{
+  "image_name": "98289871_216940927",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.210652470588684,
+      "rendered_std": 0.2607031762599945
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.377277135848999,
+      "rendered_std": 0.25236746668815613
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.392249345779419,
+      "rendered_std": 0.3520011007785797
+    }
+  },
+  "questions": [
+    {
+      "question_index": 2,
+      "question": "Answer with yes or no only. Is the triangular pediment visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes",
+        "Large": "No"
+      },
+      "rendered_answers": {
+        "Small": "No",
+        "Medium": "Yes",
+        "Large": "No"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "The triangular pediment is visible in the image.",
+        "raw_output": "Small: Yes.\nREASON: The triangular pediment is visible in the image."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "",
+        "raw_output": "Small: No"
+      }
+    },
+    {
+      "question_index": 9,
+      "question": "What does the Latin inscription above the columns of the landmark in the image mean?",
+      "expected": "It states that Marcus Agrippa, son of Lucius, built it when he was consul for the third time.",
+      "rgb_answer": "The Latin inscription above the columns of the Pantheon reads \"MAGRIPPA L.F. COS. III. FECIT,\" which translates to \"Magrippa, son of Lucius Furius, Consul for the third time, built this.\" This inscription indicates that the structure was built by a person named Magrippa, who was the son of Lucius Furius and held the title of Consul for the third time. The term \"L.F.\" likely stands for \"Lucius Furius,\" which is the name of the family to which the Consul belonged.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The Latin inscription above the columns reads 'MAGrippa CostVM', which is a dedication to the Roman general Marcus Aemilius Lepidus.",
+        "Medium": "The Latin inscription above the columns of the landmark in the image reads \"MAGRIPPA COSTERIVM FECIT,\" which translates to \"Magrippa built the costers.\"",
+        "Large": "The Latin inscription above the columns of the landmark in the image reads \"MAGRIFFAL COSTERIUM IVLIVS FECIT,\" which translates to \"Magrippa Costerius made this.\" This indicates that the structure was built or sponsored by a person named Magrippa Costerius, who could have been a wealthy individual or a public official."
+      },
+      "rendered_answers": {
+        "Small": "The Latin inscription above the columns of the landmark in the image reads \"COSTA IVM VMVM\", which is a fragment of a larger phrase.",
+        "Medium": "The Latin inscription above the columns of the landmark in the image reads \"MAGISTERIUM COSTA,\" which translates to \"House of Learning\" or \"School.\"",
+        "Large": "The Latin inscription above the columns reads 'MAGISTERIUM COSTALIVM TIVM,' which translates to 'Master of the Sea' or 'Lord of the Sea.'"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The Latin inscription above the columns of the landmark in the image reads \"MAGRIFFAL COSTERIUM IVLIVS FECIT,\" which translates to \"Magrippa Costerius made this.\" This indicates that the structure was built or sponsored by a person named Magrippa Costerius, who could have been a wealthy individual or a public official.",
+        "reason": "",
+        "raw_output": "Large: The Latin inscription above the columns of the landmark in the image reads \"MAGRIFFAL COSTERIUM IVLIVS FECIT,\" which translates to \"Magrippa Costerius made this.\" This indicates that the structure was built or sponsored by a person named Magrippa Costerius, who could have been a wealthy individual or a public official."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The Latin inscription above the columns reads 'MAGISTERIUM COSTALIVM TIVM,' which translates to 'Master of the Sea' or 'Lord of the Sea.'",
+        "reason": "The inscription is incomplete and does not form a coherent sentence, so it cannot be translated accurately.",
+        "raw_output": "Small: The Latin inscription above the columns of the landmark in the image reads \"COSTA IVM VMVM\", which is a fragment of a larger phrase.\nREASON: The inscription is incomplete and does not form a coherent sentence, so it cannot be translated accurately."
+      }
+    }
+  ],
+  "diagnostic_subset": "significant_ours_errors"
+}

@@ -1,0 +1,31 @@
+{
+  "phase2_root": "/mnt/data/wangyz/exp_results/historicalAgent/eval_results/v17_phase2_fusion",
+  "expected_scenes": [
+    "brandenburg_gate",
+    "buckingham_palace",
+    "notre_dame_front_facade",
+    "pantheon_exterior",
+    "sacre_coeur",
+    "taj_mahal",
+    "temple_nara_japan",
+    "trevi_fountain"
+  ],
+  "methods": [
+    "block",
+    "3d_first",
+    "2d_first",
+    "level_interleave",
+    "token_interleave"
+  ],
+  "complete_scene_method_pairs": 40,
+  "total_scene_method_pairs": 40,
+  "missing_or_incomplete": [],
+  "missing_scenes": [],
+  "runner_script_status": {
+    "tools/benchmark/run_v17_phase2_fusion.py": false,
+    "tools/benchmark/run_v17_hybrid_scan.py": false,
+    "tools/benchmark/run_v17_3d_benchmark.py": false,
+    "tools/benchmark/sample_3d_gaussians.py": false
+  },
+  "status": "phase2 full8 complete"
+}

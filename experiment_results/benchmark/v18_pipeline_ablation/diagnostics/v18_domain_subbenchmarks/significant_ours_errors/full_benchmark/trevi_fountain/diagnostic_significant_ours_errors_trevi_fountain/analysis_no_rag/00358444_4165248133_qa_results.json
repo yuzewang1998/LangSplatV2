@@ -1,0 +1,91 @@
+{
+  "image_name": "00358444_4165248133",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.3303841352462769,
+      "rendered_std": 0.4815731942653656
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.6600905656814575,
+      "rendered_std": 0.659831166267395
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.625367522239685,
+      "rendered_std": 0.8351105451583862
+    }
+  },
+  "questions": [
+    {
+      "question_index": 12,
+      "question": "Answer with the option letter only. Which column style do the visible columns or pilasters on the façade in the image most closely resemble?\nA. Doric\nB. Ionic\nC. Corinthian\nD. Gothic",
+      "expected": "C",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 14,
+      "question": "What visible component matches this description: the central mythological male figure?",
+      "expected": "Oceanus",
+      "rgb_answer": "The central mythological male figure is the one in the middle of the façade, standing on a pedestal and holding what appears to be a spear or staff. He is surrounded by other figures that seem to be interacting with him, suggesting a scene from classical mythology. This central figure is part of the sculptural group that adorns the base of the building's façade.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The central mythological male figure is a statue.",
+        "Medium": "The central mythological male figure is a statue.",
+        "Large": "tug of war"
+      },
+      "rendered_answers": {
+        "Small": "The central mythological male figure is a visible component that matches this description.",
+        "Medium": "The central mythological male figure is a statue.",
+        "Large": "The central mythological male figure is a statue."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "tug of war",
+        "reason": "",
+        "raw_output": "Large: tug of war"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The central mythological male figure is a statue.",
+        "reason": "The image shows a large statue of a male figure in the center, which matches the description.",
+        "raw_output": "Large: The central mythological male figure is a statue.\nREASON: The image shows a large statue of a male figure in the center, which matches the description."
+      }
+    }
+  ],
+  "diagnostic_subset": "significant_ours_errors"
+}

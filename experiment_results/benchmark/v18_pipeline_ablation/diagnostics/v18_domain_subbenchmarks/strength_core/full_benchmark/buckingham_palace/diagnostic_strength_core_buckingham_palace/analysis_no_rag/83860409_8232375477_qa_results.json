@@ -1,0 +1,361 @@
+{
+  "image_name": "83860409_8232375477",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.3087197542190552,
+      "rendered_std": 0.4086984395980835
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.598238229751587,
+      "rendered_std": 0.46645045280456543
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.6348516941070557,
+      "rendered_std": 0.5484954118728638
+    }
+  },
+  "questions": [
+    {
+      "question_index": 1,
+      "question": "What famous landmark or landmark scene is shown in this image?",
+      "expected": "Buckingham Palace.",
+      "rgb_answer": "The image shows the Victoria Memorial, which is a large bronze statue of an angel holding a flag, located in the Victoria Memorial Gardens in Buckingham Palace Road, Westminster, London. The memorial was designed by Thomas Thornycroft and was unveiled on 25 June 1926. It is situated in the Victoria Memorial Gardens, which are part of the grounds of the Royal Courts of Justice, known as the Inns of Court.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The image shows a famous landmark scene with a large building adorned with statues and a flag flying high.",
+        "Medium": "The image shows the Victoria Memorial at Buckingham Palace.",
+        "Large": "The image shows the Victoria Memorial, which is a famous landmark located in Buckingham Palace Gardens in London, England. It is a large bronze statue of a woman on a pedestal, and it is one of the most recognizable landmarks in the area."
+      },
+      "rendered_answers": {
+        "Small": "The image shows the iconic Big Ben clock tower in London, England.",
+        "Medium": "The image shows a famous landmark scene with a large, ornate building adorned with intricate sculptures and statues.",
+        "Large": "The image shows the Buckingham Palace, a famous landmark in London."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The image shows the Victoria Memorial, which is a famous landmark located in Buckingham Palace Gardens in London, England. It is a large bronze statue of a woman on a pedestal, and it is one of the most recognizable landmarks in the area.",
+        "reason": "The image clearly depicts the Victoria Memorial at Buckingham Palace, which is a well-known landmark in London, England.",
+        "raw_output": "Large: The image shows the Victoria Memorial, which is a famous landmark located in Buckingham Palace Gardens in London, England. It is a large bronze statue of a woman on a pedestal, and it is one of the most recognizable landmarks in the area.\nREASON: The image clearly depicts the Victoria Memorial at Buckingham Palace, which is a well-known landmark in London, England."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The image shows the Buckingham Palace, a famous landmark in London.",
+        "reason": "The image depicts the grand facade of Buckingham Palace, which is a well-known landmark in London.",
+        "raw_output": "Large: The image shows the Buckingham Palace, a famous landmark in London.\nREASON: The image depicts the grand facade of Buckingham Palace, which is a well-known landmark in London."
+      }
+    },
+    {
+      "question_index": 2,
+      "question": "Answer with the option letter only. Which of these architectural or landmark components is visibly present in this image? A. Queen Victoria Memorial B. fence C. Ionic column D. pediment",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Large: A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Large: A"
+      }
+    },
+    {
+      "question_index": 3,
+      "question": "Answer with yes or no only. Is the Queen Victoria Memorial visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes.",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes",
+        "Medium": "Yes.",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "The Queen Victoria Memorial is visible in the image.",
+        "raw_output": "Large: Yes.\nREASON: The Queen Victoria Memorial is visible in the image."
+      }
+    },
+    {
+      "question_index": 4,
+      "question": "Based on the landmark shown in the image, which city and country is it located in?",
+      "expected": "London, United Kingdom.",
+      "rgb_answer": "The landmark is located in London, United Kingdom. This can be inferred from the presence of the Union Jack flag atop the statue, which is the national flag of the UK, and the architectural style of the building in the background, which is characteristic of British architecture. The statue itself is known as the Victoria Memorial, situated in Buckingham Palace Gardens, which further confirms its location in London.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The landmark is located in London, United Kingdom.",
+        "Medium": "The landmark is located in London, United Kingdom.",
+        "Large": "The landmark is located in London, United Kingdom. This can be inferred from the presence of the Union Jack flag and the architectural style of the building, which is characteristic of British design. The statue also resembles the style of monuments found in London."
+      },
+      "rendered_answers": {
+        "Small": "The landmark is located in London, United Kingdom.",
+        "Medium": "The landmark is located in London, United Kingdom.",
+        "Large": "The landmark is located in London, United Kingdom."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The landmark is located in London, United Kingdom. This can be inferred from the presence of the Union Jack flag and the architectural style of the building, which is characteristic of British design. The statue also resembles the style of monuments found in London.",
+        "reason": "",
+        "raw_output": "Large: The landmark is located in London, United Kingdom. This can be inferred from the presence of the Union Jack flag and the architectural style of the building, which is characteristic of British design. The statue also resembles the style of monuments found in London."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The landmark is located in London, United Kingdom.",
+        "reason": "",
+        "raw_output": "Large: The landmark is located in London, United Kingdom."
+      }
+    },
+    {
+      "question_index": 5,
+      "question": "Answer with the option letter only. Which architectural style is the palace façade most closely associated with?\nA. Neoclassical architecture\nB. Gothic architecture\nC. Mughal architecture\nD. Japanese temple architecture",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 6,
+      "question": "Answer with the option letter only. Which type of site is shown? A. royal palace B. Gothic cathedral C. Mughal mausoleum D. Baroque fountain",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "D",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Large: A"
+      }
+    },
+    {
+      "question_index": 7,
+      "question": "Answer with yes or no only. Is the scene centered on a palace/memorial setting rather than a natural landscape?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes.",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes",
+        "Medium": "Yes.",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "",
+        "raw_output": "Large: Yes."
+      }
+    },
+    {
+      "question_index": 9,
+      "question": "Answer with one word only. What color is the statue at the top of the foreground monument?",
+      "expected": "Gold",
+      "rgb_answer": "Gold",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Gold.",
+        "Medium": "Gold.",
+        "Large": "Gold"
+      },
+      "rendered_answers": {
+        "Small": "Gold.",
+        "Medium": "Gold.",
+        "Large": "Gold."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Gold",
+        "reason": "",
+        "raw_output": "Large: Gold"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Gold.",
+        "reason": "",
+        "raw_output": "Large: Gold."
+      }
+    },
+    {
+      "question_index": 10,
+      "question": "What is the landmark's general function or cultural role?",
+      "expected": "It is the official London residence of the British monarch.",
+      "rgb_answer": "Based on the image, the landmark appears to be a monument or memorial, likely commemorating an important historical event or figure. The presence of the flag suggests it may also serve as a symbol of national pride or identity. Its grandeur and central location in what seems to be a significant square indicate that it is meant to be a focal point for public viewing and possibly a place for ceremonial events or gatherings.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The landmark is a grand building with classical architecture, possibly a government or historical site.",
+        "Medium": "The landmark is a grand building with classical architecture, possibly a government or historical site.",
+        "Large": "Based on the image, the landmark appears to be a monument or memorial, likely commemorating a significant historical event or figure. Its grandeur and prominent placement in front of a stately building suggest it serves as a symbol of national pride or remembrance. The presence of the flag indicates its connection to the nation's identity or heritage."
+      },
+      "rendered_answers": {
+        "Small": "The landmark is a monument, which suggests it has cultural or historical significance.",
+        "Medium": "The landmark is a significant cultural or historical site, possibly a government building or museum.",
+        "Large": "The landmark is a grand and stately building, possibly a government or historical site."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Based on the image, the landmark appears to be a monument or memorial, likely commemorating a significant historical event or figure. Its grandeur and prominent placement in front of a stately building suggest it serves as a symbol of national pride or remembrance. The presence of the flag indicates its connection to the nation's identity or heritage.",
+        "reason": "",
+        "raw_output": "Large: Based on the image, the landmark appears to be a monument or memorial, likely commemorating a significant historical event or figure. Its grandeur and prominent placement in front of a stately building suggest it serves as a symbol of national pride or remembrance. The presence of the flag indicates its connection to the nation's identity or heritage."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The landmark is a grand and stately building, possibly a government or historical site.",
+        "reason": "",
+        "raw_output": "Large: The landmark is a grand and stately building, possibly a government or historical site."
+      }
+    },
+    {
+      "question_index": 12,
+      "question": "Based on the landmark shown in the image, which city is it located in?",
+      "expected": "London.",
+      "rgb_answer": "The landmark in the image is the Victoria Memorial, which is located in Buckingham Palace Gardens in London, England.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The landmark is located in London.",
+        "Medium": "The landmark is located in London, as indicated by the presence of the Union Jack flag.",
+        "Large": "The landmark is located in London, as indicated by the presence of the Union Jack flag and the architectural style of the building which is characteristic of London's historic structures."
+      },
+      "rendered_answers": {
+        "Small": "The landmark is located in London.",
+        "Medium": "The landmark is located in London.",
+        "Large": "The landmark is located in London."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The landmark is located in London, as indicated by the presence of the Union Jack flag and the architectural style of the building which is characteristic of London's historic structures.",
+        "reason": "The presence of the Union Jack flag and the architectural style of the building suggest that the landmark is located in London.",
+        "raw_output": "Large: The landmark is located in London, as indicated by the presence of the Union Jack flag and the architectural style of the building which is characteristic of London's historic structures.\nREASON: The presence of the Union Jack flag and the architectural style of the building suggest that the landmark is located in London."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The landmark is located in London.",
+        "reason": "The image shows a large building with classical architecture and statues, which is indicative of a significant landmark in London.",
+        "raw_output": "BEST_SCALE: Large\nREASON: The image shows a large building with classical architecture and statues, which is indicative of a significant landmark in London."
+      }
+    },
+    {
+      "question_index": 13,
+      "question": "Answer with yes or no only. Does the image show a modern skyscraper as the main landmark?",
+      "expected": "No",
+      "rgb_answer": "No",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No.",
+        "Medium": "No",
+        "Large": "No"
+      },
+      "rendered_answers": {
+        "Small": "No",
+        "Medium": "No",
+        "Large": "No."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "",
+        "raw_output": "Small: No."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "No.",
+        "reason": "",
+        "raw_output": "Small: No"
+      }
+    }
+  ],
+  "diagnostic_subset": "strength_core"
+}

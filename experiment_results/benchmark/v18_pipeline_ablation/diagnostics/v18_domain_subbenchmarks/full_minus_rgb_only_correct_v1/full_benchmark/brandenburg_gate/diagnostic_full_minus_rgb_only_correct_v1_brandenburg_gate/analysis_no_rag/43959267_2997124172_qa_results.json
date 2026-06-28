@@ -1,0 +1,451 @@
+{
+  "image_name": "43959267_2997124172",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.0289137363433838,
+      "rendered_std": 0.36496031284332275
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.2542868852615356,
+      "rendered_std": 0.3318667411804199
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.1793694496154785,
+      "rendered_std": 0.3799850344657898
+    }
+  },
+  "questions": [
+    {
+      "question_index": 1,
+      "question": "What sculpture group is centered at the top of this image?",
+      "expected": "The Quadriga.",
+      "rgb_answer": "The sculpture group centered at the top of the image is the Quadriga, which is a chariot drawn by four horses abreast. It is a famous landmark located on the Brandenburg Gate in Berlin, Germany. The Quadriga is topped with a figure of Victoria, the Roman goddess of victory, and an eagle. This sculpture was originally placed on the gate in 1864 to commemorate the 25th anniversary of the German Empire's victory over Prussia.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The sculpture group centered at the top of this image appears to be a classical or neoclassical style sculpture, possibly depicting mythological figures or allegorical scenes. The figures are in a dynamic pose, suggesting movement and action. The style is reminiscent of ancient Greek or Roman art, which often featured gods, goddesses, and heroes in dramatic poses. However, without more context or a clearer view, it's difficult to provide a precise identification of the specific scene or figures depicted.",
+        "Medium": "The sculpture group centered at the top of this image is the Quadriga, which is a chariot drawn by four horses abreast. It is a famous landmark located on the Brandenburg Gate in Berlin, Germany.",
+        "Large": "The sculpture group centered at the top of this image is the Quadriga, which is a chariot drawn by four horses abreast. It is a neoclassical sculpture located on the Pariser Berg, in the center of Berlin, Germany. The Quadriga is mounted on the top of the Brandenburg Gate, one of the most famous landmarks in Berlin."
+      },
+      "rendered_answers": {
+        "Small": "The sculpture group centered at the top of this image is a horse and rider.",
+        "Medium": "The sculpture group centered at the top of this image is a group of horses and riders.",
+        "Large": "The sculpture group centered at the top of this image is a group of horses and riders."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The sculpture group centered at the top of this image is the Quadriga, which is a chariot drawn by four horses abreast. It is a neoclassical sculpture located on the Pariser Berg, in the center of Berlin, Germany. The Quadriga is mounted on the top of the Brandenburg Gate, one of the most famous landmarks in Berlin.",
+        "reason": "The Quadriga is a famous landmark located on the Brandenburg Gate in Berlin, Germany.",
+        "raw_output": "BEST_SCALE: Large\nREASON: The Quadriga is a famous landmark located on the Brandenburg Gate in Berlin, Germany."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The sculpture group centered at the top of this image is a group of horses and riders.",
+        "reason": "",
+        "raw_output": "Small: The sculpture group centered at the top of this image is a horse and rider."
+      }
+    },
+    {
+      "question_index": 4,
+      "question": "What emblem appears above the standing figure on the tall staff?",
+      "expected": "An eagle and the Iron Cross.",
+      "rgb_answer": "The emblem above the standing figure on the tall staff is a circle with a cross in the center, which is often associated with victory or triumph. This symbol is commonly known as a laurel wreath or a wreath of victory, and it has been used throughout history to signify honor and achievement. In the context of this statue, it likely represents a victorious leader or deity, possibly alluding to a historical or mythological figure celebrated for their accomplishments.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The emblem above the standing figure on the tall staff appears to be a shield with a cross and what seems to be a crown or a wreath at the top. The shield has a design that includes a cross, which could suggest a historical or heraldic significance, possibly related to a coat of arms or a symbol of authority or protection. The exact details of the shield's design are not entirely clear due to the angle and resolution of the image.",
+        "Medium": "The emblem above the standing figure on the tall staff is a wreath.",
+        "Large": "A wreath."
+      },
+      "rendered_answers": {
+        "Small": "A circular emblem appears above the standing figure on the tall staff.",
+        "Medium": "A bird emblem appears above the standing figure on the tall staff.",
+        "Large": "A circular emblem appears above the standing figure on the tall staff."
+      },
+      "gt_selected": {
+        "scale": "Small",
+        "answer": "The emblem above the standing figure on the tall staff appears to be a shield with a cross and what seems to be a crown or a wreath at the top. The shield has a design that includes a cross, which could suggest a historical or heraldic significance, possibly related to a coat of arms or a symbol of authority or protection. The exact details of the shield's design are not entirely clear due to the angle and resolution of the image.",
+        "reason": "The emblem above the standing figure on the tall staff appears to be a shield with a cross and what seems to suggest a historical or heraldic significance, possibly related to a coat of arms or a symbol of authority or protection.",
+        "raw_output": "BEST_SCALE: Small\nREASON: The emblem above the standing figure on the tall staff appears to be a shield with a cross and what seems to suggest a historical or heraldic significance, possibly related to a coat of arms or a symbol of authority or protection."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A circular emblem appears above the standing figure on the tall staff.",
+        "reason": "",
+        "raw_output": "Small: A circular emblem appears above the standing figure on the tall staff."
+      }
+    },
+    {
+      "question_index": 5,
+      "question": "What carved feature sits directly below the sculpture group?",
+      "expected": "A rectangular relief panel.",
+      "rgb_answer": "Below the sculpture group, there is a frieze with carved figures and scenes. The carvings depict human figures engaged in various activities, possibly representing historical or mythological events. The figures are arranged in a linear fashion along the length of the building's cornice, suggesting a narrative or a series of stories being told through the artwork.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The carved feature directly below the sculpture group is a frieze with a series of figures that appear to be engaged in various activities. The figures are stylized and lack detailed facial features, focusing more on the overall form and posture rather than individual expressions. The frieze is part of a larger architectural structure, possibly a building or monument, and it is designed to be viewed from a distance, suggesting it might be an important decorative element meant to convey a narrative or symbolic meaning.",
+        "Medium": "Below the sculpture group, there is a carved frieze with a series of figures and scenes. The carvings depict human figures in various poses, some of which appear to be engaged in battle or other dramatic activities. The style of the carvings suggests they may represent historical or mythological events, common in neoclassical architecture.",
+        "Large": "The carved feature that sits directly below the sculpture group is a frieze."
+      },
+      "rendered_answers": {
+        "Small": "A column with a capital sits directly below the sculpture group.",
+        "Medium": "A series of carved figures and motifs sit directly below the sculpture group.",
+        "Large": "A large, ornate relief sits directly below the sculpture group."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The carved feature that sits directly below the sculpture group is a frieze.",
+        "reason": "",
+        "raw_output": "Large: The carved feature that sits directly below the sculpture group is a frieze."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A large, ornate relief sits directly below the sculpture group.",
+        "reason": "The image shows a series of carved figures and motifs directly below the sculpture group, which is consistent with the description provided.",
+        "raw_output": "Medium: A series of carved figures and motifs sit directly below the sculpture group.\nREASON: The image shows a series of carved figures and motifs directly below the sculpture group, which is consistent with the description provided."
+      }
+    },
+    {
+      "question_index": 6,
+      "question": "Answer with yes or no only. Are the columns mostly cropped out so that the image emphasizes the roofline and sculpture?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes",
+        "Medium": "Yes.",
+        "Large": "Yes"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      }
+    },
+    {
+      "question_index": 7,
+      "question": "What color appearance does the sculpture have in this image?",
+      "expected": "A green patina.",
+      "rgb_answer": "green",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The sculpture in the image appears to have a greenish hue, which is characteristic of copper or bronze statues that have been exposed to the elements and have developed a patina over time. This patina is a chemical compound formed on the surface of the metal due to oxidation, which gives it a distinctive green color.",
+        "Medium": "The sculpture in this image appears to have a greenish patina, which is commonly associated with copper or bronze statues that have been exposed to the elements over time. This green coloration is often referred to as \"copper verdigris\" and can give the sculpture an aged and historical appearance.",
+        "Large": "The sculpture in this image appears to have a greenish patina, which is typical for bronze statues that have been exposed to the elements over time. This green coloration is caused by the oxidation of the copper in the bronze alloy, forming a layer of corrosion called verdigris."
+      },
+      "rendered_answers": {
+        "Small": "The sculpture has a greenish hue, possibly due to the lighting or the material's color.",
+        "Medium": "The sculpture has a greenish appearance, likely due to the patina on the bronze.",
+        "Large": "The sculpture has a greenish appearance, likely due to the patina on the bronze."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The sculpture in this image appears to have a greenish patina, which is typical for bronze statues that have been exposed to the elements over time. This green coloration is caused by the oxidation of the copper in the bronze alloy, forming a layer of corrosion called verdigris.",
+        "reason": "The description provided indicates that the sculpture has a greenish hue, which is characteristic of copper or bronze statues that have been exposed to the elements and have developed a patina over time. This patina is a chemical compound formed on the surface of the metal due to oxidation, which gives it a distinctive green color.",
+        "raw_output": "Large: The sculpture in this image appears to have a greenish patina, which is typical for bronze statues that have been exposed to the elements over time. This green coloration is caused by the oxidation of the copper in the bronze alloy, forming a layer of corrosion called verdigris.\nBEST_SCALE: Large\nREASON: The description provided indicates that the sculpture has a greenish hue, which is characteristic of copper or bronze statues that have been exposed to the elements and have developed a patina over time. This patina is a chemical compound formed on the surface of the metal due to oxidation, which gives it a distinctive green color."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The sculpture has a greenish appearance, likely due to the patina on the bronze.",
+        "reason": "The sculpture in the image appears to have a greenish tint, which could be due to the natural patina that forms on bronze over time.",
+        "raw_output": "Large: The sculpture has a greenish hue, possibly due to the lighting or the material's color.\nREASON: The sculpture in the image appears to have a greenish tint, which could be due to the natural patina that forms on bronze over time."
+      }
+    },
+    {
+      "question_index": 8,
+      "question": "What famous landmark is shown in this image?",
+      "expected": "The Brandenburg Gate.",
+      "rgb_answer": "The image shows the Brandenburg Gate (Brandenburger Tor) in Berlin, Germany. This neoclassical monument is one of the most famous landmarks in Berlin and a symbol of the city's history, particularly its role as the gateway to Berlin during the Cold War era. The sculpture on top of the gate, known as the Quadriga, represents the goddess Victoria, who is often associated with victory and peace.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The image shows the Brandenburg Gate, which is a neoclassical monument in Berlin, Germany. It's one of the most famous landmarks in the city and a symbol of Berlin's history, including its role as a symbol of the division between East and West during the Cold War.",
+        "Medium": "The image shows the Brandenburg Gate, which is a neoclassical monument in Berlin, Germany. It's one of the most famous landmarks in the city and a symbol of Berlin's history, including its role as a symbol of the division between East and West during the Cold War.",
+        "Large": "The image shows the Brandenburg Gate, a neoclassical monument in Berlin, Germany. It's one of the most famous landmarks in the city and is often associated with the fall of the Berlin Wall in 1989."
+      },
+      "rendered_answers": {
+        "Small": "The image shows the iconic Big Ben clock tower in London.",
+        "Medium": "The image shows the Brandenburg Gate, a famous landmark in Berlin.",
+        "Large": "The Brandenburg Gate is shown in this image."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The image shows the Brandenburg Gate, a neoclassical monument in Berlin, Germany. It's one of the most famous landmarks in the city and is often associated with the fall of the Berlin Wall in 1989.",
+        "reason": "",
+        "raw_output": "Small: The image shows the Brandenburg Gate, which is a neoclassical monument in Berlin, Germany. It's one of the most famous landmarks in the city and a symbol of Berlin's history, including its role as a symbol of the division between East and West during the Cold War."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The Brandenburg Gate is shown in this image.",
+        "reason": "The Brandenburg Gate is a famous landmark in Berlin, Germany, and the image shows its distinctive neoclassical architecture with sculptures and columns.",
+        "raw_output": "Large: The Brandenburg Gate is shown in this image.\nREASON: The Brandenburg Gate is a famous landmark in Berlin, Germany, and the image shows its distinctive neoclassical architecture with sculptures and columns."
+      }
+    },
+    {
+      "question_index": 9,
+      "question": "Based on the entablature and sculptural program, which architectural style is the monument associated with?",
+      "expected": "Neoclassical architecture.",
+      "rgb_answer": "The monument is associated with the neoclassical architectural style. This is indicated by the use of classical orders, such as the entablature with its frieze and cornice, and the Corinthian columns. The sculptural program, which includes allegorical figures and scenes of historical or mythological significance, is also characteristic of neoclassical monuments that often aim to convey ideals of virtue, peace, and progress.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Based on the entablature and sculptural program, the monument is associated with the neoclassical architectural style. This is indicated by the use of classical orders (columns and entablature), the frieze with allegorical figures, and the overall grandeur and symmetry typical of neoclassical architecture.",
+        "Medium": "The monument is associated with the neoclassical architectural style. This is indicated by the use of classical orders (columns and entablature), the grand scale, and the inclusion of allegorical sculptures, which are characteristic of neoclassical monuments that aim to evoke a sense of classical antiquity and virtue.",
+        "Large": "Based on the entablature and sculptural program, the monument is associated with the neoclassical architectural style. This is indicated by the use of classical orders (columns and entablature), the grand scale, and the inclusion of allegorical figures which were common in neoclassical art to represent virtues and historical events."
+      },
+      "rendered_answers": {
+        "Small": "The monument is associated with the neoclassical architectural style.",
+        "Medium": "The monument is associated with neoclassical architecture.",
+        "Large": "The monument is associated with neoclassical architecture."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Based on the entablature and sculptural program, the monument is associated with the neoclassical architectural style. This is indicated by the use of classical orders (columns and entablature), the grand scale, and the inclusion of allegorical figures which were common in neoclassical art to represent virtues and historical events.",
+        "reason": "",
+        "raw_output": "Large: Based on the entablature and sculptural program, the monument is associated with the neoclassical architectural style. This is indicated by the use of classical orders (columns and entablature), the grand scale, and the inclusion of allegorical figures which were common in neoclassical art to represent virtues and historical events."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The monument is associated with neoclassical architecture.",
+        "reason": "The entablature and sculptural program are indicative of neoclassical architecture.",
+        "raw_output": "Small: The monument is associated with the neoclassical architectural style.\nREASON: The entablature and sculptural program are indicative of neoclassical architecture."
+      }
+    },
+    {
+      "question_index": 10,
+      "question": "Based on the landmark shown in the image, which city and country is it located in?",
+      "expected": "Berlin, Germany.",
+      "rgb_answer": "The landmark in the image is the Brandenburg Gate, located in Berlin, Germany. This can be inferred from the distinctive neoclassical architecture and the presence of the Quadriga statue on top, which are iconic features of this particular monument.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The image alone does not provide enough information to determine the exact city and country where this landmark is located. However, given the style of the sculpture and the architectural elements, it could be inferred that the landmark might be in a European city, possibly France or Italy, where such classical architecture and sculptures are common. To identify the specific location, additional context or information would be needed.",
+        "Medium": "The landmark in the image is the Brandenburg Gate, which is located in Berlin, Germany.",
+        "Large": "The landmark in the image is the Brandenburg Gate, which is located in Berlin, Germany."
+      },
+      "rendered_answers": {
+        "Small": "The landmark is located in Paris, France.",
+        "Medium": "The landmark is located in Berlin, Germany.",
+        "Large": "The Brandenburg Gate is located in Berlin, Germany."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The landmark in the image is the Brandenburg Gate, which is located in Berlin, Germany.",
+        "reason": "The Brandenburg Gate is a famous landmark in Berlin, Germany, and is known for its neoclassical architecture and sculptures.",
+        "raw_output": "Large: The landmark in the image is the Brandenburg Gate, which is located in Berlin, Germany.\nREASON: The Brandenburg Gate is a famous landmark in Berlin, Germany, and is known for its neoclassical architecture and sculptures."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The Brandenburg Gate is located in Berlin, Germany.",
+        "reason": "The Brandenburg Gate is a famous landmark in Berlin, Germany.",
+        "raw_output": "Large: The Brandenburg Gate is located in Berlin, Germany.\nREASON: The Brandenburg Gate is a famous landmark in Berlin, Germany."
+      }
+    },
+    {
+      "question_index": 11,
+      "question": "What was the landmark in the image original main function?",
+      "expected": "The Brandenburg Gate originally served as a ceremonial city gate and entrance to Berlin.",
+      "rgb_answer": "Based on the image alone, it is not possible to determine the original main function of the landmark with certainty. However, given its neoclassical architecture and the presence of a quadriga (a chariot drawn by four horses abreast), which is often associated with victory and peace in classical mythology, it could be inferred that the building may have been used for a significant public or ceremonial purpose, possibly related to government, culture, or commemoration.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The image you've provided appears to be a close-up of a section of a building with classical architectural elements. It features sculptures and decorative friezes, which are common in buildings designed in the neoclassical or classical revival styles. These styles often incorporate elements inspired by ancient Greek and Roman architecture.\n\nWithout more context or a wider view of the building, it's difficult to determine the exact function of the landmark. However, based on the architectural style and the presence of sculptures, it could be a government building, a museum, a university, or another institution of cultural or historical significance. The sculptures and friezes often serve to convey themes of history, power, or knowledge, which are common in such settings.",
+        "Medium": "The Brandenburg Gate was originally a triumphal arch.",
+        "Large": "The Brandenburg Gate was originally a triumphal arch, intended to celebrate the victory of King Frederick William I of Prussia over the French in 1760. It was designed by architect Georg Wenzeslaus von Knobelsdorff and sculpted by Johann Gottfried Schadow. The gate was part of the city wall of Berlin and was meant to commemorate the Prussian victory and the military prowess of the king. Over time, it became a symbol of Berlin and Germany, and during the Cold War, it was a significant landmark on the \"Wall\" that divided East and West Berlin."
+      },
+      "rendered_answers": {
+        "Small": "The landmark in the image was a monument.",
+        "Medium": "The landmark in the image was a monument.",
+        "Large": "The landmark in the image was originally a triumphal arch."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The Brandenburg Gate was originally a triumphal arch, intended to celebrate the victory of King Frederick William I of Prussia over the French in 1760. It was designed by architect Georg Wenzeslaus von Knobelsdorff and sculpted by Johann Gottfried Schadow. The gate was part of the city wall of Berlin and was meant to commemorate the Prussian victory and the military prowess of the king. Over time, it became a symbol of Berlin and Germany, and during the Cold War, it was a significant landmark on the \"Wall\" that divided East and West Berlin.",
+        "reason": "The Brandenburg Gate was originally a triumphal arch, intended to celebrate the victory of King Frederick William I of Prussia over the French in 1760. It was designed by architect Georg Wenzeslaus von Knobelsdorff and sculpted by Johann Gottfried Schadow. The gate was part of the city wall of Berlin and was meant to commemorate the Prussian victory and the military prowess of the king. Over time, it became a symbol of Berlin and Germany, and during the Cold War, it was a significant landmark on the \"Wall\" that divided East and West Berlin.",
+        "raw_output": "BEST_SCALE: Large\nREASON: The Brandenburg Gate was originally a triumphal arch, intended to celebrate the victory of King Frederick William I of Prussia over the French in 1760. It was designed by architect Georg Wenzeslaus von Knobelsdorff and sculpted by Johann Gottfried Schadow. The gate was part of the city wall of Berlin and was meant to commemorate the Prussian victory and the military prowess of the king. Over time, it became a symbol of Berlin and Germany, and during the Cold War, it was a significant landmark on the \"Wall\" that divided East and West Berlin."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The landmark in the image was originally a triumphal arch.",
+        "reason": "The structure is a triumphal arch.",
+        "raw_output": "Large: The landmark in the image was originally a triumphal arch.\nREASON: The structure is a triumphal arch."
+      }
+    },
+    {
+      "question_index": 12,
+      "question": "What architectural feature dominates this image?",
+      "expected": "The Quadriga and the upper entablature dominate this image.",
+      "rgb_answer": "The statue atop the building dominates the image.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The architectural feature that dominates this image is a stone balustrade with intricate carvings.",
+        "Medium": "The architectural feature that dominates this image is the Brandenburg Gate, a neoclassical monument in Berlin, Germany.",
+        "Large": "The Brandenburg Gate"
+      },
+      "rendered_answers": {
+        "Small": "The architectural feature that dominates this image is a stone balustrade.",
+        "Medium": "The architectural feature that dominates this image is a grand stone structure.",
+        "Large": "The Brandenburg Gate dominates the image."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The Brandenburg Gate",
+        "reason": "",
+        "raw_output": "Large: The Brandenburg Gate"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The Brandenburg Gate dominates the image.",
+        "reason": "",
+        "raw_output": "Large: The Brandenburg Gate dominates the image."
+      }
+    },
+    {
+      "question_index": 13,
+      "question": "Which direction are the horses facing in the image?",
+      "expected": "Toward the front-right direction in the image.",
+      "rgb_answer": "The horses in the image are facing forward, with their heads turned slightly to the left. This is evident from the position of their ears and the direction of their manes, which flow towards the left side of the image.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The horses in the image are facing left.",
+        "Medium": "The horses are facing to the left.",
+        "Large": "The horses in the image are facing to the left."
+      },
+      "rendered_answers": {
+        "Small": "The horses are facing left.",
+        "Medium": "The horses are facing left.",
+        "Large": "The horses are facing left."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The horses in the image are facing to the left.",
+        "reason": "The horses in the image are depicted with their heads turned to the left, indicating that they are facing in that direction.",
+        "raw_output": "Small: The horses in the image are facing left.\nREASON: The horses in the image are depicted with their heads turned to the left, indicating that they are facing in that direction."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The horses are facing left.",
+        "reason": "",
+        "raw_output": "Small: The horses are facing left.\nMedium: The horses are facing left.\nLarge: The horses are facing left."
+      }
+    },
+    {
+      "question_index": 14,
+      "question": "Answer with the option letter only. Which top profile is more consistent with what is visible above the gate? A. A triangular pediment B. A flat entablature with no triangular pediment C. A round dome D. A pointed spire",
+      "expected": "B",
+      "rgb_answer": "B",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "rendered_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      }
+    },
+    {
+      "question_index": 15,
+      "question": "Answer with yes or no only. Is the sculpture group centered over the visible architectural section?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes",
+        "Medium": "Yes.",
+        "Large": "Yes"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      }
+    },
+    {
+      "question_index": 16,
+      "question": "What is the name of the sculpture group on top of the gate?",
+      "expected": "Quadriga.",
+      "rgb_answer": "The sculpture group on top of the gate is known as the Quadriga. It is a chariot drawn by four horses abreast, with a figure of Victoria, the Roman goddess of victory, at its center. The Quadriga is a famous landmark located on the Brandenburg Gate in Berlin, Germany.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Based on the image alone, it is not possible to determine the exact name of the sculpture group as there are no visible titles or inscriptions that provide this information. The style and subject matter suggest it could be a historical or mythological scene, but without more context or a clearer view of any identifying features, the specific name cannot be accurately provided.",
+        "Medium": "The sculpture group on top of the gate is known as the Quadriga.",
+        "Large": "The sculpture group on top of the gate is known as the Quadriga."
+      },
+      "rendered_answers": {
+        "Small": "The name of the sculpture group is \"Horseman\".",
+        "Medium": "The sculpture group on top of the gate is named 'Horsemen'.",
+        "Large": "The sculpture group on top of the gate is known as the Quadriga."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The sculpture group on top of the gate is known as the Quadriga.",
+        "reason": "The Quadriga is a famous sculpture group located on top of the Brandenburg Gate in Berlin, Germany. It consists of a chariot drawn by four horses abreast, with the goddess Victoria at its center.",
+        "raw_output": "BEST_SCALE: Large\nREASON: The Quadriga is a famous sculpture group located on top of the Brandenburg Gate in Berlin, Germany. It consists of a chariot drawn by four horses abreast, with the goddess Victoria at its center."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The sculpture group on top of the gate is known as the Quadriga.",
+        "reason": "The Quadriga is a famous sculpture in Berlin, Germany, and it is depicted on top of the Brandenburg Gate.",
+        "raw_output": "Large: The sculpture group on top of the gate is known as the Quadriga.\nREASON: The Quadriga is a famous sculpture in Berlin, Germany, and it is depicted on top of the Brandenburg Gate."
+      }
+    }
+  ],
+  "diagnostic_subset": "full_minus_rgb_only_correct_v1"
+}

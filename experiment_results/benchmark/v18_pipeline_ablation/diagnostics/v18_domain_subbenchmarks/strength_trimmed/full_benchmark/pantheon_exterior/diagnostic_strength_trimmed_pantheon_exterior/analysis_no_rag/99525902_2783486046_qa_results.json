@@ -1,0 +1,271 @@
+{
+  "image_name": "99525902_2783486046",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.2264404296875,
+      "rendered_std": 0.2745840847492218
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.4565404653549194,
+      "rendered_std": 0.28091901540756226
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.4075188636779785,
+      "rendered_std": 0.40168046951293945
+    }
+  },
+  "questions": [
+    {
+      "question_index": 1,
+      "question": "What famous landmark or landmark scene is shown in this image?",
+      "expected": "The Pantheon.",
+      "rgb_answer": "The image shows the Pantheon, a renowned landmark in Rome, Italy. It is an ancient Roman temple that has been converted into a church and is celebrated for its architectural grandeur and historical significance. The inscription \"MAGRIFFALPFCOSTERTIVIMPECC\" appears to be a modern addition or a form of graffiti, as it does not correspond with any known inscriptions on the Pantheon.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The image shows the Pantheon, a famous landmark in Rome.",
+        "Medium": "The image shows the Pantheon, a famous landmark in Rome, Italy.",
+        "Large": "The image shows the Pantheon, a famous landmark in Rome, Italy. It is an ancient Roman temple that has been converted into a church and is known for its impressive dome and classical architecture. The inscription \"MAGRIFFALDUS COSECTETUR\" is not part of the original structure and appears to be a modern addition or graffiti."
+      },
+      "rendered_answers": {
+        "Small": "The image shows a famous landmark scene with a series of tall, ornate columns.",
+        "Medium": "The image shows the Colosseum, a famous landmark in Rome, Italy.",
+        "Large": "The image shows the façade of a famous landmark, possibly the Pantheon in Rome."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The image shows the Pantheon, a famous landmark in Rome, Italy. It is an ancient Roman temple that has been converted into a church and is known for its impressive dome and classical architecture. The inscription \"MAGRIFFALDUS COSECTETUR\" is not part of the original structure and appears to be a modern addition or graffiti.",
+        "reason": "The image shows the Pantheon, a famous landmark in Rome, Italy. It is an ancient Roman temple that has been converted into a church and is known for its impressive dome and classical architecture. The inscription \"MAGRIFFALDUS COSECTETUR\" is not part of the original structure and appears to be a modern addition or graffiti.",
+        "raw_output": "Large: The image shows the Pantheon, a famous landmark in Rome, Italy. It is an ancient Roman temple that has been converted into a church and is known for its impressive dome and classical architecture. The inscription \"MAGRIFFALDUS COSECTETUR\" is not part of the original structure and appears to be a modern addition or graffiti.\nBEST_SCALE: Large\nREASON: The image shows the Pantheon, a famous landmark in Rome, Italy. It is an ancient Roman temple that has been converted into a church and is known for its impressive dome and classical architecture. The inscription \"MAGRIFFALDUS COSECTETUR\" is not part of the original structure and appears to be a modern addition or graffiti."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The image shows the façade of a famous landmark, possibly the Pantheon in Rome.",
+        "reason": "The image features a classical architectural style with columns and a pediment, which is characteristic of the Pantheon in Rome.",
+        "raw_output": "Large: The image shows the façade of a famous landmark, possibly the Pantheon in Rome.\nREASON: The image features a classical architectural style with columns and a pediment, which is characteristic of the Pantheon in Rome."
+      }
+    },
+    {
+      "question_index": 5,
+      "question": "Answer with yes or no only. Is the column visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      }
+    },
+    {
+      "question_index": 7,
+      "question": "Answer with the option letter only. What shape best describes the foreground monument in the image?\nA. Tall tapering obelisk\nB. Round dome\nC. Curved arch\nD. Flat pediment",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "D"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "D",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 8,
+      "question": "Answer with the option letter only. Which type of architecture is most evident? A. classical Roman portico B. Gothic cathedral facade C. Japanese temple roof D. Mughal mausoleum",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 9,
+      "question": "Answer with yes or no only. Does the facade include a classical portico form?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      }
+    },
+    {
+      "question_index": 10,
+      "question": "Answer with the option letter only. Which architectural feature forms the front entrance of the landmark?\nA. Portico with columns\nB. Onion dome\nC. Flying buttress\nD. Minaret",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 12,
+      "question": "Answer with the option letter only. Which type of landmark is shown in the image?\nA. Gothic cathedral\nB. Ancient Roman temple\nC. Baroque fountain\nD. Mughal mausoleum",
+      "expected": "B",
+      "rgb_answer": "B",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "rendered_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      }
+    },
+    {
+      "question_index": 13,
+      "question": "Answer with a number only. How many separate triangular pediment instances are visible?",
+      "expected": "1",
+      "rgb_answer": "1",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "2",
+        "Medium": "2",
+        "Large": "2"
+      },
+      "rendered_answers": {
+        "Small": "3",
+        "Medium": "3",
+        "Large": "2"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "2",
+        "reason": "",
+        "raw_output": "Small: 2"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "2",
+        "reason": "",
+        "raw_output": "Small: 3"
+      }
+    }
+  ],
+  "diagnostic_subset": "strength_trimmed"
+}

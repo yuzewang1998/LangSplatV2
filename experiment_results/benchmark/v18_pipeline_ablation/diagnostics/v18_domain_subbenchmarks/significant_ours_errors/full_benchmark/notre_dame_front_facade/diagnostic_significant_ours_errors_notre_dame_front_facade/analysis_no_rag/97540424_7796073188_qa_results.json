@@ -1,0 +1,121 @@
+{
+  "image_name": "97540424_7796073188",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.363277792930603,
+      "rendered_std": 0.4857886731624603
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.6340142488479614,
+      "rendered_std": 0.6948367953300476
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.3685426712036133,
+      "rendered_std": 0.7574713826179504
+    }
+  },
+  "questions": [
+    {
+      "question_index": 4,
+      "question": "Answer with yes or no only. Is the Last Judgment scene visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "No",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No.",
+        "Medium": "No",
+        "Large": "No"
+      },
+      "rendered_answers": {
+        "Small": "No.",
+        "Medium": "No.",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "The Last Judgment scene is not visible in this image.",
+        "raw_output": "Small: No.\nREASON: The Last Judgment scene is not visible in this image."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "",
+        "raw_output": "Small: No."
+      }
+    },
+    {
+      "question_index": 5,
+      "question": "Answer with a number only. How many distinct rose window components are visible?",
+      "expected": "1",
+      "rgb_answer": "12",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "12",
+        "Medium": "2",
+        "Large": "12"
+      },
+      "rendered_answers": {
+        "Small": "12",
+        "Medium": "12",
+        "Large": "12"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "12",
+        "reason": "",
+        "raw_output": "Small: 12"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "12",
+        "reason": "The image shows a rose window with multiple components, and there are twelve distinct parts visible.",
+        "raw_output": "Small: 12\nREASON: The image shows a rose window with multiple components, and there are twelve distinct parts visible."
+      }
+    },
+    {
+      "question_index": 11,
+      "question": "Answer with yes or no only. Is the tympanum clearly visible in this image?",
+      "expected": "No",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No.",
+        "Medium": "No",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "No.",
+        "Medium": "Yes.",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Small: No."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "The tympanum is clearly visible in this image.",
+        "raw_output": "Large: Yes.\nREASON: The tympanum is clearly visible in this image."
+      }
+    }
+  ],
+  "diagnostic_subset": "significant_ours_errors"
+}

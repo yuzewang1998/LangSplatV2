@@ -1,0 +1,391 @@
+{
+  "image_name": "99652714_3819900868",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.2989574670791626,
+      "rendered_std": 0.4571855664253235
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.6109834909439087,
+      "rendered_std": 0.7300382852554321
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.6380524635314941,
+      "rendered_std": 0.827509343624115
+    }
+  },
+  "questions": [
+    {
+      "question_index": 1,
+      "question": "What famous landmark or landmark scene is shown in this image?",
+      "expected": "Notre-Dame Cathedral's front facade.",
+      "rgb_answer": "The image shows the rose window of Notre-Dame Cathedral in Paris, France. This iconic stained glass window is one of the most recognizable features of the cathedral and is a prime example of Gothic architecture.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The image shows a close-up of the facade of Notre-Dame Cathedral in Paris, France.",
+        "Medium": "The image shows a famous landmark, likely the Notre-Dame Cathedral in Paris.",
+        "Large": "The image shows the rose window of Notre-Dame Cathedral in Paris, France. This iconic stained glass window is one of the most recognizable features of the cathedral and is a prime example of Gothic architecture."
+      },
+      "rendered_answers": {
+        "Small": "The image shows a famous landmark, possibly Notre-Dame Cathedral in Paris.",
+        "Medium": "The image shows a famous landmark, possibly Notre-Dame Cathedral in Paris.",
+        "Large": "The image shows a famous landmark, possibly Notre-Dame Cathedral in Paris."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The image shows the rose window of Notre-Dame Cathedral in Paris, France. This iconic stained glass window is one of the most recognizable features of the cathedral and is a prime example of Gothic architecture.",
+        "reason": "The image clearly depicts the rose window of Notre-Dame Cathedral, which is a well-known landmark and a symbol of Gothic architecture.",
+        "raw_output": "Large: The image shows the rose window of Notre-Dame Cathedral in Paris, France. This iconic stained glass window is one of the most recognizable features of the cathedral and is a prime example of Gothic architecture.\nREASON: The image clearly depicts the rose window of Notre-Dame Cathedral, which is a well-known landmark and a symbol of Gothic architecture."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The image shows a famous landmark, possibly Notre-Dame Cathedral in Paris.",
+        "reason": "The architectural style and the rose window are characteristic of Notre-Dame Cathedral.",
+        "raw_output": "Small: The image shows a famous landmark, possibly Notre-Dame Cathedral in Paris.\nREASON: The architectural style and the rose window are characteristic of Notre-Dame Cathedral."
+      }
+    },
+    {
+      "question_index": 2,
+      "question": "Answer with the option letter only. Which of these architectural or landmark components is visibly present in this image? A. rose window B. tympanum C. door D. Last Judgment scene",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Small: A"
+      }
+    },
+    {
+      "question_index": 3,
+      "question": "Answer with yes or no only. Is the rose window visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No",
+        "Medium": "Yes.",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "The rose window is visible in the image.",
+        "raw_output": "Medium: Yes.\nREASON: The rose window is visible in the image."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      }
+    },
+    {
+      "question_index": 4,
+      "question": "Answer with a number only. How many distinct rose window components are visible?",
+      "expected": "1",
+      "rgb_answer": "12",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "12",
+        "Medium": "12",
+        "Large": "12"
+      },
+      "rendered_answers": {
+        "Small": "12",
+        "Medium": "12",
+        "Large": "12"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "12",
+        "reason": "",
+        "raw_output": "Small: 12"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "12",
+        "reason": "The image shows a rose window with multiple distinct components, each forming part of the overall design.",
+        "raw_output": "Small: 12\nREASON: The image shows a rose window with multiple distinct components, each forming part of the overall design."
+      }
+    },
+    {
+      "question_index": 5,
+      "question": "Based on the landmark shown in the image, which city and country is it located in?",
+      "expected": "Paris, France.",
+      "rgb_answer": "The landmark in the image is the Rose Window of Notre-Dame Cathedral, which is located in Paris, France. This identification is based on the distinctive Gothic architecture and the specific design of the rose window, which are characteristic of this cathedral.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The landmark is located in Paris, France.",
+        "Medium": "The landmark is located in Paris, France.",
+        "Large": "The landmark is located in Paris, France. This can be inferred from the Gothic architectural style, which is characteristic of French architecture, and the presence of the statue of Joan of Arc, a figure historically associated with France."
+      },
+      "rendered_answers": {
+        "Small": "The landmark is located in Paris, France.",
+        "Medium": "The landmark is located in Paris, France.",
+        "Large": "The landmark is located in Paris, France."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The landmark is located in Paris, France. This can be inferred from the Gothic architectural style, which is characteristic of French architecture, and the presence of the statue of Joan of Arc, a figure historically associated with France.",
+        "reason": "",
+        "raw_output": "Large: The landmark is located in Paris, France. This can be inferred from the Gothic architectural style, which is characteristic of French architecture, and the presence of the statue of Joan of Arc, a figure historically associated with France."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The landmark is located in Paris, France.",
+        "reason": "The image shows a large, ornate window with statues above it, which is characteristic of Gothic architecture. This style is commonly found in Paris, France, and the presence of the Eiffel Tower in the background confirms that this landmark is indeed located in Paris, France.",
+        "raw_output": "BEST_SCALE: Large\nREASON: The image shows a large, ornate window with statues above it, which is characteristic of Gothic architecture. This style is commonly found in Paris, France, and the presence of the Eiffel Tower in the background confirms that this landmark is indeed located in Paris, France."
+      }
+    },
+    {
+      "question_index": 6,
+      "question": "What type of landmark scene is visible in this image?",
+      "expected": "a Gothic cathedral front facade",
+      "rgb_answer": "The image depicts a Gothic-style cathedral with a large rose window and statues above it. This is an example of religious architecture, specifically a Christian cathedral, which is a significant landmark in many European cities.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The image shows a close-up of an ornate architectural detail, likely from a historical building.",
+        "Medium": "The image shows a scene of a Gothic cathedral with intricate architectural details.",
+        "Large": "The image depicts a Gothic-style cathedral with a rose window, which is a common architectural feature in Christian churches. The presence of statues and the intricate design suggest it could be a significant historical and religious site."
+      },
+      "rendered_answers": {
+        "Small": "The image shows a detailed view of an ornate window with intricate stone carvings and statues, suggesting a historical or religious landmark.",
+        "Medium": "The image shows a detailed view of an ornate Gothic-style window, likely part of a cathedral or church.",
+        "Large": "The image shows a detailed view of an ornate Gothic-style window, likely part of a cathedral or church."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The image depicts a Gothic-style cathedral with a rose window, which is a common architectural feature in Christian churches. The presence of statues and the intricate design suggest it could be a significant historical and religious site.",
+        "reason": "The image shows a close-up of an ornate architectural detail, likely from a historical building.",
+        "raw_output": "Large: The image depicts a Gothic-style cathedral with a rose window, which is a common architectural feature in Christian churches. The presence of statues and the intricate design suggest it could be a significant historical and religious site.\nREASON: The image shows a close-up of an ornate architectural detail, likely from a historical building."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The image shows a detailed view of an ornate Gothic-style window, likely part of a cathedral or church.",
+        "reason": "",
+        "raw_output": "Small: The image shows a detailed view of an ornate window with intricate stone carvings and statues, suggesting a historical or religious landmark."
+      }
+    },
+    {
+      "question_index": 7,
+      "question": "Answer with the option letter only. Which component is located below the rose window on the façade?\nA. Main entrance portals\nB. Central dome\nC. Tall minaret\nD. Fountain basin",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 8,
+      "question": "Answer with yes or no only. Is the tympanum clearly visible in this image?",
+      "expected": "No",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No",
+        "Medium": "Yes.",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes.",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "The image is zoomed in enough to see the details of the tympanum.",
+        "raw_output": "Medium: Yes.\nREASON: The image is zoomed in enough to see the details of the tympanum."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "",
+        "raw_output": "Large: Yes."
+      }
+    },
+    {
+      "question_index": 9,
+      "question": "What broad architectural or artistic style/tradition is suggested by the visible landmark elements?",
+      "expected": "Gothic architecture",
+      "rgb_answer": "The architectural style suggested by the visible elements is Gothic. This is indicated by the presence of the rose window, which is a hallmark of Gothic architecture, and the intricate stone carvings that are characteristic of the period's attention to detail and ornamental artistry. The statues above the window also reflect the religious and narrative themes commonly explored in Gothic art.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The visible landmark elements suggest a Gothic architectural or artistic style.",
+        "Medium": "The visible landmark elements suggest a Gothic architectural or artistic style.",
+        "Large": "The visible elements suggest a Gothic architectural style, characterized by the pointed arches, ribbed vaults, and flying buttresses. The intricate stone carvings and statues are typical of the detailed ornamentation found in Gothic cathedrals, which often served both aesthetic and religious purposes."
+      },
+      "rendered_answers": {
+        "Small": "The visible landmark elements suggest a Gothic architectural or artistic style/tradition.",
+        "Medium": "The visible landmark elements suggest a Gothic architectural or artistic style/tradition.",
+        "Large": "The visible landmark elements suggest a Gothic architectural or artistic style/tradition."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The visible elements suggest a Gothic architectural style, characterized by the pointed arches, ribbed vaults, and flying buttresses. The intricate stone carvings and statues are typical of the detailed ornamentation found in Gothic cathedrals, which often served both aesthetic and religious purposes.",
+        "reason": "",
+        "raw_output": "Large: The visible elements suggest a Gothic architectural style, characterized by the pointed arches, ribbed vaults, and flying buttresses. The intricate stone carvings and statues are typical of the detailed ornamentation found in Gothic cathedrals, which often served both aesthetic and religious purposes."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The visible landmark elements suggest a Gothic architectural or artistic style/tradition.",
+        "reason": "The image shows a large, ornate window with intricate stone carvings and statues, which are characteristic of Gothic architecture.",
+        "raw_output": "Small: The visible landmark elements suggest a Gothic architectural or artistic style/tradition.\nREASON: The image shows a large, ornate window with intricate stone carvings and statues, which are characteristic of Gothic architecture."
+      }
+    },
+    {
+      "question_index": 10,
+      "question": "Which city is the landmark shown in the image a major landmark of?",
+      "expected": "Paris.",
+      "rgb_answer": "Paris",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The landmark shown in the image is a major landmark of Paris.",
+        "Medium": "The landmark is a major landmark of Paris.",
+        "Large": "Paris"
+      },
+      "rendered_answers": {
+        "Small": "The landmark shown in the image is a major landmark of Paris.",
+        "Medium": "The landmark shown in the image is a major landmark of Paris.",
+        "Large": "The landmark shown in the image is a major landmark of Paris."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Paris",
+        "reason": "The image shows a famous cathedral with a large rose window, which is a characteristic feature of Notre-Dame Cathedral in Paris.",
+        "raw_output": "Small: The landmark shown in the image is a major landmark of Paris.\nREASON: The image shows a famous cathedral with a large rose window, which is a characteristic feature of Notre-Dame Cathedral in Paris."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The landmark shown in the image is a major landmark of Paris.",
+        "reason": "",
+        "raw_output": "Large: The landmark shown in the image is a major landmark of Paris."
+      }
+    },
+    {
+      "question_index": 11,
+      "question": "What kind of building is the landmark shown in the image?",
+      "expected": "A cathedral.",
+      "rgb_answer": "The landmark shown in the image is a cathedral.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The landmark shown in the image is a cathedral.",
+        "Medium": "The landmark is a cathedral.",
+        "Large": "The image shows a Gothic cathedral."
+      },
+      "rendered_answers": {
+        "Small": "The landmark is a cathedral.",
+        "Medium": "The landmark shown in the image is a cathedral.",
+        "Large": "The landmark shown in the image is a cathedral."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The image shows a Gothic cathedral.",
+        "reason": "The architectural style and the presence of statues suggest that it is a cathedral.",
+        "raw_output": "Large: The image shows a Gothic cathedral.\nREASON: The architectural style and the presence of statues suggest that it is a cathedral."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The landmark shown in the image is a cathedral.",
+        "reason": "The image shows a large, ornate window with statues above it, which is characteristic of a cathedral.",
+        "raw_output": "Small: The landmark is a cathedral.\nREASON: The image shows a large, ornate window with statues above it, which is characteristic of a cathedral."
+      }
+    },
+    {
+      "question_index": 12,
+      "question": "Answer with yes or no only. Is a large fountain basin the main subject of this image?",
+      "expected": "No",
+      "rgb_answer": "No",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No",
+        "Medium": "No.",
+        "Large": "No"
+      },
+      "rendered_answers": {
+        "Small": "No",
+        "Medium": "No",
+        "Large": "No"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "",
+        "raw_output": "Small: No"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "",
+        "raw_output": "Small: No"
+      }
+    }
+  ],
+  "diagnostic_subset": "full_minus_rgb_only_correct_v1"
+}

@@ -1,0 +1,121 @@
+{
+  "image_name": "96866778_4045929561",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.4107214212417603,
+      "rendered_std": 0.48618626594543457
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.6167916059494019,
+      "rendered_std": 0.6963784098625183
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.4905765056610107,
+      "rendered_std": 0.762484610080719
+    }
+  },
+  "questions": [
+    {
+      "question_index": 2,
+      "question": "Answer with the option letter only. Which of these architectural or landmark components is visibly present in this image? A. rose window B. tympanum C. door D. onion dome",
+      "expected": "A",
+      "rgb_answer": "B",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "B"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "Medium: B"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "Large: B"
+      }
+    },
+    {
+      "question_index": 5,
+      "question": "Answer with a number only. How many distinct rose window components are visible?",
+      "expected": "1",
+      "rgb_answer": "12",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "12",
+        "Medium": "12",
+        "Large": "12"
+      },
+      "rendered_answers": {
+        "Small": "12",
+        "Medium": "12",
+        "Large": "12"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "12",
+        "reason": "",
+        "raw_output": "Small: 12"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "12",
+        "reason": "The image shows a rose window with multiple distinct components, each representing a segment of the circular design.",
+        "raw_output": "Small: 12\nREASON: The image shows a rose window with multiple distinct components, each representing a segment of the circular design."
+      }
+    },
+    {
+      "question_index": 6,
+      "question": "Answer with the option letter only. Which visible component is higher in the image? A. rose window B. Last Judgment scene",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "B"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Large: B"
+      }
+    }
+  ],
+  "diagnostic_subset": "principled_3daware_domain_v1"
+}

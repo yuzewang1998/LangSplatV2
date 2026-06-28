@@ -1,0 +1,181 @@
+{
+  "image_name": "08749671_4698877746",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.25229012966156,
+      "rendered_std": 0.4565512239933014
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.4902757406234741,
+      "rendered_std": 0.5127950310707092
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.5289653539657593,
+      "rendered_std": 0.5543466210365295
+    }
+  },
+  "questions": [
+    {
+      "question_index": 3,
+      "question": "Answer with yes or no only. Is the bronze sculpture visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "No",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Small: No"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Medium: Yes"
+      }
+    },
+    {
+      "question_index": 4,
+      "question": "Answer with yes or no only. Is the Joan of Arc statue visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes.",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "No",
+        "Medium": "Yes.",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "",
+        "raw_output": "Small: No"
+      }
+    },
+    {
+      "question_index": 5,
+      "question": "Answer with yes or no only. Is the Saint Louis statue visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes",
+        "Medium": "Yes.",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "",
+        "raw_output": "Large: Yes."
+      }
+    },
+    {
+      "question_index": 9,
+      "question": "Answer with yes or no only. Are facade sculptures important visible elements in this scene?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "No",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      }
+    },
+    {
+      "question_index": 10,
+      "question": "Answer with yes or no only. Is the rose window clearly visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No",
+        "Medium": "Yes.",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "No",
+        "Medium": "No.",
+        "Large": "No."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Small: No"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "No.",
+        "reason": "The rose window is not clearly visible in this image.",
+        "raw_output": "Small: No\nREASON: The rose window is not clearly visible in this image."
+      }
+    }
+  ],
+  "diagnostic_subset": "principled_3daware_domain_v1"
+}

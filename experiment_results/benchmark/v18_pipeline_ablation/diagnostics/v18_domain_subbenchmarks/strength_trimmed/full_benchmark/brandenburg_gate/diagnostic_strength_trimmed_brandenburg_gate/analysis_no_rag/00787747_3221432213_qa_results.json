@@ -1,0 +1,541 @@
+{
+  "image_name": "00787747_3221432213",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.2228209972381592,
+      "rendered_std": 0.4026050567626953
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.490022897720337,
+      "rendered_std": 0.3827134370803833
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.5619200468063354,
+      "rendered_std": 0.44712403416633606
+    }
+  },
+  "questions": [
+    {
+      "question_index": 1,
+      "question": "What famous landmark is shown in this image?",
+      "expected": "The Brandenburg Gate.",
+      "rgb_answer": "The image shows the Brandenburg Gate, a neoclassical monument in Berlin, Germany. It is one of the most famous landmarks in the city and is often associated with the fall of the Berlin Wall in 1989.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The image shows the Brandenburg Gate, which is a neoclassical monument in Berlin, Germany. It's one of the most famous landmarks in the city and a symbol of Berlin's history, including its role as a symbol of the division between East and West during the Cold War.",
+        "Medium": "The Brandenburg Gate",
+        "Large": "The image shows the Brandenburg Gate (Brandenburger Tor), which is a neoclassical monument in Berlin, Germany. It's one of the most famous landmarks in the city and a symbol of Berlin's history, including its role as a symbol of the division and reunification of Germany."
+      },
+      "rendered_answers": {
+        "Small": "The image shows the Parthenon, a famous ancient Greek temple.",
+        "Medium": "The Brandenburg Gate is shown in this image.",
+        "Large": "The Brandenburg Gate is the famous landmark shown in this image."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The image shows the Brandenburg Gate (Brandenburger Tor), which is a neoclassical monument in Berlin, Germany. It's one of the most famous landmarks in the city and a symbol of Berlin's history, including its role as a symbol of the division and reunification of Germany.",
+        "reason": "The Brandenburg Gate is a well-known landmark in Berlin, Germany, and the image shows the distinctive neoclassical architecture and sculptures that are characteristic of this monument.",
+        "raw_output": "Large: The image shows the Brandenburg Gate (Brandenburger Tor), which is a neoclassical monument in Berlin, Germany. It's one of the most famous landmarks in the city and a symbol of Berlin's history, including its role as a symbol of the division and reunification of Germany.\nREASON: The Brandenburg Gate is a well-known landmark in Berlin, Germany, and the image shows the distinctive neoclassical architecture and sculptures that are characteristic of this monument."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The Brandenburg Gate is the famous landmark shown in this image.",
+        "reason": "The Brandenburg Gate is a neoclassical monument in Berlin, Germany, and is one of the most recognizable landmarks in the city.",
+        "raw_output": "Large: The Brandenburg Gate is the famous landmark shown in this image.\nREASON: The Brandenburg Gate is a neoclassical monument in Berlin, Germany, and is one of the most recognizable landmarks in the city."
+      }
+    },
+    {
+      "question_index": 2,
+      "question": "Answer with a number only. How many full fluted columns are clearly visible in this oblique view?",
+      "expected": "6",
+      "rgb_answer": "4",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "2",
+        "Medium": "4",
+        "Large": "4"
+      },
+      "rendered_answers": {
+        "Small": "2",
+        "Medium": "3",
+        "Large": "3"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "4",
+        "reason": "",
+        "raw_output": "Small: 2"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "3",
+        "reason": "",
+        "raw_output": "Small: 2"
+      }
+    },
+    {
+      "question_index": 4,
+      "question": "Answer with yes or no only. Is the gate shown from an oblique angle rather than straight on?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes.",
+        "Large": "No."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Small: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "No.",
+        "reason": "The image is taken at an angle that shows the gate's side profile, not directly facing it.",
+        "raw_output": "Small: Yes.\nREASON: The image is taken at an angle that shows the gate's side profile, not directly facing it."
+      }
+    },
+    {
+      "question_index": 5,
+      "question": "What is the horizontal architectural element resting above the columns of the landmark in the image, and what main components does it contain?",
+      "expected": "It is the entablature, containing the architrave, frieze, and cornice.",
+      "rgb_answer": "The horizontal architectural element is a frieze, which is a continuous sculptural relief in stone or plaster that runs along the top of a wall or column. In this case, it contains a series of round medallions with relief sculptures and a central rectangular panel with a relief sculpture depicting figures that could represent allegorical or historical scenes.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The horizontal architectural element is a cornice, which typically contains friezes and sculptures. In this case, it includes a frieze with sculptural reliefs depicting human figures in various poses, possibly representing historical or mythological scenes. The main components of the cornice are these sculptural reliefs, which are set into the frieze and are supported by the columns beneath them.",
+        "Medium": "The horizontal architectural element is the frieze, which contains sculptural reliefs. These reliefs depict various figures and scenes that are likely symbolic or historical in nature, common in neoclassical architecture to convey moral or historical narratives.",
+        "Large": "The horizontal architectural element is the frieze, which contains sculptural reliefs. These reliefs depict various figures and scenes that are likely symbolic or historical in nature, common in neoclassical architecture to convey moral or historical narratives."
+      },
+      "rendered_answers": {
+        "Small": "The horizontal architectural element is a cornice, which contains sculptural elements and decorative motifs.",
+        "Medium": "The horizontal architectural element is a frieze, which contains sculptural reliefs of horses and riders.",
+        "Large": "The horizontal architectural element is a frieze, which contains sculptural reliefs and decorative elements."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The horizontal architectural element is the frieze, which contains sculptural reliefs. These reliefs depict various figures and scenes that are likely symbolic or historical in nature, common in neoclassical architecture to convey moral or historical narratives.",
+        "reason": "",
+        "raw_output": "Large: The horizontal architectural element is the frieze, which contains sculptural reliefs. These reliefs depict various figures and scenes that are likely symbolic or historical in nature, common in neoclassical architecture to convey moral or historical narratives."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The horizontal architectural element is a frieze, which contains sculptural reliefs and decorative elements.",
+        "reason": "The image shows a classical architectural structure with a frieze above the columns. The frieze features sculptural reliefs of horses and riders, which are common in classical architecture to depict historical or mythological scenes.",
+        "raw_output": "Large: The horizontal architectural element is a frieze, which contains sculptural reliefs of horses and riders.\nREASON: The image shows a classical architectural structure with a frieze above the columns. The frieze features sculptural reliefs of horses and riders, which are common in classical architecture to depict historical or mythological scenes."
+      }
+    },
+    {
+      "question_index": 6,
+      "question": "Answer with the option letter only. Which top profile matches the monument in this image? A. A triangular pediment B. A flat entablature with no triangular pediment C. A dome D. A spire",
+      "expected": "B",
+      "rgb_answer": "B",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "rendered_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      }
+    },
+    {
+      "question_index": 7,
+      "question": "What is the name of the sculpture group on top of the gate?",
+      "expected": "Quadriga.",
+      "rgb_answer": "The sculpture group on top of the gate is known as the Quadriga. It is a chariot drawn by four horses abreast, driven by Victoria, the personification of victory. The Quadriga is a symbol of peace and victory and is one of the most famous landmarks in Berlin.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Based on the image alone, it is not possible to determine the exact name of the sculpture group as there are no visible titles or inscriptions. However, the style and subject matter suggest that it could be a representation of historical or mythological figures, possibly related to the building's purpose or the era in which it was constructed.",
+        "Medium": "The sculpture group on top of the gate is known as the Quadriga.",
+        "Large": "The sculpture group on top of the gate is known as the Quadriga."
+      },
+      "rendered_answers": {
+        "Small": "The sculpture group on top of the gate is named \"Horsemen\".",
+        "Medium": "The sculpture group on top of the gate is known as the Quadriga.",
+        "Large": "The sculpture group on top of the gate is known as the Quadriga."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The sculpture group on top of the gate is known as the Quadriga.",
+        "reason": "The Quadriga is a famous sculpture group located on top of the Brandenburg Gate in Berlin, Germany. It consists of a chariot drawn by four horses and driven by the goddess Victoria, symbolizing the victory of the Prussian army over Napoleon's French Empire in 1806.",
+        "raw_output": "Best Scale: Large\nReason: The Quadriga is a famous sculpture group located on top of the Brandenburg Gate in Berlin, Germany. It consists of a chariot drawn by four horses and driven by the goddess Victoria, symbolizing the victory of the Prussian army over Napoleon's French Empire in 1806."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The sculpture group on top of the gate is known as the Quadriga.",
+        "reason": "The Quadriga is a famous sculpture located at the Brandenburg Gate in Berlin, Germany.",
+        "raw_output": "Large: The sculpture group on top of the gate is known as the Quadriga.\nREASON: The Quadriga is a famous sculpture located at the Brandenburg Gate in Berlin, Germany."
+      }
+    },
+    {
+      "question_index": 8,
+      "question": "It depicts the classical motif of a quadriga: a four-horse chariot associated with victory and triumph, here driven by Victoria, the goddess of victory.",
+      "expected": "A four-horse chariot driven by a standing figure.",
+      "rgb_answer": "The image captures the Brandenburg Gate, a neoclassical monument in Berlin, Germany. The gate is adorned with a quadriga, a chariot drawn by four horses, atop its central arch. This chariot is driven by Victoria, the goddess of victory, symbolizing triumph and strength. The gate itself is constructed from stone and features a series of columns on either side, adding to its grandeur. Above the columns, there are relief sculptures depicting various historical scenes, further enhancing the cultural significance of the monument. The sky above is overcast, casting a soft light on the scene.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The image you've provided shows a classical architectural structure with sculptures that are indicative of the quadriga motif. The quadriga is indeed a symbol of victory and triumph, often associated with the Greek goddess Victoria (Latin: Victoria) or Nike (Greek: Νική), who represents victory in ancient Greek and Roman mythology.\n\nIn this particular image, we see a chariot with four horses, which is characteristic of the quadriga. The chariot is typically depicted with a single driver, often a figure representing Victoria or Nike, who is shown guiding the horses forward. This symbol was commonly used in ancient times to celebrate military victories and triumphs.\n\nThe architecture surrounding the quadriga suggests a neoclassical style, which often incorporates classical elements such as columns, pediments, and sculptures inspired by ancient Greek and Roman art. The presence of the quadriga within this architectural context reinforces the theme of victory and honor.\n\nThe sculptures appear to be in good condition, indicating that they may be well-preserved or restored, which is common for monuments and structures of historical significance. The quadriga is a powerful symbol that continues to resonate in various forms of art and architecture, serving as a reminder of the ideals of victory, courage, and triumph.",
+        "Medium": "The image you've provided appears to be of the Brandenburg Gate in Berlin, Germany. The quadriga on top of the gate is indeed a four-horse chariot, and it is associated with victory and triumph. It is driven by Victoria, the Roman goddess of victory. This iconic structure is one of the most famous landmarks in Berlin and is often used as a symbol of the city.",
+        "Large": "The image you've provided shows the Brandenburg Gate, a neoclassical monument in Berlin, Germany. Atop the gate is a quadriga, which indeed is a chariot drawn by four horses and driven by Victoria, the Roman goddess of victory. This iconic structure is one of the most famous landmarks in Berlin and is often used as a symbol of the city. The Brandenburg Gate was originally built in the 18th century and has been restored several times since then, including after World War II. It's a popular tourist attraction and also serves as a venue for various events and ceremonies."
+      },
+      "rendered_answers": {
+        "Small": "The quadriga is a classical motif that represents victory and triumph, often depicted as a four-horse chariot. In this image, the quadriga is driven by Victoria, the goddess of victory.",
+        "Medium": "The quadriga is a classical motif of a four-horse chariot associated with victory and triumph, here driven by Victoria, the goddess of victory.",
+        "Large": "The quadriga, a four-horse chariot associated with victory and triumph, is depicted here."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The image you've provided shows the Brandenburg Gate, a neoclassical monument in Berlin, Germany. Atop the gate is a quadriga, which indeed is a chariot drawn by four horses and driven by Victoria, the Roman goddess of victory. This iconic structure is one of the most famous landmarks in Berlin and is often used as a symbol of the city. The Brandenburg Gate was originally built in the 18th century and has been restored several times since then, including after World War II. It's a popular tourist attraction and also serves as a venue for various events and ceremonies.",
+        "reason": "",
+        "raw_output": "Large: The image you've provided shows the Brandenburg Gate, a neoclassical monument in Berlin, Germany. Atop the gate is a quadriga, which indeed is a chariot drawn by four horses and driven by Victoria, the Roman goddess of victory. This iconic structure is one of the most famous landmarks in Berlin and is often used as a symbol of the city. The Brandenburg Gate was originally built in the 18th century and has been restored several times since then, including after World War II. It's a popular tourist attraction and also serves as a venue for various events and ceremonies."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The quadriga, a four-horse chariot associated with victory and triumph, is depicted here.",
+        "reason": "",
+        "raw_output": "Large: The quadriga, a four-horse chariot associated with victory and triumph, is depicted here."
+      }
+    },
+    {
+      "question_index": 9,
+      "question": "Based on the visible columns and entablature, which architectural style is the landmark associated with?",
+      "expected": "Neoclassical architecture.",
+      "rgb_answer": "The architectural style of the landmark is neoclassical, characterized by its use of classical elements such as columns, entablature, and sculptures. The Doric columns are a hallmark of this style, which aims to evoke the grandeur of ancient Greek and Roman architecture.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The architectural style of the landmark is neoclassical, as indicated by the Doric columns and the entablature with a frieze. This style often includes such elements and was popular in the 18th century, particularly in Europe and North America, as a revival of classical Greek and Roman architecture.",
+        "Medium": "The architectural style of the landmark is neoclassical, as indicated by the Doric columns and the entablature with friezes. This style is characterized by its use of classical elements such as columns, pediments, and friezes, often in a simplified form to evoke the grandeur of ancient Greek and Roman architecture.",
+        "Large": "The architectural style of the landmark is neoclassical, characterized by its use of classical elements such as columns, entablature, and sculptures. The Doric columns, frieze with sculptural reliefs, and the pediment are all indicative of this style, which aims to evoke the grandeur and simplicity of ancient Greek architecture."
+      },
+      "rendered_answers": {
+        "Small": "The landmark is associated with the neoclassical architectural style.",
+        "Medium": "The landmark is associated with the neoclassical architectural style.",
+        "Large": "The landmark is associated with neoclassical architecture."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The architectural style of the landmark is neoclassical, characterized by its use of classical elements such as columns, entablature, and sculptures. The Doric columns, frieze with sculptural reliefs, and the pediment are all indicative of this style, which aims to evoke the grandeur and simplicity of ancient Greek architecture.",
+        "reason": "",
+        "raw_output": "Large: The architectural style of the landmark is neoclassical, characterized by its use of classical elements such as columns, entablature, and sculptures. The Doric columns, frieze with sculptural reliefs, and the pediment are all indicative of this style, which aims to evoke the grandeur and simplicity of ancient Greek architecture."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The landmark is associated with neoclassical architecture.",
+        "reason": "",
+        "raw_output": "Large: The landmark is associated with neoclassical architecture."
+      }
+    },
+    {
+      "question_index": 10,
+      "question": "Based on the landmark shown in the image, which city and country is it located in?",
+      "expected": "Berlin, Germany.",
+      "rgb_answer": "The landmark in the image is the Brandenburg Gate, which is located in Berlin, Germany. This can be inferred from the distinctive neoclassical architecture and the presence of the Quadriga statue on top, which are iconic features of this particular monument.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The landmark is the Brandenburg Gate, which is located in Berlin, Germany.",
+        "Medium": "The landmark in the image is the Brandenburg Gate, which is located in Berlin, Germany.",
+        "Large": "The landmark in the image is the Brandenburg Gate, which is located in Berlin, Germany."
+      },
+      "rendered_answers": {
+        "Small": "The landmark is located in Rome, Italy.",
+        "Medium": "The landmark is located in Berlin, Germany.",
+        "Large": "The Brandenburg Gate is located in Berlin, Germany."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The landmark in the image is the Brandenburg Gate, which is located in Berlin, Germany.",
+        "reason": "The Brandenburg Gate is a famous landmark in Berlin, Germany.",
+        "raw_output": "Small: The landmark is the Brandenburg Gate, which is located in Berlin, Germany.\nREASON: The Brandenburg Gate is a famous landmark in Berlin, Germany."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The Brandenburg Gate is located in Berlin, Germany.",
+        "reason": "The Brandenburg Gate is a famous landmark in Berlin, Germany.",
+        "raw_output": "Large: The Brandenburg Gate is located in Berlin, Germany.\nREASON: The Brandenburg Gate is a famous landmark in Berlin, Germany."
+      }
+    },
+    {
+      "question_index": 11,
+      "question": "What was the landmark in the image original main function?",
+      "expected": "The Brandenburg Gate originally served as a ceremonial city gate and entrance to Berlin",
+      "rgb_answer": "The Brandenburg Gate was originally a triumphal arch.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The Brandenburg Gate was originally a triumphal arch.",
+        "Medium": "The Brandenburg Gate was originally a triumphal arch.",
+        "Large": "The Brandenburg Gate was originally a triumphal arch, intended to celebrate the victory of King Frederick William I of Prussia over the French in 1760. It was designed by architect Georg Wenzeslaus von Knobelsdorff and sculpted by Johann Gottfried Schadow. The gate was meant to commemorate the Prussian victory and the military prowess of the king. Over time, it has become a symbol of Berlin and Germany, representing peace, unity, and freedom."
+      },
+      "rendered_answers": {
+        "Small": "The landmark in the image was a monument.",
+        "Medium": "The landmark in the image was originally a triumphal arch.",
+        "Large": "The landmark was originally a triumphal arch."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The Brandenburg Gate was originally a triumphal arch, intended to celebrate the victory of King Frederick William I of Prussia over the French in 1760. It was designed by architect Georg Wenzeslaus von Knobelsdorff and sculpted by Johann Gottfried Schadow. The gate was meant to commemorate the Prussian victory and the military prowess of the king. Over time, it has become a symbol of Berlin and Germany, representing peace, unity, and freedom.",
+        "reason": "The image shows the Brandenburg Gate, which is a large historical monument with intricate details and sculptures.",
+        "raw_output": "Large: The Brandenburg Gate was originally a triumphal arch, intended to celebrate the victory of King Frederick William I of Prussia over the French in 1760. It was designed by architect Georg Wenzeslaus von Knobelsdorff and sculpted by Johann Gottfried Schadow. The gate was meant to commemorate the Prussian victory and the military prowess of the king. Over time, it has become a symbol of Berlin and Germany, representing peace, unity, and freedom.\nBEST_SCALE: Large\nREASON: The image shows the Brandenburg Gate, which is a large historical monument with intricate details and sculptures."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The landmark was originally a triumphal arch.",
+        "reason": "The image shows a classical architectural structure with columns and sculptures, which is characteristic of monuments.",
+        "raw_output": "Small: The landmark in the image was a monument.\nREASON: The image shows a classical architectural structure with columns and sculptures, which is characteristic of monuments."
+      }
+    },
+    {
+      "question_index": 12,
+      "question": "Answer with a number only. How many oval relief medallions are visible on the inner side walls in the image, including the partially visible one near the edge?",
+      "expected": "3",
+      "rgb_answer": "4",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "3",
+        "Medium": "5",
+        "Large": "5"
+      },
+      "rendered_answers": {
+        "Small": "3",
+        "Medium": "5",
+        "Large": "5"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "5",
+        "reason": "",
+        "raw_output": "Small: 3"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "5",
+        "reason": "",
+        "raw_output": "Small: 3"
+      }
+    },
+    {
+      "question_index": 13,
+      "question": "In this oblique view, which direction are the horses facing?",
+      "expected": "Toward the left side of the image.",
+      "rgb_answer": "left",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The horses are facing towards the left side of the image.",
+        "Medium": "The horses are facing towards the left side of the image.",
+        "Large": "The horses are facing to the right from this oblique view."
+      },
+      "rendered_answers": {
+        "Small": "The horses are facing towards the left side of the frame.",
+        "Medium": "The horses are facing left.",
+        "Large": "The horses are facing left."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The horses are facing to the right from this oblique view.",
+        "reason": "The horses are facing to the right from this oblique view.",
+        "raw_output": "Small: The horses are facing towards the left side of the image.\nREASON: The horses are facing to the right from this oblique view."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The horses are facing left.",
+        "reason": "The horses are facing left.",
+        "raw_output": "Small: The horses are facing towards the left side of the frame.\nREASON: The horses are facing left."
+      }
+    },
+    {
+      "question_index": 14,
+      "question": "Answer with the option letter only. Which type of sculptural form is most prominent at the top? A. A standing human figure B. A four-horse chariot group C. A dome sculpture D. An obelisk",
+      "expected": "B",
+      "rgb_answer": "B",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "rendered_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "Large: B"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "Large: B"
+      }
+    },
+    {
+      "question_index": 15,
+      "question": "Answer with the option letter only. Which classical column order do the visible columns of the landmark in the image most closely resemble? A. Doric B. Ionic C. Corinthian D. Gothic",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 16,
+      "question": "Answer with the option letter only. Which top profile is more consistent with what is visible above the gate? A. A triangular pediment B. A flat entablature with no triangular pediment C. A round dome D. A pointed spire",
+      "expected": "B",
+      "rgb_answer": "B",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "rendered_answers": {
+        "Small": "B",
+        "Medium": "B.",
+        "Large": "B."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "B.",
+        "reason": "",
+        "raw_output": "B."
+      }
+    },
+    {
+      "question_index": 17,
+      "question": "Answer with yes or no only. Is the upper sculpture still visible from this oblique angle?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes.",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Small: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "",
+        "raw_output": "Large: Yes."
+      }
+    },
+    {
+      "question_index": 18,
+      "question": "Which visible features support identifying it as Neoclassical architecture?",
+      "expected": "The Neoclassical style is supported by its symmetrical temple-like façade, Doric-style columns, horizontal entablature, classical proportions, and the sculptural quadriga on top.",
+      "rgb_answer": "The visible features that support the identification of this structure as Neoclassical architecture include the use of classical columns, which are a hallmark of Neoclassicism. The Doric columns are characterized by their simple, unadorned capitals and fluted shafts, which are typical of this style. Additionally, the frieze with sculptural reliefs is another element often found in Neoclassical buildings, serving both an aesthetic and narrative function. The pediment, which is the triangular section above the columns, is also a key feature of Neoclassical architecture, providing a space for decorative elements and inscriptions. Lastly, the statue of horses and chariot on top is reminiscent of the equestrian statues commonly seen in classical antiquity, further aligning with the Neoclassical style's reverence for ancient Greek and Roman art and culture.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The visible features that support identifying the building as Neoclassical architecture include the use of Ionic columns, which are a hallmark of classical architecture, and the frieze with sculptural elements above the columns. The pediment, a triangular section of the roof supported by columns, is another characteristic element of Neoclassical design. Additionally, the symmetrical arrangement of the columns and the decorative frieze contribute to the overall classical aesthetic that is typical of Neoclassical architecture.",
+        "Medium": "The visible features that support identifying the structure as Neoclassical architecture include the use of large, evenly spaced columns with Corinthian capitals, the triangular pediment above the columns, and the frieze adorned with sculptures. These elements are characteristic of Neoclassical design, which often incorporates classical Greek and Roman architectural motifs.",
+        "Large": "The visible features that support identifying the structure as Neoclassical architecture include the use of large, evenly spaced columns with Corinthian capitals, the pediment supported by columns, and the frieze with sculptural elements. Additionally, the symmetrical design and the grand scale are characteristic of Neoclassical style, which often draws inspiration from ancient Greek and Roman architecture."
+      },
+      "rendered_answers": {
+        "Small": "The visible features that support identifying it as Neoclassical architecture include the Corinthian columns, frieze with sculptural elements, and the pediment.",
+        "Medium": "The visible features that support identifying it as Neoclassical architecture include the Corinthian columns, frieze with reliefs, and the pediment.",
+        "Large": "The visible features that support identifying it as Neoclassical architecture include the Corinthian columns, frieze, and sculptures."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The visible features that support identifying the structure as Neoclassical architecture include the use of large, evenly spaced columns with Corinthian capitals, the pediment supported by columns, and the frieze with sculptural elements. Additionally, the symmetrical design and the grand scale are characteristic of Neoclassical style, which often draws inspiration from ancient Greek and Roman architecture.",
+        "reason": "",
+        "raw_output": "Large: The visible features that support identifying the structure as Neoclassical architecture include the use of large, evenly spaced columns with Corinthian capitals, the pediment supported by columns, and the frieze with sculptural elements. Additionally, the symmetrical design and the grand scale are characteristic of Neoclassical style, which often draws inspiration from ancient Greek and Roman architecture."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The visible features that support identifying it as Neoclassical architecture include the Corinthian columns, frieze, and sculptures.",
+        "reason": "The image shows a classical structure with Corinthian columns, a frieze with sculptural elements, and a pediment, all of which are characteristic of Neoclassical architecture.",
+        "raw_output": "Large: The visible features that support identifying it as Neoclassical architecture include the Corinthian columns, frieze, and sculptures.\nREASON: The image shows a classical structure with Corinthian columns, a frieze with sculptural elements, and a pediment, all of which are characteristic of Neoclassical architecture."
+      }
+    }
+  ],
+  "diagnostic_subset": "strength_trimmed"
+}

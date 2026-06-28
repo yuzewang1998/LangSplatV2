@@ -1,0 +1,181 @@
+{
+  "image_name": "99656965_3139976954",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.2236157655715942,
+      "rendered_std": 0.26160556077957153
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.4573192596435547,
+      "rendered_std": 0.23621658980846405
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.4920036792755127,
+      "rendered_std": 0.28658685088157654
+    }
+  },
+  "questions": [
+    {
+      "question_index": 2,
+      "question": "Answer with the option letter only. Which column order do the visible portico columns most closely resemble?\nA. Doric\nB. Ionic\nC. Corinthian\nD. Tuscan",
+      "expected": "C",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 3,
+      "question": "Answer with yes or no only. Is the triangular pediment visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No.",
+        "Medium": "No",
+        "Large": "No"
+      },
+      "rendered_answers": {
+        "Small": "No",
+        "Medium": "No",
+        "Large": "No"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "",
+        "raw_output": "Small: No."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "",
+        "raw_output": "Small: No"
+      }
+    },
+    {
+      "question_index": 5,
+      "question": "Answer with the option letter only. Approximately how many large portico columns are visible in the image?\nA. 0–5\nB. 6–10\nC. 11–20\nD. More than 20",
+      "expected": "C",
+      "rgb_answer": "B",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "rendered_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      }
+    },
+    {
+      "question_index": 9,
+      "question": "Answer with yes or no only. Is the dome clearly visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "No",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No.",
+        "Medium": "No",
+        "Large": "No"
+      },
+      "rendered_answers": {
+        "Small": "No",
+        "Medium": "No",
+        "Large": "No"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "",
+        "raw_output": "Small: No."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "",
+        "raw_output": "Small: No"
+      }
+    },
+    {
+      "question_index": 11,
+      "question": "What does the Latin inscription above the columns of the landmark in the image mean?",
+      "expected": "It states that Marcus Agrippa, son of Lucius, built it when he was consul for the third time.",
+      "rgb_answer": "The Latin inscription above the columns of the landmark reads \"MAGRIPPA L. F. COS. TERTIVM IMP. FECIT,\" which translates to \"Magrippa, son of Lucius, made this third time by the third consul.\" This indicates that the structure was commissioned or built by a person named Magrippa, who was the son of Lucius and held the title of consul for the third time. The term \"imperium\" suggests that he may have been an emperor or held a high-ranking position in the Roman Empire at the time.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The Latin inscription above the columns reads 'MAGNAE COSTI', which translates to 'Great Cost'.",
+        "Medium": "The Latin inscription above the columns of the landmark in the image reads \"MAGRIPPA L. F. COSTERUM,\" which translates to \"Magrippa, son of Lucius F. Costerum.\"",
+        "Large": "The Latin inscription above the columns of the landmark in the image reads \"MAGRIPPA L. FECIT,\" which translates to \"Magrippa, son of Lucius, made.\" This indicates that the structure was built or commissioned by a person named Magrippa, who was the son of Lucius. The presence of this inscription suggests that the building was likely a significant public or religious edifice, as inscriptions were often used to denote important works and to honor the individuals responsible for their construction."
+      },
+      "rendered_answers": {
+        "Small": "The Latin inscription above the columns of the landmark in the image reads \"MAGISTERIUM,\" which translates to \"School\" or \"Institute.\"",
+        "Medium": "The Latin inscription above the columns of the landmark in the image reads \"AGGRIVM TERTIVM,\" which translates to \"Third Aggrivm.\"",
+        "Large": "The Latin inscription above the columns of the landmark in the image reads \"AGRA P.P.P. FECIT TIVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVM"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The Latin inscription above the columns of the landmark in the image reads \"MAGRIPPA L. FECIT,\" which translates to \"Magrippa, son of Lucius, made.\" This indicates that the structure was built or commissioned by a person named Magrippa, who was the son of Lucius. The presence of this inscription suggests that the building was likely a significant public or religious edifice, as inscriptions were often used to denote important works and to honor the individuals responsible for their construction.",
+        "reason": "",
+        "raw_output": "Large: The Latin inscription above the columns of the landmark in the image reads \"MAGRIPPA L. FECIT,\" which translates to \"Magrippa, son of Lucius, made.\" This indicates that the structure was built or commissioned by a person named Magrippa, who was the son of Lucius. The presence of this inscription suggests that the building was likely a significant public or religious edifice, as inscriptions were often used to denote important works and to honor the individuals responsible for their construction."
+      },
+      "rendered_selected": {
+        "scale": "Small",
+        "answer": "The Latin inscription above the columns of the landmark in the image reads \"MAGISTERIUM,\" which translates to \"School\" or \"Institute.\"",
+        "reason": "The inscription is clearly visible and legible, indicating a small scale.",
+        "raw_output": "Small: The Latin inscription above the columns of the landmark in the image reads \"MAGISTERIUM,\" which translates to \"School\" or \"Institute.\"\n\nBEST_SCALE: Small\nREASON: The inscription is clearly visible and legible, indicating a small scale."
+      }
+    }
+  ],
+  "diagnostic_subset": "significant_ours_errors"
+}

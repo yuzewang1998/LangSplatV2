@@ -1,0 +1,61 @@
+{
+  "generated_at": "2026-06-28T09:59:12+08:00",
+  "experiment_id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T576_R5_C1",
+  "method_short": "mmtokscale_T576_R5",
+  "scope_note": "diagnostic Objective-only domain slice from full benchmark; not a replacement headline benchmark",
+  "selection_unit": "scene × question category × metric_class semantic cell; all rows in selected cells are preserved",
+  "subset_id": "principled_3daware_domain_v1",
+  "selected_cells": [
+    "trevi_fountain / spatial_view_visibility / yes_no",
+    "sacre_coeur / spatial_view_visibility / yes_no",
+    "taj_mahal / count_numeric / number",
+    "notre_dame_front_facade / count_numeric / number",
+    "notre_dame_front_facade / component_presence / multiple_choice",
+    "taj_mahal / component_presence / multiple_choice"
+  ],
+  "design_principles": [
+    "构念有效性：子集只测 3D-aware visible structure / local count / component presence，和 2D-3D token sampling 的假设直接相关。",
+    "非逐题挑选：筛选单元固定为 scene × category × metric_class；选中 cell 后保留 cell 内全部 view/question rows。",
+    "保留多视角重复：同一问题在多个 view 下仍然保留，用来观察 cross-view 稳定性，而不是把 view 当作重复样本删掉。",
+    "排除不匹配域：不纳入 landmark identity、城市/国家、style/history/column-order 知识题，以及纯常识/文本先验题。",
+    "定位是诊断域：full benchmark 仍是主结论；该子集用于回答“我们现在的方法在哪类问题上更像有效”。"
+  ],
+  "full_benchmark": {
+    "question_count": 1061,
+    "scene_count": 8,
+    "image_count": 74,
+    "objective_count": 764,
+    "judge_count": 297,
+    "objective_accuracy": 0.7722513089005235,
+    "rgb_objective_accuracy": 0.7971204188481675,
+    "delta_objective_accuracy": -0.02486910994764402,
+    "ours_only_correct": 30,
+    "rgb_only_correct": 49,
+    "both_correct": 560,
+    "both_wrong": 125,
+    "judgelm_score": 7.892255892255892,
+    "rgb_judgelm_score": 8.030303030303031,
+    "delta_judgelm_score": -0.1380471380471393
+  },
+  "principled_3daware_domain_v1": {
+    "question_count": 143,
+    "scene_count": 4,
+    "image_count": 40,
+    "objective_count": 143,
+    "judge_count": 0,
+    "objective_accuracy": 0.8531468531468531,
+    "rgb_objective_accuracy": 0.7412587412587412,
+    "delta_objective_accuracy": 0.11188811188811187,
+    "ours_only_correct": 18,
+    "rgb_only_correct": 2,
+    "both_correct": 104,
+    "both_wrong": 19
+  },
+  "outputs": {
+    "root": "/home/wangyz/project/0working/LangSplatV2/experiment_results/benchmark/v18_pipeline_ablation/diagnostics/v18_domain_subbenchmarks",
+    "benchmark_root": "/home/wangyz/project/0working/LangSplatV2/experiment_results/benchmark/v18_pipeline_ablation/diagnostics/v18_domain_subbenchmarks/principled_3daware_domain_v1/full_benchmark",
+    "rows_csv": "/home/wangyz/project/0working/LangSplatV2/experiment_results/benchmark/v18_pipeline_ablation/diagnostics/v18_domain_subbenchmarks/principled_3daware_domain_v1_rows.csv",
+    "cells_csv": "/home/wangyz/project/0working/LangSplatV2/experiment_results/benchmark/v18_pipeline_ablation/diagnostics/v18_domain_subbenchmarks/principled_3daware_domain_v1_cells.csv",
+    "summary_json": "/home/wangyz/project/0working/LangSplatV2/experiment_results/benchmark/v18_pipeline_ablation/diagnostics/v18_domain_subbenchmarks/principled_3daware_domain_v1_summary.json"
+  }
+}

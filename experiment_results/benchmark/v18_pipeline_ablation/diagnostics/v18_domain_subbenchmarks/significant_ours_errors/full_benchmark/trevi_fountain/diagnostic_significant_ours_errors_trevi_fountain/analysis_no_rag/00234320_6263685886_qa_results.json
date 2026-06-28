@@ -1,0 +1,61 @@
+{
+  "image_name": "00234320_6263685886",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.3452221155166626,
+      "rendered_std": 0.49588993191719055
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.5679012537002563,
+      "rendered_std": 0.6589334011077881
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.5697463750839233,
+      "rendered_std": 0.8313667178153992
+    }
+  },
+  "questions": [
+    {
+      "question_index": 12,
+      "question": "What visible component matches this description: the central mythological male figure?",
+      "expected": "Oceanus",
+      "rgb_answer": "The central mythological male figure is the one standing upright in the middle of the façade, holding what appears to be a spear or staff. He is surrounded by other sculptural elements and is part of a larger group of figures that are integral to the design of the building's central archway. This figure is likely to represent a deity or a significant historical or mythological character, given the grandeur and prominence of his position within the architectural composition.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The central mythological male figure is a statue.",
+        "Medium": "The central mythological male figure is a statue.",
+        "Large": "The central mythological male figure is the statue of King Neptune, which is part of the Trevi Fountain in Rome, Italy."
+      },
+      "rendered_answers": {
+        "Small": "The central mythological male figure is a statue.",
+        "Medium": "The central mythological male figure is a statue.",
+        "Large": "The central mythological male figure is a statue."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The central mythological male figure is the statue of King Neptune, which is part of the Trevi Fountain in Rome, Italy.",
+        "reason": "The description matches the statue of King Neptune at the center of the Trevi Fountain.",
+        "raw_output": "Large: The central mythological male figure is the statue of King Neptune, which is part of the Trevi Fountain in Rome, Italy.\nBEST_SCALE: Large\nREASON: The description matches the statue of King Neptune at the center of the Trevi Fountain."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The central mythological male figure is a statue.",
+        "reason": "The statue is the most prominent feature in the image.",
+        "raw_output": "Large: The central mythological male figure is a statue.\nREASON: The statue is the most prominent feature in the image."
+      }
+    }
+  ],
+  "diagnostic_subset": "significant_ours_errors"
+}

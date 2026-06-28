@@ -1,0 +1,61 @@
+{
+  "image_name": "98558191_5043992077",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.2430565357208252,
+      "rendered_std": 0.4136187434196472
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.5505850315093994,
+      "rendered_std": 0.44593560695648193
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.5910329818725586,
+      "rendered_std": 0.5404815673828125
+    }
+  },
+  "questions": [
+    {
+      "question_index": 2,
+      "question": "Answer with the option letter only. Which dome form is most prominent at the center of the landmark in the image?\nA. Bulbous onion dome\nB. Hemispherical dome\nC. Ribbed dome\nD. Conical dome",
+      "expected": "A",
+      "rgb_answer": "B",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "rendered_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "Large: B"
+      }
+    }
+  ],
+  "diagnostic_subset": "significant_ours_errors"
+}

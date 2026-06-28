@@ -1,0 +1,121 @@
+{
+  "image_name": "00644051_242819650",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.2997472286224365,
+      "rendered_std": 0.4966594874858856
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.665734887123108,
+      "rendered_std": 0.6760810613632202
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.663620948791504,
+      "rendered_std": 0.8570939302444458
+    }
+  },
+  "questions": [
+    {
+      "question_index": 12,
+      "question": "Answer with the option letter only. Which column style do the visible columns or pilasters on the façade in the image most closely resemble?\nA. Doric\nB. Ionic\nC. Corinthian\nD. Gothic",
+      "expected": "C",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 13,
+      "question": "Answer with a number only. How many large rectangular relief panels are visible above the side sections of the fountain façade?",
+      "expected": "2",
+      "rgb_answer": "2",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Three",
+        "Medium": "2",
+        "Large": "3"
+      },
+      "rendered_answers": {
+        "Small": "3",
+        "Medium": "3",
+        "Large": "3"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "3",
+        "reason": "",
+        "raw_output": "Small: Three"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "3",
+        "reason": "There are three large rectangular relief panels visible above the side sections of the fountain façade.",
+        "raw_output": "Large: 3\nREASON: There are three large rectangular relief panels visible above the side sections of the fountain façade."
+      }
+    },
+    {
+      "question_index": 14,
+      "question": "What visible component matches this description: the central mythological male figure?",
+      "expected": "Oceanus",
+      "rgb_answer": "The central mythological male figure is the one in the middle of the fountain, who appears to be the main focus of the sculpture. He is depicted in a dynamic pose, with water flowing from his hand, which suggests that he might be a representation of a god or a mythological character associated with water or rivers. This figure is surrounded by other sculptures that depict various scenes and figures, contributing to the overall narrative of the fountain.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The central mythological male figure is a statue.",
+        "Medium": "The central mythological male figure is a prominent statue.",
+        "Large": "The central mythological male figure is the central statue in the middle of the building, which is a prominent feature of the architecture."
+      },
+      "rendered_answers": {
+        "Small": "The central mythological male figure is a statue of a man with flowing robes and a muscular build, holding a spear.",
+        "Medium": "The central mythological male figure is a statue.",
+        "Large": "The central mythological male figure is a prominent statue."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The central mythological male figure is the central statue in the middle of the building, which is a prominent feature of the architecture.",
+        "reason": "The description refers to the central figure as \"the central mythological male figure,\" indicating that it is a prominent feature of the architecture.",
+        "raw_output": "Large: The central mythological male figure is the central statue in the middle of the building, which is a prominent feature of the architecture.\nREASON: The description refers to the central figure as \"the central mythological male figure,\" indicating that it is a prominent feature of the architecture."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The central mythological male figure is a prominent statue.",
+        "reason": "The statue is the most prominent feature in the image, with a muscular build and flowing robes.",
+        "raw_output": "Large: The central mythological male figure is a prominent statue.\nREASON: The statue is the most prominent feature in the image, with a muscular build and flowing robes."
+      }
+    }
+  ],
+  "diagnostic_subset": "significant_ours_errors"
+}

@@ -1,0 +1,391 @@
+{
+  "image_name": "87627077_12224030726",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.2390316724777222,
+      "rendered_std": 0.43736544251441956
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.4963971376419067,
+      "rendered_std": 0.4870842695236206
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.8834457397460938,
+      "rendered_std": 0.5739508271217346
+    }
+  },
+  "questions": [
+    {
+      "question_index": 1,
+      "question": "What famous landmark or landmark scene is shown in this image?",
+      "expected": "The Taj Mahal.",
+      "rgb_answer": "The image shows the Taj Mahal, a renowned mausoleum located in Agra, Uttar Pradesh, India. It is an ivory-white marble structure that was commissioned in 1632 by the fifth Mughal emperor, Shah Jahan, to house the tomb of his beloved wife, Mumtaz Mahal. The Taj Mahal is widely recognized for its architectural beauty and is one of the most popular tourist attractions in India.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The image shows a famous landmark, possibly the Taj Mahal.",
+        "Medium": "The image shows the Taj Mahal, a renowned mausoleum located in Agra, India.",
+        "Large": "The image shows the Taj Mahal, a famous landmark in India."
+      },
+      "rendered_answers": {
+        "Small": "The Taj Mahal, a renowned worldwide landmark.",
+        "Medium": "The Taj Mahal, a renowned worldwide landmark.",
+        "Large": "The Taj Mahal, a renowned worldwide landmark."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The image shows the Taj Mahal, a famous landmark in India.",
+        "reason": "",
+        "raw_output": "Large: The image shows the Taj Mahal, a famous landmark in India."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The Taj Mahal, a renowned worldwide landmark.",
+        "reason": "The image shows the Taj Mahal, which is a famous landmark in India.",
+        "raw_output": "Large: The Taj Mahal, a renowned worldwide landmark.\nREASON: The image shows the Taj Mahal, which is a famous landmark in India."
+      }
+    },
+    {
+      "question_index": 3,
+      "question": "Answer with yes or no only. Is the onion dome visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes.",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "",
+        "raw_output": "Large: Yes."
+      }
+    },
+    {
+      "question_index": 4,
+      "question": "Answer with yes or no only. Are the arch-shaped doorways visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes.",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "",
+        "raw_output": "Large: Yes."
+      }
+    },
+    {
+      "question_index": 5,
+      "question": "Answer with the option letter only. Which visible component is higher in the image? A. onion dome B. arch-shaped doorways",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Large: A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Large: A"
+      }
+    },
+    {
+      "question_index": 6,
+      "question": "Based on the landmark shown in the image, which city and country is it located in?",
+      "expected": "Agra, India.",
+      "rgb_answer": "The landmark in the image is the Taj Mahal, which is located in Agra, Uttar Pradesh, India.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The landmark is located in Agra, India.",
+        "Medium": "The Taj Mahal is located in Agra, India.",
+        "Large": "The Taj Mahal is located in Agra, Uttar Pradesh, India."
+      },
+      "rendered_answers": {
+        "Small": "The Taj Mahal is located in Agra, India.",
+        "Medium": "The Taj Mahal is located in Agra, India.",
+        "Large": "The Taj Mahal is located in Agra, India."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The Taj Mahal is located in Agra, Uttar Pradesh, India.",
+        "reason": "",
+        "raw_output": "Medium: The Taj Mahal is located in Agra, India."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The Taj Mahal is located in Agra, India.",
+        "reason": "The Taj Mahal is a well-known landmark located in Agra, India.",
+        "raw_output": "Best SCALE: Large\nREASON: The Taj Mahal is a well-known landmark located in Agra, India."
+      }
+    },
+    {
+      "question_index": 7,
+      "question": "What type of landmark scene is visible in this image?",
+      "expected": "a mausoleum",
+      "rgb_answer": "The image depicts a famous historical monument, which is the Taj Mahal, located in Agra, India. It is an iconic example of Mughal architecture and is known for its large, white marble dome and four minarets at the corners. The scene captures the grandeur of the monument with visitors gathered around, indicating its status as a significant tourist attraction.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The image shows a scene of a historic landmark, possibly a mosque or a palace.",
+        "Medium": "The image shows a grand architectural scene, likely a historical monument.",
+        "Large": "The image shows a grand architectural landmark, which is the Taj Mahal."
+      },
+      "rendered_answers": {
+        "Small": "The image shows a grand architectural structure, likely a historical or cultural landmark.",
+        "Medium": "The image shows a grand architectural landmark scene.",
+        "Large": "The image shows a grand architectural landmark, likely a mausoleum or monument."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The image shows a grand architectural landmark, which is the Taj Mahal.",
+        "reason": "",
+        "raw_output": "Large: The image shows a grand architectural landmark, which is the Taj Mahal."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The image shows a grand architectural landmark, likely a mausoleum or monument.",
+        "reason": "The image depicts a large, ornate structure with domes and minarets, which is characteristic of a mausoleum or monument.",
+        "raw_output": "Large: The image shows a grand architectural landmark, likely a mausoleum or monument.\nREASON: The image depicts a large, ornate structure with domes and minarets, which is characteristic of a mausoleum or monument."
+      }
+    },
+    {
+      "question_index": 8,
+      "question": "Answer with the option letter only. Which type of monument is shown? A. mausoleum B. Gothic cathedral C. Baroque fountain D. royal palace",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Large: A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Large: A"
+      }
+    },
+    {
+      "question_index": 9,
+      "question": "Answer with yes or no only. Is the main building associated with Mughal architectural forms?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes.",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes.",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "",
+        "raw_output": "Large: Yes."
+      }
+    },
+    {
+      "question_index": 10,
+      "question": "Answer with the option letter only. Which type of landmark is shown in the image?\nA. Roman amphitheater\nB. Gothic cathedral\nC. Mughal mausoleum\nD. Japanese pagoda",
+      "expected": "C",
+      "rgb_answer": "C",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "C",
+        "Medium": "C",
+        "Large": "C"
+      },
+      "rendered_answers": {
+        "Small": "C",
+        "Medium": "C",
+        "Large": "C"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "C",
+        "reason": "",
+        "raw_output": "C"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "C",
+        "reason": "",
+        "raw_output": "C"
+      }
+    },
+    {
+      "question_index": 11,
+      "question": "Answer with the option letter only. What are the tall slender towers around the main mausoleum called?\nA. Minarets\nB. Obelisks\nC. Chimneys\nD. Bell towers",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 12,
+      "question": "Answer with the option letter only. What is the large recessed arched feature on the central façade most closely called?\nA. Rose window\nB. Pishtaq\nC. Gothic portal\nD. Wooden gable",
+      "expected": "B",
+      "rgb_answer": "B",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "rendered_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      }
+    },
+    {
+      "question_index": 13,
+      "question": "What visible component matches this description: large pointed arch openings?",
+      "expected": "arch-shaped doorways",
+      "rgb_answer": "arch",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The minarets match this description.",
+        "Medium": "The main dome of the Taj Mahal matches this description.",
+        "Large": "The large pointed arch openings are visible on the main building."
+      },
+      "rendered_answers": {
+        "Small": "The minarets match this description.",
+        "Medium": "The main building has large pointed arch openings.",
+        "Large": "The main entrance of the Taj Mahal."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The large pointed arch openings are visible on the main building.",
+        "reason": "",
+        "raw_output": "Large: The large pointed arch openings are visible on the main building."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The main entrance of the Taj Mahal.",
+        "reason": "",
+        "raw_output": "Large: The main entrance of the Taj Mahal."
+      }
+    }
+  ],
+  "diagnostic_subset": "strength_trimmed"
+}

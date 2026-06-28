@@ -1,0 +1,91 @@
+{
+  "image_name": "73188193_6880123101",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.162955403327942,
+      "rendered_std": 0.3314773738384247
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.4626485109329224,
+      "rendered_std": 0.3214541971683502
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.4816559553146362,
+      "rendered_std": 0.448208212852478
+    }
+  },
+  "questions": [
+    {
+      "question_index": 2,
+      "question": "Answer with a number only. How many oval medallions are visible on the inner walls?",
+      "expected": "5",
+      "rgb_answer": "6",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "3",
+        "Medium": "4",
+        "Large": "12"
+      },
+      "rendered_answers": {
+        "Small": "Two",
+        "Medium": "4",
+        "Large": "12"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "12",
+        "reason": "",
+        "raw_output": "Small: 3"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "12",
+        "reason": "",
+        "raw_output": "Medium: 4"
+      }
+    },
+    {
+      "question_index": 16,
+      "question": "Answer with yes or no only. Is the passage space behind the columns visible from this angle?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No",
+        "Medium": "No",
+        "Large": "No"
+      },
+      "rendered_answers": {
+        "Small": "No",
+        "Medium": "No",
+        "Large": "No."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "",
+        "raw_output": "Small: No"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "No.",
+        "reason": "",
+        "raw_output": "Small: No"
+      }
+    }
+  ],
+  "diagnostic_subset": "significant_ours_errors"
+}

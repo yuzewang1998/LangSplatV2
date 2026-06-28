@@ -1,0 +1,61 @@
+{
+  "image_name": "13245881_4780208614",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.2733478546142578,
+      "rendered_std": 0.34039199352264404
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.5372925996780396,
+      "rendered_std": 0.3996632695198059
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.5227638483047485,
+      "rendered_std": 0.40626201033592224
+    }
+  },
+  "questions": [
+    {
+      "question_index": 2,
+      "question": "Answer with the option letter only. Which of these architectural or landmark components is visibly present in this image? A. Ionic column B. fence C. Queen Victoria Memorial D. pediment",
+      "expected": "A",
+      "rgb_answer": "D",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "D",
+        "Large": "D"
+      },
+      "rendered_answers": {
+        "Small": "D",
+        "Medium": "D",
+        "Large": "D"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "D",
+        "reason": "",
+        "raw_output": "D"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "D",
+        "reason": "",
+        "raw_output": "D"
+      }
+    }
+  ],
+  "diagnostic_subset": "significant_ours_errors"
+}

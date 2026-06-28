@@ -1,0 +1,91 @@
+{
+  "image_name": "98316385_4723303241",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.2401556968688965,
+      "rendered_std": 0.2788239121437073
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.5495696067810059,
+      "rendered_std": 0.2944267690181732
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.5582642555236816,
+      "rendered_std": 0.4111689031124115
+    }
+  },
+  "questions": [
+    {
+      "question_index": 2,
+      "question": "Answer with yes or no only. Is the triangular pediment visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No.",
+        "Medium": "Yes.",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "No",
+        "Medium": "No",
+        "Large": "Yes"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Small: No."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Small: No"
+      }
+    },
+    {
+      "question_index": 11,
+      "question": "What does the Latin inscription above the columns of the landmark in the image mean?",
+      "expected": "It states that Marcus Agrippa, son of Lucius, built it when he was consul for the third time.",
+      "rgb_answer": "The Latin inscription above the columns of the landmark reads \"MAGRIPPA L F COSTERTIVM FECIT,\" which translates to \"Magrippa, son of Lucius, made this.\" This indicates that the structure was built or sponsored by a person named Magrippa, who was the son of Lucius. The term \"L F\" typically stands for \"Lucius Filius,\" meaning \"son of Lucius,\" which was a common way to address sons in Roman society.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The Latin inscription 'MAGISTERIUM' translates to 'House of Wisdom'.",
+        "Medium": "The Latin inscription above the columns of the landmark in the image reads 'MAGRIPPA L. FECIT,' which translates to 'Magrippa, son of Lucius, built this.'",
+        "Large": "The Latin inscription above the columns of the landmark in the image reads \"MAGrippa F. Censor F. Cos. Tertius.\" This translates to \"Magrippa, son of Censor, third consul.\" It indicates that the building was dedicated or constructed by a person named Magrippa, who was the son of a man holding the office of censor and had served as the third consul, suggesting that this structure may have been built during a period of significant political activity or under the patronage of a prominent figure in Roman politics."
+      },
+      "rendered_answers": {
+        "Small": "The Latin inscription above the columns of the landmark in the image reads \"MAGISTERIUM,\" which translates to \"School\" or \"Institute.\"",
+        "Medium": "The Latin inscription above the columns of the landmark in the image reads \"MAGISTER FECIT,\" which translates to \"Master built.\"",
+        "Large": "The Latin inscription above the columns of the landmark in the image reads \"MAGISTER FECIT,\" which translates to \"Master built.\""
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The Latin inscription above the columns of the landmark in the image reads \"MAGrippa F. Censor F. Cos. Tertius.\" This translates to \"Magrippa, son of Censor, third consul.\" It indicates that the building was dedicated or constructed by a person named Magrippa, who was the son of a man holding the office of censor and had served as the third consul, suggesting that this structure may have been built during a period of significant political activity or under the patronage of a prominent figure in Roman politics.",
+        "reason": "The Latin inscription above the columns of the landmark in the image is clearly visible and legible, providing historical context about the building's construction and its significance.",
+        "raw_output": "Large: The Latin inscription above the columns of the landmark in the image reads \"MAGrippa F. Censor F. Cos. Tertius.\" This translates to \"Magrippa, son of Censor, third consul.\" It indicates that the building was dedicated or constructed by a person named Magrippa, who was the son of a man holding the office of censor and had served as the third consul, suggesting that this structure may have been built during a period of significant political activity or under the patronage of a prominent figure in Roman politics.\nBEST_SCALE: Large\nREASON: The Latin inscription above the columns of the landmark in the image is clearly visible and legible, providing historical context about the building's construction and its significance."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The Latin inscription above the columns of the landmark in the image reads \"MAGISTER FECIT,\" which translates to \"Master built.\"",
+        "reason": "",
+        "raw_output": "Small: The Latin inscription above the columns of the landmark in the image reads \"MAGISTERIUM,\" which translates to \"School\" or \"Institute.\""
+      }
+    }
+  ],
+  "diagnostic_subset": "significant_ours_errors"
+}

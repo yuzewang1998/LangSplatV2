@@ -1,0 +1,331 @@
+{
+  "image_name": "98662737_5935208182",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.2270289659500122,
+      "rendered_std": 0.26828673481941223
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.3981074094772339,
+      "rendered_std": 0.25976434350013733
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.3683396577835083,
+      "rendered_std": 0.33690154552459717
+    }
+  },
+  "questions": [
+    {
+      "question_index": 1,
+      "question": "What famous landmark or landmark scene is shown in this image?",
+      "expected": "The Pantheon.",
+      "rgb_answer": "The image shows the Pantheon, a famous landmark in Rome, Italy. It is an ancient Roman temple dedicated to all the gods of ancient Rome and is known for its impressive architecture, including its large dome and the inscription \"MAGRI PPAL COSTERTIVM FECIT,\" which translates to \"This temple was built by the great Augustus.\" The Pantheon is one of the best-preserved buildings from ancient Rome and is considered an architectural masterpiece.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The image shows a famous landmark, the Pantheon in Rome.",
+        "Medium": "The image shows the Pantheon, a famous landmark in Rome, Italy.",
+        "Large": "The image shows the facade of the Pantheon, a renowned landmark in Rome, Italy. The Pantheon is an ancient Roman temple that has been converted into a church and is famous for its impressive dome, which is one of the largest unreinforced concrete domes in the world. It's known for its architectural grandeur and historical significance."
+      },
+      "rendered_answers": {
+        "Small": "The image shows a scene from the Colosseum in Rome, Italy.",
+        "Medium": "The image shows the Colosseum in Rome, Italy.",
+        "Large": "The image shows the facade of the Pantheon, a famous landmark in Rome, Italy."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The image shows the facade of the Pantheon, a renowned landmark in Rome, Italy. The Pantheon is an ancient Roman temple that has been converted into a church and is famous for its impressive dome, which is one of the largest unreinforced concrete domes in the world. It's known for its architectural grandeur and historical significance.",
+        "reason": "",
+        "raw_output": "Large: The image shows the facade of the Pantheon, a renowned landmark in Rome, Italy. The Pantheon is an ancient Roman temple that has been converted into a church and is famous for its impressive dome, which is one of the largest unreinforced concrete domes in the world. It's known for its architectural grandeur and historical significance."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The image shows the facade of the Pantheon, a famous landmark in Rome, Italy.",
+        "reason": "The image depicts the facade of the Pantheon, which is a well-known and iconic structure in Rome, Italy.",
+        "raw_output": "Large: The image shows the facade of the Pantheon, a famous landmark in Rome, Italy.\nREASON: The image depicts the facade of the Pantheon, which is a well-known and iconic structure in Rome, Italy."
+      }
+    },
+    {
+      "question_index": 4,
+      "question": "Answer with yes or no only. Is the column visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      }
+    },
+    {
+      "question_index": 6,
+      "question": "Based on the landmark shown in the image, which city and country is it located in?",
+      "expected": "Rome, Italy.",
+      "rgb_answer": "The landmark is the Pantheon, which is located in Rome, Italy. This can be inferred from the Latin inscription \"MAGRIPPA L. F. COSTERTIVM FECIT,\" which refers to Marcus Aurelius Antoninus, known as Magnus Aemilianus Augustus, who was a Roman Emperor and son of the famous general Aemilianus Paulus. The inscription indicates that the building was constructed during his reign, which places it in Rome, Italy.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The landmark is located in Rome, Italy.",
+        "Medium": "The landmark is located in Rome, Italy.",
+        "Large": "The landmark is the Pantheon, which is located in Rome, Italy. This can be inferred from the Latin inscription \"MAGRIFFALFETTERIUM\" and the architectural style, which is characteristic of Roman architecture."
+      },
+      "rendered_answers": {
+        "Small": "The landmark is located in Rome, Italy.",
+        "Medium": "The landmark is located in Rome, Italy.",
+        "Large": "The landmark is located in Rome, Italy."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The landmark is the Pantheon, which is located in Rome, Italy. This can be inferred from the Latin inscription \"MAGRIFFALFETTERIUM\" and the architectural style, which is characteristic of Roman architecture.",
+        "reason": "The image shows a classical building with columns and an inscription in Latin, which is indicative of the Pantheon in Rome, Italy.",
+        "raw_output": "Large: The landmark is the Pantheon, which is located in Rome, Italy. This can be inferred from the Latin inscription \"MAGRIFFALFETTERIUM\" and the architectural style, which is characteristic of Roman architecture.\nBEST_SCALE: Large\nREASON: The image shows a classical building with columns and an inscription in Latin, which is indicative of the Pantheon in Rome, Italy."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The landmark is located in Rome, Italy.",
+        "reason": "The text on the building reads \"MAGGIORE COST\" which indicates that it is located in Rome, Italy.",
+        "raw_output": "Small: The landmark is located in Rome, Italy.\nREASON: The text on the building reads \"MAGGIORE COST\" which indicates that it is located in Rome, Italy."
+      }
+    },
+    {
+      "question_index": 7,
+      "question": "Answer with the option letter only. Which type of architecture is most evident? A. classical Roman portico B. Gothic cathedral facade C. Japanese temple roof D. Mughal mausoleum",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Large: A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 8,
+      "question": "Answer with yes or no only. Does the facade include a classical portico form?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      }
+    },
+    {
+      "question_index": 9,
+      "question": "Answer with yes or no only. Is the dome clearly visible in this image?",
+      "expected": "No",
+      "rgb_answer": "No",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No.",
+        "Medium": "No",
+        "Large": "No"
+      },
+      "rendered_answers": {
+        "Small": "No.",
+        "Medium": "No",
+        "Large": "No"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "",
+        "raw_output": "Small: No."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "",
+        "raw_output": "Small: No."
+      }
+    },
+    {
+      "question_index": 10,
+      "question": "Answer with the option letter only. Which type of landmark is shown in the image?\nA. Gothic cathedral\nB. Ancient Roman temple\nC. Baroque fountain\nD. Mughal mausoleum",
+      "expected": "B",
+      "rgb_answer": "B",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "rendered_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      }
+    },
+    {
+      "question_index": 12,
+      "question": "Answer with a number only. How many separate triangular pediment instances are visible?",
+      "expected": "1",
+      "rgb_answer": "1",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "2",
+        "Medium": "2",
+        "Large": "1"
+      },
+      "rendered_answers": {
+        "Small": "3",
+        "Medium": "2",
+        "Large": "2"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "1",
+        "reason": "",
+        "raw_output": "Small: 2"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "2",
+        "reason": "",
+        "raw_output": "Small: 3"
+      }
+    },
+    {
+      "question_index": 13,
+      "question": "Answer with the option letter only. What type of pediment is visible above the front columns?\nA. Broken pediment\nB. Segmental pediment\nC. Triangular pediment\nD. Curved pediment",
+      "expected": "C",
+      "rgb_answer": "C",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "C",
+        "Medium": "C",
+        "Large": "C"
+      },
+      "rendered_answers": {
+        "Small": "C",
+        "Medium": "C",
+        "Large": "C"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "C",
+        "reason": "",
+        "raw_output": "C"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "C",
+        "reason": "",
+        "raw_output": "C"
+      }
+    },
+    {
+      "question_index": 14,
+      "question": "Answer with the option letter only. What visible feature appears on the entablature above the columns?\nA. Latin inscription\nB. Rose window\nC. Clock face\nD. Papal coat of arms",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    }
+  ],
+  "diagnostic_subset": "strength_trimmed"
+}

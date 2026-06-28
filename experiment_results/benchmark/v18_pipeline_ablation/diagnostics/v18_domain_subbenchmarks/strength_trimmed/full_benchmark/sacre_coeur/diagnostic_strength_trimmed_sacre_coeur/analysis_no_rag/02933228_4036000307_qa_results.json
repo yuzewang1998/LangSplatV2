@@ -1,0 +1,361 @@
+{
+  "image_name": "02933228_4036000307",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.2960410118103027,
+      "rendered_std": 0.4337192177772522
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.5391695499420166,
+      "rendered_std": 0.4901210069656372
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.5598338842391968,
+      "rendered_std": 0.5683071613311768
+    }
+  },
+  "questions": [
+    {
+      "question_index": 1,
+      "question": "What famous landmark or landmark scene is shown in this image?",
+      "expected": "Sacré-Cœur Basilica.",
+      "rgb_answer": "The image shows the Basilica of Sacré Coeur, a famous Roman Catholic church and minor basilica, located in Paris, France. It is one of the most recognizable landmarks in the city.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The image shows a famous landmark, the Sacré Coeur in Paris.",
+        "Medium": "The image shows the famous Sacré Coeur, a Roman Catholic church and minor basilica located in Paris.",
+        "Large": "The image shows the Sacré Coeur, a famous Roman Catholic church and minor basilica, located in Paris, France. It is known for its distinctive white stone architecture and its position atop the butte Montmartre, the highest point in Paris. The Sacré Coeur is one of the most recognizable landmarks in the city."
+      },
+      "rendered_answers": {
+        "Small": "The image shows the top of a famous cathedral with intricate architectural details.",
+        "Medium": "The image shows a famous landmark, possibly the Sacré-Cœur Basilica in Paris.",
+        "Large": "The image shows the famous Notre-Dame Cathedral in Paris, France."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The image shows the Sacré Coeur, a famous Roman Catholic church and minor basilica, located in Paris, France. It is known for its distinctive white stone architecture and its position atop the butte Montmartre, the highest point in Paris. The Sacré Coeur is one of the most recognizable landmarks in the city.",
+        "reason": "",
+        "raw_output": "Large: The image shows the Sacré Coeur, a famous Roman Catholic church and minor basilica, located in Paris, France. It is known for its distinctive white stone architecture and its position atop the butte Montmartre, the highest point in Paris. The Sacré Coeur is one of the most recognizable landmarks in the city."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The image shows the famous Notre-Dame Cathedral in Paris, France.",
+        "reason": "The architectural style and the statue on top are consistent with the Sacré-Cœur Basilica.",
+        "raw_output": "Medium: The image shows a famous landmark, possibly the Sacré-Cœur Basilica in Paris.\nREASON: The architectural style and the statue on top are consistent with the Sacré-Cœur Basilica."
+      }
+    },
+    {
+      "question_index": 3,
+      "question": "Answer with yes or no only. Is the bronze sculpture visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "",
+        "raw_output": "Large: Yes."
+      }
+    },
+    {
+      "question_index": 4,
+      "question": "Answer with yes or no only. Is the Joan of Arc statue visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No.",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes.",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "The Joan of Arc statue is clearly visible on top of the building in the image.",
+        "raw_output": "Large: Yes.\nREASON: The Joan of Arc statue is clearly visible on top of the building in the image."
+      }
+    },
+    {
+      "question_index": 5,
+      "question": "Answer with yes or no only. Is the Saint Louis statue visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "",
+        "raw_output": "Large: Yes."
+      }
+    },
+    {
+      "question_index": 6,
+      "question": "Answer with a number only. How many distinct bronze sculpture components are visible?",
+      "expected": "2",
+      "rgb_answer": "2",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "2",
+        "Medium": "2",
+        "Large": "2"
+      },
+      "rendered_answers": {
+        "Small": "2",
+        "Medium": "2",
+        "Large": "3"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "2",
+        "reason": "",
+        "raw_output": "Small: 2"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "3",
+        "reason": "",
+        "raw_output": "Small: 2"
+      }
+    },
+    {
+      "question_index": 7,
+      "question": "Answer with the option letter only. Which visible component is higher in the image? A. Saint Louis B. central religious statue",
+      "expected": "B",
+      "rgb_answer": "B",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "rendered_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "Large: B"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "Large: B"
+      }
+    },
+    {
+      "question_index": 8,
+      "question": "Answer with the option letter only. Which type of religious landmark is shown? A. basilica B. royal palace C. ancient Roman temple D. fountain",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Large: A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 9,
+      "question": "Answer with the option letter only. Which feature is NOT part of the visible in the image?\nA. Rose window\nB. Bronze equestrian statue\nC. Oceanus statue",
+      "expected": "C",
+      "rgb_answer": "C",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "C",
+        "Medium": "C",
+        "Large": "C"
+      },
+      "rendered_answers": {
+        "Small": "C",
+        "Medium": "C",
+        "Large": "C"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "C",
+        "reason": "",
+        "raw_output": "C"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "C",
+        "reason": "",
+        "raw_output": "C"
+      }
+    },
+    {
+      "question_index": 10,
+      "question": "Answer with yes or no only. Is the rose window clearly visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "No",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No.",
+        "Medium": "No",
+        "Large": "No"
+      },
+      "rendered_answers": {
+        "Small": "No.",
+        "Medium": "No.",
+        "Large": "No."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "",
+        "raw_output": "Small: No."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "No.",
+        "reason": "The rose window is not clearly visible in this image.",
+        "raw_output": "Small: No.\nREASON: The rose window is not clearly visible in this image."
+      }
+    },
+    {
+      "question_index": 11,
+      "question": "Answer with the option letter only. In the image, who is represented by the dark bronze equestrian statue on the viewer’s left side of the façade?\nA. Joan of Arc\nB. King Saint Louis IX\nC. The central Jesus figure\nD. Saint Peter",
+      "expected": "B",
+      "rgb_answer": "B",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "rendered_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      }
+    },
+    {
+      "question_index": 12,
+      "question": "Answer with a number only. How many separate bronze sculpture instances are visible?",
+      "expected": "2",
+      "rgb_answer": "2",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "1",
+        "Medium": "1",
+        "Large": "2"
+      },
+      "rendered_answers": {
+        "Small": "2",
+        "Medium": "1",
+        "Large": "2"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "2",
+        "reason": "",
+        "raw_output": "Small: 1"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "2",
+        "reason": "",
+        "raw_output": "Small: 2"
+      }
+    }
+  ],
+  "diagnostic_subset": "strength_trimmed"
+}

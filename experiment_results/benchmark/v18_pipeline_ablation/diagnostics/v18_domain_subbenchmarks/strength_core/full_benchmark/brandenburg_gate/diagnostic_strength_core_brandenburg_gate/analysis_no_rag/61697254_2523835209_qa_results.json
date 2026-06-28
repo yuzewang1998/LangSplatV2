@@ -1,0 +1,181 @@
+{
+  "image_name": "61697254_2523835209",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.0694135427474976,
+      "rendered_std": 0.4421806335449219
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.1860414743423462,
+      "rendered_std": 0.3591018319129944
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 0.9029580950737,
+      "rendered_std": 0.5210484266281128
+    }
+  },
+  "questions": [
+    {
+      "question_index": 1,
+      "question": "What famous landmark is shown in this image?",
+      "expected": "The Brandenburg Gate.",
+      "rgb_answer": "The Brandenburg Gate",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The image shows the Brandenburg Gate, which is a neoclassical monument in Berlin, Germany. It's one of the most famous landmarks in the city and often serves as a symbol of Berlin and Germany.",
+        "Medium": "The image shows the Brandenburg Gate, which is a neoclassical monument in Berlin, Germany. It's one of the most famous landmarks in the city and often serves as a symbol of Berlin and Germany.",
+        "Large": "The image shows the Brandenburg Gate, a neoclassical monument in Berlin, Germany. It's one of the most famous landmarks in the city and is often associated with the fall of the Berlin Wall in 1989."
+      },
+      "rendered_answers": {
+        "Small": "The image shows the iconic Big Ben clock tower in London.",
+        "Medium": "The Brandenburg Gate is the famous landmark shown in this image.",
+        "Large": "The Brandenburg Gate is the famous landmark shown in this image."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The image shows the Brandenburg Gate, a neoclassical monument in Berlin, Germany. It's one of the most famous landmarks in the city and is often associated with the fall of the Berlin Wall in 1989.",
+        "reason": "",
+        "raw_output": "Large: The image shows the Brandenburg Gate, a neoclassical monument in Berlin, Germany. It's one of the most famous landmarks in the city and is often associated with the fall of the Berlin Wall in 1989."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The Brandenburg Gate is the famous landmark shown in this image.",
+        "reason": "",
+        "raw_output": "Large: The Brandenburg Gate is the famous landmark shown in this image."
+      }
+    },
+    {
+      "question_index": 6,
+      "question": "Answer with the option letter only. What makes the central passage of the landmark in the image stand out from the side passages?\nA. It is wider than the side passages.\nB. It is much lower than the side passages.",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 9,
+      "question": "Based on the visible columns and symmetry, which architectural style is this landmark in the image associated with?",
+      "expected": "Neoclassical architecture.",
+      "rgb_answer": "The architectural style of the landmark is associated with neoclassicism. This is indicated by the use of Doric columns, which are a characteristic feature of classical architecture, and the symmetrical design of the structure. Neoclassicism often incorporates elements from ancient Greek and Roman architecture, emphasizing grandeur and order, which is evident in the design of this monument.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Based on the visible columns and symmetry, the landmark in the image is associated with the neoclassical architectural style. This style often features grandiose structures with a sense of order and balance, as seen in the evenly spaced columns and the pedimented structure.",
+        "Medium": "The architectural style of the landmark in the image is associated with neoclassicism. This is indicated by the use of Doric columns, which are a key feature of classical architecture, and the symmetrical design that is characteristic of neoclassical structures. The monument's design pays homage to ancient Greek and Roman architecture, which is central to the neoclassical style.",
+        "Large": "The architectural style of the landmark in the image is associated with neoclassicism. This is indicated by the symmetry, the use of large columns reminiscent of Greek and Roman architecture, and the pedimented structure, which are all characteristic features of neoclassical design."
+      },
+      "rendered_answers": {
+        "Small": "The architectural style of the landmark is associated with neoclassical architecture.",
+        "Medium": "The architectural style of the landmark is associated with neoclassical architecture.",
+        "Large": "The architectural style of the landmark is associated with neoclassical."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The architectural style of the landmark in the image is associated with neoclassicism. This is indicated by the symmetry, the use of large columns reminiscent of Greek and Roman architecture, and the pedimented structure, which are all characteristic features of neoclassical design.",
+        "reason": "",
+        "raw_output": "Large: The architectural style of the landmark in the image is associated with neoclassicism. This is indicated by the symmetry, the use of large columns reminiscent of Greek and Roman architecture, and the pedimented structure, which are all characteristic features of neoclassical design."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The architectural style of the landmark is associated with neoclassical.",
+        "reason": "",
+        "raw_output": "Large: The architectural style of the landmark is associated with neoclassical architecture."
+      }
+    },
+    {
+      "question_index": 10,
+      "question": "Based on the landmark shown in the image, which city and country is it located in?",
+      "expected": "Berlin, Germany.",
+      "rgb_answer": "The landmark in the image is the Brandenburg Gate, which is located in Berlin, Germany. This can be inferred from the distinctive neoclassical architecture and the presence of the Quadriga statue on top, which are iconic features of this particular monument.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The landmark in the image is the Brandenburg Gate, which is located in Berlin, Germany.",
+        "Medium": "The landmark in the image is the Brandenburg Gate, which is located in Berlin, Germany.",
+        "Large": "The landmark in the image is the Brandenburg Gate, which is located in Berlin, Germany."
+      },
+      "rendered_answers": {
+        "Small": "The landmark is located in Rome, Italy.",
+        "Medium": "The landmark is located in Berlin, Germany.",
+        "Large": "The Brandenburg Gate is located in Berlin, Germany."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The landmark in the image is the Brandenburg Gate, which is located in Berlin, Germany.",
+        "reason": "The Brandenburg Gate is a famous landmark in Berlin, Germany.",
+        "raw_output": "Small: The landmark in the image is the Brandenburg Gate, which is located in Berlin, Germany.\nREASON: The Brandenburg Gate is a famous landmark in Berlin, Germany."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The Brandenburg Gate is located in Berlin, Germany.",
+        "reason": "",
+        "raw_output": "Large: The Brandenburg Gate is located in Berlin, Germany."
+      }
+    },
+    {
+      "question_index": 13,
+      "question": "Answer with the option letter only. Which classical column order do the visible columns of the landmark in the image most closely resemble? A. Doric B. Ionic C. Corinthian D. Gothic",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    }
+  ],
+  "diagnostic_subset": "strength_core"
+}

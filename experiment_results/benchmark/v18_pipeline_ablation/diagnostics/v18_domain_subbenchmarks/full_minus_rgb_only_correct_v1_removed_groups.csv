@@ -1,0 +1,19 @@
+scene,category,metric_class,removed_questions,images,example_question
+pantheon_exterior,spatial_view_visibility,yes_no,11,7,is the front obelisk visible in this image?
+trevi_fountain,count_numeric,number,7,7,how many large rectangular relief panels are visible above the side sections of the fountain façade?
+brandenburg_gate,count_numeric,number,5,5,how many horses are visible in the sculpture group?
+brandenburg_gate,spatial_view_visibility,yes_no,5,4,is the sculpture shown almost straight from the front?
+pantheon_exterior,component_presence,multiple_choice,3,3,which component is not visibly present in this image? a. triangular pediment b. front obelisk c. dome d. column
+temple_nara_japan,count_numeric,number,3,2,how many distinct door components are visible?
+buckingham_palace,spatial_view_visibility,yes_no,2,2,is the fence clearly visible in this image?
+sacre_coeur,spatial_view_visibility,multiple_choice,2,2,which religious figure is represented by the central statue above the main entrance in the image? a. jesus christ with a visible heart symbol b. saint peter holding keys c. the virgin mary with a child d. saint george sl
+temple_nara_japan,component_presence,multiple_choice,2,1,which of these architectural or landmark components is visibly present in this image? a. eave b. golden shibi c. onion dome d. rose window
+buckingham_palace,identity_location,multiple_choice,1,1,which feature is centrally located on the palace façade in the image? a. royal balcony b. rose window c. onion dome d. minaret
+notre_dame_front_facade,count_numeric,number,1,1,how many distinct rose window components are visible?
+notre_dame_front_facade,spatial_view_visibility,yes_no,1,1,is the last judgment scene visible in this image?
+pantheon_exterior,count_numeric,number,1,1,how many separate triangular pediment instances are visible?
+pantheon_exterior,part_attribute_semantics,multiple_choice,1,1,what shape best describes the foreground monument in the image? a. tall tapering obelisk b. round dome c. curved arch d. flat pediment
+pantheon_exterior,style_history_knowledge,multiple_choice,1,1,which visible component is most directly associated with piazza monument? a. front obelisk b. dome c. corinthian column d. rose window
+sacre_coeur,count_numeric,number,1,1,how many distinct bronze sculpture components are visible?
+sacre_coeur,spatial_view_visibility,yes_no,1,1,is the rose window clearly visible in this image?
+trevi_fountain,component_presence,multiple_choice,1,1,which visible component is most directly associated with central mythological figure? a. oceanus b. papal coat of arms c. window d. water

@@ -1,0 +1,91 @@
+{
+  "image_name": "08749671_4698877746",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.25229012966156,
+      "rendered_std": 0.4565512239933014
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.4902757406234741,
+      "rendered_std": 0.5127950310707092
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.5289653539657593,
+      "rendered_std": 0.5543466210365295
+    }
+  },
+  "questions": [
+    {
+      "question_index": 2,
+      "question": "Answer with the option letter only. Which religious figure is represented by the central statue above the main entrance in the image?\nA. Jesus Christ with a visible heart symbol\nB. Saint Peter holding keys\nC. The Virgin Mary with a child\nD. Saint George slaying a dragon",
+      "expected": "A",
+      "rgb_answer": "B",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "rendered_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "D"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "D",
+        "reason": "The statue above the main entrance is of Saint Peter holding keys, which is a common representation in Christian architecture.",
+        "raw_output": "Small: B\nREASON: The statue above the main entrance is of Saint Peter holding keys, which is a common representation in Christian architecture."
+      }
+    },
+    {
+      "question_index": 11,
+      "question": "Answer with the option letter only. In the image, who is represented by the dark bronze equestrian statue on the viewer’s right side of the façade?\nA. Joan of Arc\nB. King Saint Louis IX\nC. The central Jesus figure\nD. Saint Peter",
+      "expected": "A",
+      "rgb_answer": "B",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "rendered_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      }
+    }
+  ],
+  "diagnostic_subset": "significant_ours_errors"
+}

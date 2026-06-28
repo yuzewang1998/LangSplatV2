@@ -1,0 +1,7 @@
+cell,label_zh,scene,category,metric_class,questions,images,ours_correct,rgb_correct,ours_objective_accuracy,rgb_objective_accuracy,delta_objective_accuracy,ours_only_correct,rgb_only_correct,both_correct,both_wrong
+trevi_fountain / spatial_view_visibility / yes_no,Trevi Fountain：跨视角可见性 yes/no,trevi_fountain,spatial_view_visibility,yes_no,58,12,58,52,1.0,0.896551724137931,0.10344827586206896,6,0,52,0
+sacre_coeur / spatial_view_visibility / yes_no,Sacré-Cœur：跨视角可见性 yes/no,sacre_coeur,spatial_view_visibility,yes_no,41,10,35,32,0.8536585365853658,0.7804878048780488,0.07317073170731707,4,1,31,5
+taj_mahal / count_numeric / number,Taj Mahal：局部结构计数 number,taj_mahal,count_numeric,number,18,10,9,4,0.5,0.2222222222222222,0.2777777777777778,5,0,4,9
+notre_dame_front_facade / count_numeric / number,Notre-Dame：局部结构计数 number,notre_dame_front_facade,count_numeric,number,7,7,2,1,0.2857142857142857,0.14285714285714285,0.14285714285714285,2,1,0,4
+notre_dame_front_facade / component_presence / multiple_choice,Notre-Dame：局部构件存在性 multiple-choice,notre_dame_front_facade,component_presence,multiple_choice,12,8,11,10,0.9166666666666666,0.8333333333333334,0.08333333333333333,1,0,10,1
+taj_mahal / component_presence / multiple_choice,Taj Mahal：局部构件存在性 multiple-choice,taj_mahal,component_presence,multiple_choice,7,7,7,7,1.0,1.0,0.0,0,0,7,0

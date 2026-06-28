@@ -1,0 +1,241 @@
+{
+  "image_name": "99656965_3139976954",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.2236157655715942,
+      "rendered_std": 0.26160556077957153
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.4573192596435547,
+      "rendered_std": 0.23621658980846405
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.4920036792755127,
+      "rendered_std": 0.28658685088157654
+    }
+  },
+  "questions": [
+    {
+      "question_index": 4,
+      "question": "Answer with yes or no only. Is the column visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes",
+        "Large": "yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "yes",
+        "reason": "",
+        "raw_output": "Large: yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      }
+    },
+    {
+      "question_index": 6,
+      "question": "Based on the landmark shown in the image, which city and country is it located in?",
+      "expected": "Rome, Italy.",
+      "rgb_answer": "The landmark is the Pantheon, which is located in Rome, Italy. This can be inferred from the Latin inscription \"MAGRIFFAL F.COSTERTIVM FECIT,\" which indicates that it was built by a Roman architect or builder, and the architectural style, which is characteristic of ancient Roman buildings.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The landmark is located in Rome, Italy.",
+        "Medium": "The landmark is located in Rome, Italy.",
+        "Large": "The landmark is the Pantheon, which is located in Rome, Italy. This can be inferred from the Latin inscription \"MAGrippa L. Fecit,\" referring to Marcus Aurelius Antoninus, known as Magnus Aemilianus Antoninus Augustus, who was a Roman Emperor and also the father of the philosopher Marcus Aurelius. The Pantheon was built during his reign, making it a significant historical structure in Rome, Italy."
+      },
+      "rendered_answers": {
+        "Small": "The landmark is located in Rome, Italy.",
+        "Medium": "The landmark is located in Rome, Italy.",
+        "Large": "The landmark is located in Rome, Italy."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The landmark is the Pantheon, which is located in Rome, Italy. This can be inferred from the Latin inscription \"MAGrippa L. Fecit,\" referring to Marcus Aurelius Antoninus, known as Magnus Aemilianus Antoninus Augustus, who was a Roman Emperor and also the father of the philosopher Marcus Aurelius. The Pantheon was built during his reign, making it a significant historical structure in Rome, Italy.",
+        "reason": "",
+        "raw_output": "Large: The landmark is the Pantheon, which is located in Rome, Italy. This can be inferred from the Latin inscription \"MAGrippa L. Fecit,\" referring to Marcus Aurelius Antoninus, known as Magnus Aemilianus Antoninus Augustus, who was a Roman Emperor and also the father of the philosopher Marcus Aurelius. The Pantheon was built during his reign, making it a significant historical structure in Rome, Italy."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The landmark is located in Rome, Italy.",
+        "reason": "The text on the building indicates that it is located in Rome, Italy.",
+        "raw_output": "Small: The landmark is located in Rome, Italy.\nREASON: The text on the building indicates that it is located in Rome, Italy."
+      }
+    },
+    {
+      "question_index": 7,
+      "question": "Answer with the option letter only. Which type of architecture is most evident? A. classical Roman portico B. Gothic cathedral facade C. Japanese temple roof D. Mughal mausoleum",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 8,
+      "question": "Answer with yes or no only. Does the facade include a classical portico form?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      }
+    },
+    {
+      "question_index": 10,
+      "question": "Answer with the option letter only. Which type of landmark is shown in the image?\nA. Gothic cathedral\nB. Ancient Roman temple\nC. Baroque fountain\nD. Mughal mausoleum",
+      "expected": "B",
+      "rgb_answer": "B",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "rendered_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      }
+    },
+    {
+      "question_index": 13,
+      "question": "Answer with the option letter only. What type of pediment is visible above the front columns?\nA. Broken pediment\nB. Segmental pediment\nC. Triangular pediment\nD. Curved pediment",
+      "expected": "C",
+      "rgb_answer": "C",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "C",
+        "Medium": "C",
+        "Large": "C"
+      },
+      "rendered_answers": {
+        "Small": "C",
+        "Medium": "C",
+        "Large": "C"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "C",
+        "reason": "",
+        "raw_output": "C"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "C",
+        "reason": "",
+        "raw_output": "C"
+      }
+    },
+    {
+      "question_index": 14,
+      "question": "Answer with the option letter only. What visible feature appears on the entablature above the columns?\nA. Latin inscription\nB. Rose window\nC. Clock face\nD. Papal coat of arms",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    }
+  ],
+  "diagnostic_subset": "strength_core"
+}

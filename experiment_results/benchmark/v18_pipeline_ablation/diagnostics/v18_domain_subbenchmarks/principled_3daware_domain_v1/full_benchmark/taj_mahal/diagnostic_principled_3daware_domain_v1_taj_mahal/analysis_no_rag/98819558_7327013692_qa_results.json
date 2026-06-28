@@ -1,0 +1,91 @@
+{
+  "image_name": "98819558_7327013692",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.3027845621109009,
+      "rendered_std": 0.41685763001441956
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.6072535514831543,
+      "rendered_std": 0.48381537199020386
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.659352421760559,
+      "rendered_std": 0.5912294387817383
+    }
+  },
+  "questions": [
+    {
+      "question_index": 5,
+      "question": "Answer with a number only. How many distinct onion dome components are visible?",
+      "expected": "3",
+      "rgb_answer": "4",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "2",
+        "Medium": "3",
+        "Large": "3"
+      },
+      "rendered_answers": {
+        "Small": "3",
+        "Medium": "3",
+        "Large": "3"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "3",
+        "reason": "",
+        "raw_output": "Large: 3"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "3",
+        "reason": "",
+        "raw_output": "Large: 3"
+      }
+    },
+    {
+      "question_index": 15,
+      "question": "Answer with a number only. How many minarets are visible around the main mausoleum in this image?",
+      "expected": "0",
+      "rgb_answer": "4",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "4",
+        "Medium": "4",
+        "Large": "4"
+      },
+      "rendered_answers": {
+        "Small": "4",
+        "Medium": "4",
+        "Large": "4"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "4",
+        "reason": "",
+        "raw_output": "Large: 4"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "4",
+        "reason": "",
+        "raw_output": "Large: 4"
+      }
+    }
+  ],
+  "diagnostic_subset": "principled_3daware_domain_v1"
+}

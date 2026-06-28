@@ -1,0 +1,211 @@
+{
+  "image_name": "63943270_228198195",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.3434191942214966,
+      "rendered_std": 0.3070789873600006
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.6132714748382568,
+      "rendered_std": 0.35606497526168823
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.6029751300811768,
+      "rendered_std": 0.4360721707344055
+    }
+  },
+  "questions": [
+    {
+      "question_index": 1,
+      "question": "What famous landmark or landmark scene is shown in this image?",
+      "expected": "A temple in Nara, Japan.",
+      "rgb_answer": "The image shows the entrance to the Kiyomizu-Dera temple in Kyoto, Japan. This is a UNESCO World Heritage Site and one of the most famous landmarks in Japan. It is known for its large wooden stage that extends out from the main hall, offering a panoramic view of Kyoto. The architecture is characteristic of traditional Japanese temples, with intricate woodwork and a curved roof.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The image shows a close-up view of the exterior of a traditional Japanese temple, possibly the famous Kiyomizu-dera in Kyoto.",
+        "Medium": "The image shows a famous landmark, the Kiyomizu-dera temple in Kyoto, Japan.",
+        "Large": "The image shows a traditional Japanese temple gate, known as a torii. This type of gate is commonly found at the entrance to or within a Shinto shrine, symbolizing the transition from the mundane to the sacred. The architecture and design are characteristic of traditional Japanese structures, often seen in temples and shrines throughout Japan."
+      },
+      "rendered_answers": {
+        "Small": "The image shows a traditional Japanese temple with a curved roof and intricate wooden architecture.",
+        "Medium": "The image shows a traditional Japanese temple with a curved roof and intricate wooden architecture.",
+        "Large": "The image shows the famous landmark, the Kiyomizu-dera Temple in Kyoto, Japan."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The image shows a traditional Japanese temple gate, known as a torii. This type of gate is commonly found at the entrance to or within a Shinto shrine, symbolizing the transition from the mundane to the sacred. The architecture and design are characteristic of traditional Japanese structures, often seen in temples and shrines throughout Japan.",
+        "reason": "The image depicts a traditional Japanese temple gate, which is a common feature in Shinto shrines and temples across Japan.",
+        "raw_output": "Large: The image shows a traditional Japanese temple gate, known as a torii. This type of gate is commonly found at the entrance to or within a Shinto shrine, symbolizing the transition from the mundane to the sacred. The architecture and design are characteristic of traditional Japanese structures, often seen in temples and shrines throughout Japan.\nREASON: The image depicts a traditional Japanese temple gate, which is a common feature in Shinto shrines and temples across Japan."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The image shows the famous landmark, the Kiyomizu-dera Temple in Kyoto, Japan.",
+        "reason": "The image is of a traditional Japanese temple with a curved roof and intricate wooden architecture.",
+        "raw_output": "Large: The image shows the famous landmark, the Kiyomizu-dera Temple in Kyoto, Japan.\nREASON: The image is of a traditional Japanese temple with a curved roof and intricate wooden architecture."
+      }
+    },
+    {
+      "question_index": 2,
+      "question": "Answer with yes or no only. Is the door visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes.",
+        "Medium": "No",
+        "Large": "No"
+      },
+      "rendered_answers": {
+        "Small": "No",
+        "Medium": "No",
+        "Large": "No"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "The door is visible in the image.",
+        "raw_output": "Small: Yes.\nREASON: The door is visible in the image."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "",
+        "raw_output": "Small: No"
+      }
+    },
+    {
+      "question_index": 3,
+      "question": "In which city and country is the landmark scene shown in the image located?",
+      "expected": "Nara, Japan.",
+      "rgb_answer": "The landmark scene shown in the image is located in Kyoto, Japan.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The landmark scene is located in Seoul, South Korea.",
+        "Medium": "The landmark scene is located in Kyoto, Japan.",
+        "Large": "The landmark scene shown in the image is located in Kyoto, Japan."
+      },
+      "rendered_answers": {
+        "Small": "The landmark scene is located in Kyoto, Japan.",
+        "Medium": "The landmark scene is located in Kyoto, Japan.",
+        "Large": "The landmark scene is located in Kyoto, Japan."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The landmark scene shown in the image is located in Kyoto, Japan.",
+        "reason": "The architectural style and design elements suggest that this is a traditional Japanese building, likely a temple or shrine.",
+        "raw_output": "Large: The landmark scene shown in the image is located in Kyoto, Japan.\nREASON: The architectural style and design elements suggest that this is a traditional Japanese building, likely a temple or shrine."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The landmark scene is located in Kyoto, Japan.",
+        "reason": "",
+        "raw_output": "Large: The landmark scene is located in Kyoto, Japan."
+      }
+    },
+    {
+      "question_index": 4,
+      "question": "Answer with the option letter only. Which type of building is shown? A. Japanese temple hall B. Baroque fountain C. royal palace D. Mughal mausoleum",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Small: A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Large: A"
+      }
+    },
+    {
+      "question_index": 5,
+      "question": "Answer with yes or no only. Is the eave clearly visible in this image?",
+      "expected": "No",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No.",
+        "Medium": "Yes.",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes.",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Small: No."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "",
+        "raw_output": "Large: Yes."
+      }
+    },
+    {
+      "question_index": 6,
+      "question": "Answer with the option letter only. Which structural feature is visible beneath the eaves of the temple roof?\nA. Wooden bracket complexes\nB. Flying buttresses\nC. Steel trusses\nD. Marble arches",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    }
+  ],
+  "diagnostic_subset": "strength_trimmed"
+}

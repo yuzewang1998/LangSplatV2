@@ -1,0 +1,181 @@
+{
+  "image_name": "05849192_9369715670",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.3494513034820557,
+      "rendered_std": 0.5114495754241943
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.5746268033981323,
+      "rendered_std": 0.6982324719429016
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.5697721242904663,
+      "rendered_std": 0.8826194405555725
+    }
+  },
+  "questions": [
+    {
+      "question_index": 6,
+      "question": "Answer with a number only. How many sea horses are visible in the sculptural group of the landmark in the image?",
+      "expected": "2",
+      "rgb_answer": "3",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Two",
+        "Medium": "3",
+        "Large": "3"
+      },
+      "rendered_answers": {
+        "Small": "3",
+        "Medium": "3",
+        "Large": "3"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "3",
+        "reason": "",
+        "raw_output": "Small: Two"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "3",
+        "reason": "",
+        "raw_output": "Small: 3"
+      }
+    },
+    {
+      "question_index": 7,
+      "question": "Answer with a number only. How many human-like sculpted figures are visible in the main fountain sculptures and side niches, excluding figures in relief panels?",
+      "expected": "5",
+      "rgb_answer": "9",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "4",
+        "Medium": "10",
+        "Large": "12"
+      },
+      "rendered_answers": {
+        "Small": "10",
+        "Medium": "12",
+        "Large": "12"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "12",
+        "reason": "",
+        "raw_output": "Small: 4"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "12",
+        "reason": "",
+        "raw_output": "Small: 10"
+      }
+    },
+    {
+      "question_index": 14,
+      "question": "Answer with the option letter only. Which column style do the visible columns or pilasters on the façade in the image most closely resemble?\nA. Doric\nB. Ionic\nC. Corinthian\nD. Gothic",
+      "expected": "C",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 15,
+      "question": "Answer with a number only. How many large rectangular relief panels are visible above the side sections of the fountain façade?",
+      "expected": "2",
+      "rgb_answer": "2",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "2",
+        "Medium": "3",
+        "Large": "3"
+      },
+      "rendered_answers": {
+        "Small": "3",
+        "Medium": "3",
+        "Large": "3"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "3",
+        "reason": "",
+        "raw_output": "Small: 2"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "3",
+        "reason": "There are three large rectangular relief panels visible above the side sections of the fountain façade.",
+        "raw_output": "Large: 3\nREASON: There are three large rectangular relief panels visible above the side sections of the fountain façade."
+      }
+    },
+    {
+      "question_index": 16,
+      "question": "What visible component matches this description: the central mythological male figure?",
+      "expected": "Oceanus",
+      "rgb_answer": "The central mythological male figure is the statue of Oceanus.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The central mythological male figure is a statue.",
+        "Medium": "The central mythological male figure is a statue.",
+        "Large": "The central figure you're referring to is likely the statue of Neptune, the Roman god of the sea. This statue is a prominent feature of the Trevi Fountain in Rome, Italy. The fountain is known for its intricate Baroque design and is one of the most famous landmarks in Rome."
+      },
+      "rendered_answers": {
+        "Small": "The central mythological male figure is a visible component that matches this description.",
+        "Medium": "The central mythological male figure is a visible component that matches this description.",
+        "Large": "The central mythological male figure is a visible component that matches this description."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The central figure you're referring to is likely the statue of Neptune, the Roman god of the sea. This statue is a prominent feature of the Trevi Fountain in Rome, Italy. The fountain is known for its intricate Baroque design and is one of the most famous landmarks in Rome.",
+        "reason": "",
+        "raw_output": "Large: The central figure you're referring to is likely the statue of Neptune, the Roman god of the sea. This statue is a prominent feature of the Trevi Fountain in Rome, Italy. The fountain is known for its intricate Baroque design and is one of the most famous landmarks in Rome."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The central mythological male figure is a visible component that matches this description.",
+        "reason": "",
+        "raw_output": "Large: The central mythological male figure is a visible component that matches this description."
+      }
+    }
+  ],
+  "diagnostic_subset": "significant_ours_errors"
+}

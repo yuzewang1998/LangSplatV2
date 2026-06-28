@@ -1,0 +1,91 @@
+{
+  "image_name": "99173697_532082145",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.3407500982284546,
+      "rendered_std": 0.31657546758651733
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.6008886098861694,
+      "rendered_std": 0.38243335485458374
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.6184887886047363,
+      "rendered_std": 0.421313613653183
+    }
+  },
+  "questions": [
+    {
+      "question_index": 6,
+      "question": "Answer with a number only. How many distinct door components are visible?",
+      "expected": "3",
+      "rgb_answer": "3",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Three",
+        "Medium": "3",
+        "Large": "3"
+      },
+      "rendered_answers": {
+        "Small": "Three",
+        "Medium": "3",
+        "Large": "Three"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "3",
+        "reason": "There are three distinct door components visible in the image.",
+        "raw_output": "Small: Three\nREASON: There are three distinct door components visible in the image."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Three",
+        "reason": "There are three distinct door components visible in the image.",
+        "raw_output": "Small: Three\nREASON: There are three distinct door components visible in the image."
+      }
+    },
+    {
+      "question_index": 11,
+      "question": "Answer with a number only. How many major roof tiers are visible on the main temple building?",
+      "expected": "2",
+      "rgb_answer": "3",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Three",
+        "Medium": "2",
+        "Large": "3"
+      },
+      "rendered_answers": {
+        "Small": "3",
+        "Medium": "3",
+        "Large": "Three"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "3",
+        "reason": "",
+        "raw_output": "Small: Three"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Three",
+        "reason": "",
+        "raw_output": "Large: Three"
+      }
+    }
+  ],
+  "diagnostic_subset": "significant_ours_errors"
+}

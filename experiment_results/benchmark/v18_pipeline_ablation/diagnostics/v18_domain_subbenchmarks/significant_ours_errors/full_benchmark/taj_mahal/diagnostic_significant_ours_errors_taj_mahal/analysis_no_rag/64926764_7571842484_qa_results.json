@@ -1,0 +1,91 @@
+{
+  "image_name": "64926764_7571842484",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.367429256439209,
+      "rendered_std": 0.475261390209198
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.6643309593200684,
+      "rendered_std": 0.5577836632728577
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.6326555013656616,
+      "rendered_std": 0.6477576494216919
+    }
+  },
+  "questions": [
+    {
+      "question_index": 2,
+      "question": "Answer with the option letter only. Which dome form is most prominent at the center of the landmark in the image?\nA. Bulbous onion dome\nB. Hemispherical dome\nC. Ribbed dome\nD. Conical dome",
+      "expected": "A",
+      "rgb_answer": "B",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "Large: B"
+      }
+    },
+    {
+      "question_index": 14,
+      "question": "Answer with a number only. How many minarets are visible around the main mausoleum in this image?",
+      "expected": "0",
+      "rgb_answer": "4",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "4",
+        "Medium": "4",
+        "Large": "4"
+      },
+      "rendered_answers": {
+        "Small": "4",
+        "Medium": "4",
+        "Large": "4"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "4",
+        "reason": "",
+        "raw_output": "Large: 4"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "4",
+        "reason": "",
+        "raw_output": "Large: 4"
+      }
+    }
+  ],
+  "diagnostic_subset": "significant_ours_errors"
+}

@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "updated_at": "2026-06-25T19:02:33+0800",
+  "policy": "FIFO over pending experiments; scheduler launches full benchmark+JudgeLM via run_v18_worker.sh on GPU0-3 when matching v18 GPU tmux session is absent. Completed summaries are skipped.",
+  "gpus": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "experiments": [
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T512_R1_C1",
+      "status": "completed",
+      "gpu": 2,
+      "session": "v18q_gpu2_v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T512_R1_C1",
+      "started_at": "2026-06-25T14:44:32+0800",
+      "completed_at": "2026-06-25T16:26:32+0800"
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T512_R3_C1",
+      "status": "completed",
+      "gpu": 0,
+      "session": "v18q_gpu0_v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T512_R3_C1",
+      "started_at": "2026-06-25T14:54:32+0800",
+      "completed_at": "2026-06-25T16:44:32+0800"
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T512_R4_C1",
+      "status": "completed",
+      "gpu": 1,
+      "session": "v18q_gpu1_v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T512_R4_C1",
+      "started_at": "2026-06-25T14:54:32+0800",
+      "completed_at": "2026-06-25T16:48:32+0800"
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T512_R6_C1",
+      "status": "completed",
+      "gpu": 3,
+      "session": "v18q_gpu3_v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T512_R6_C1",
+      "started_at": "2026-06-25T15:20:32+0800",
+      "completed_at": "2026-06-25T17:10:32+0800"
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T512_R8_C1",
+      "status": "completed",
+      "gpu": 2,
+      "session": "v18q_gpu2_v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T512_R8_C1",
+      "started_at": "2026-06-25T16:26:32+0800",
+      "completed_at": "2026-06-25T18:08:33+0800"
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T256_R5_C1",
+      "status": "completed",
+      "gpu": 0,
+      "session": "v18q_gpu0_v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T256_R5_C1",
+      "started_at": "2026-06-25T16:44:32+0800",
+      "completed_at": "2026-06-25T17:48:32+0800"
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T448_R5_C1",
+      "status": "completed",
+      "gpu": 1,
+      "session": "v18q_gpu1_v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T448_R5_C1",
+      "started_at": "2026-06-25T16:48:32+0800",
+      "completed_at": "2026-06-25T18:20:33+0800"
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T576_R5_C1",
+      "status": "completed",
+      "gpu": 3,
+      "session": "v18q_gpu3_v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T576_R5_C1",
+      "started_at": "2026-06-25T17:10:32+0800",
+      "completed_at": "2026-06-25T18:38:33+0800"
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T704_R5_C1",
+      "status": "completed",
+      "gpu": 0,
+      "session": "v18q_gpu0_v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T704_R5_C1",
+      "started_at": "2026-06-25T17:48:32+0800",
+      "completed_at": "2026-06-25T19:02:33+0800"
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "image_name": "98912687_6099556076",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.3252233266830444,
+      "rendered_std": 0.45584526658058167
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.4907817840576172,
+      "rendered_std": 0.6711625456809998
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.5429893732070923,
+      "rendered_std": 0.7779750823974609
+    }
+  },
+  "questions": [
+    {
+      "question_index": 4,
+      "question": "Answer with a number only. How many distinct rose window components are visible?",
+      "expected": "1",
+      "rgb_answer": "20",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "1",
+        "Medium": "1",
+        "Large": "12"
+      },
+      "rendered_answers": {
+        "Small": "12",
+        "Medium": "1",
+        "Large": "12"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "12",
+        "reason": "",
+        "raw_output": "Small: 1"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "12",
+        "reason": "",
+        "raw_output": "Small: 12"
+      }
+    },
+    {
+      "question_index": 9,
+      "question": "Answer with yes or no only. Is the tympanum clearly visible in this image?",
+      "expected": "No",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No.",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "No.",
+        "Medium": "Yes.",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "The tympanum is clearly visible in this image.",
+        "raw_output": "Large: Yes.\nREASON: The tympanum is clearly visible in this image."
+      }
+    }
+  ],
+  "diagnostic_subset": "significant_ours_errors"
+}

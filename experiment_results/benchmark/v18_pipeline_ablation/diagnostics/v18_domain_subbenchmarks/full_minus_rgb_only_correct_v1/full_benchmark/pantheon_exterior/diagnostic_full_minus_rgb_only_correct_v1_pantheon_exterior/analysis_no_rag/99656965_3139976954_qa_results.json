@@ -1,0 +1,421 @@
+{
+  "image_name": "99656965_3139976954",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.2236157655715942,
+      "rendered_std": 0.26160556077957153
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.4573192596435547,
+      "rendered_std": 0.23621658980846405
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.4920036792755127,
+      "rendered_std": 0.28658685088157654
+    }
+  },
+  "questions": [
+    {
+      "question_index": 1,
+      "question": "What famous landmark or landmark scene is shown in this image?",
+      "expected": "The Pantheon.",
+      "rgb_answer": "The image shows the Pantheon, a famous landmark in Rome, Italy. It is an ancient Roman temple dedicated to all the gods of ancient Rome and is known for its impressive architecture, including its large dome and the inscription \"MAGRIFFAL F.COSTERTIVM FECIT\" above the entrance, which translates to \"Magrippa, son of Costerius, made this.\" The Pantheon is one of the best-preserved buildings from ancient Rome and is also a UNESCO World Heritage Site.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The image shows the Pantheon in Rome, Italy.",
+        "Medium": "The image shows the Pantheon, a famous landmark in Rome, Italy.",
+        "Large": "The image shows the façade of the Pantheon, a renowned landmark in Rome, Italy. The Pantheon is one of the most famous and well-preserved ancient Roman buildings, known for its impressive dome and its status as a former temple dedicated to all the gods of ancient Rome."
+      },
+      "rendered_answers": {
+        "Small": "The image shows the Colosseum in Rome, Italy.",
+        "Medium": "The image shows the Palazzo Farnese, a famous landmark in Rome.",
+        "Large": "The image shows the façade of the Temple of Vesta in Rome, Italy."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The image shows the façade of the Pantheon, a renowned landmark in Rome, Italy. The Pantheon is one of the most famous and well-preserved ancient Roman buildings, known for its impressive dome and its status as a former temple dedicated to all the gods of ancient Rome.",
+        "reason": "The image clearly depicts the façade of the Pantheon, which is a significant historical and architectural landmark in Rome, Italy.",
+        "raw_output": "Large: The image shows the façade of the Pantheon, a renowned landmark in Rome, Italy. The Pantheon is one of the most famous and well-preserved ancient Roman buildings, known for its impressive dome and its status as a former temple dedicated to all the gods of ancient Rome.\nBEST_SCALE: Large\nREASON: The image clearly depicts the façade of the Pantheon, which is a significant historical and architectural landmark in Rome, Italy."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The image shows the façade of the Temple of Vesta in Rome, Italy.",
+        "reason": "The image depicts a classical building with Corinthian columns and inscriptions, which is characteristic of Roman architecture.",
+        "raw_output": "Large: The image shows the façade of the Temple of Vesta in Rome, Italy.\nREASON: The image depicts a classical building with Corinthian columns and inscriptions, which is characteristic of Roman architecture."
+      }
+    },
+    {
+      "question_index": 2,
+      "question": "Answer with the option letter only. Which column order do the visible portico columns most closely resemble?\nA. Doric\nB. Ionic\nC. Corinthian\nD. Tuscan",
+      "expected": "C",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 3,
+      "question": "Answer with yes or no only. Is the triangular pediment visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No.",
+        "Medium": "No",
+        "Large": "No"
+      },
+      "rendered_answers": {
+        "Small": "No",
+        "Medium": "No",
+        "Large": "No"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "",
+        "raw_output": "Small: No."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "",
+        "raw_output": "Small: No"
+      }
+    },
+    {
+      "question_index": 4,
+      "question": "Answer with yes or no only. Is the column visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes",
+        "Large": "yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "yes",
+        "reason": "",
+        "raw_output": "Large: yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      }
+    },
+    {
+      "question_index": 5,
+      "question": "Answer with the option letter only. Approximately how many large portico columns are visible in the image?\nA. 0–5\nB. 6–10\nC. 11–20\nD. More than 20",
+      "expected": "C",
+      "rgb_answer": "B",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "rendered_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      }
+    },
+    {
+      "question_index": 6,
+      "question": "Based on the landmark shown in the image, which city and country is it located in?",
+      "expected": "Rome, Italy.",
+      "rgb_answer": "The landmark is the Pantheon, which is located in Rome, Italy. This can be inferred from the Latin inscription \"MAGRIFFAL F.COSTERTIVM FECIT,\" which indicates that it was built by a Roman architect or builder, and the architectural style, which is characteristic of ancient Roman buildings.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The landmark is located in Rome, Italy.",
+        "Medium": "The landmark is located in Rome, Italy.",
+        "Large": "The landmark is the Pantheon, which is located in Rome, Italy. This can be inferred from the Latin inscription \"MAGrippa L. Fecit,\" referring to Marcus Aurelius Antoninus, known as Magnus Aemilianus Antoninus Augustus, who was a Roman Emperor and also the father of the philosopher Marcus Aurelius. The Pantheon was built during his reign, making it a significant historical structure in Rome, Italy."
+      },
+      "rendered_answers": {
+        "Small": "The landmark is located in Rome, Italy.",
+        "Medium": "The landmark is located in Rome, Italy.",
+        "Large": "The landmark is located in Rome, Italy."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The landmark is the Pantheon, which is located in Rome, Italy. This can be inferred from the Latin inscription \"MAGrippa L. Fecit,\" referring to Marcus Aurelius Antoninus, known as Magnus Aemilianus Antoninus Augustus, who was a Roman Emperor and also the father of the philosopher Marcus Aurelius. The Pantheon was built during his reign, making it a significant historical structure in Rome, Italy.",
+        "reason": "",
+        "raw_output": "Large: The landmark is the Pantheon, which is located in Rome, Italy. This can be inferred from the Latin inscription \"MAGrippa L. Fecit,\" referring to Marcus Aurelius Antoninus, known as Magnus Aemilianus Antoninus Augustus, who was a Roman Emperor and also the father of the philosopher Marcus Aurelius. The Pantheon was built during his reign, making it a significant historical structure in Rome, Italy."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The landmark is located in Rome, Italy.",
+        "reason": "The text on the building indicates that it is located in Rome, Italy.",
+        "raw_output": "Small: The landmark is located in Rome, Italy.\nREASON: The text on the building indicates that it is located in Rome, Italy."
+      }
+    },
+    {
+      "question_index": 7,
+      "question": "Answer with the option letter only. Which type of architecture is most evident? A. classical Roman portico B. Gothic cathedral facade C. Japanese temple roof D. Mughal mausoleum",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 8,
+      "question": "Answer with yes or no only. Does the facade include a classical portico form?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      }
+    },
+    {
+      "question_index": 9,
+      "question": "Answer with yes or no only. Is the dome clearly visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "No",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No.",
+        "Medium": "No",
+        "Large": "No"
+      },
+      "rendered_answers": {
+        "Small": "No",
+        "Medium": "No",
+        "Large": "No"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "",
+        "raw_output": "Small: No."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "",
+        "raw_output": "Small: No"
+      }
+    },
+    {
+      "question_index": 10,
+      "question": "Answer with the option letter only. Which type of landmark is shown in the image?\nA. Gothic cathedral\nB. Ancient Roman temple\nC. Baroque fountain\nD. Mughal mausoleum",
+      "expected": "B",
+      "rgb_answer": "B",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "rendered_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      }
+    },
+    {
+      "question_index": 11,
+      "question": "What does the Latin inscription above the columns of the landmark in the image mean?",
+      "expected": "It states that Marcus Agrippa, son of Lucius, built it when he was consul for the third time.",
+      "rgb_answer": "The Latin inscription above the columns of the landmark reads \"MAGRIPPA L. F. COS. TERTIVM IMP. FECIT,\" which translates to \"Magrippa, son of Lucius, made this third time by the third consul.\" This indicates that the structure was commissioned or built by a person named Magrippa, who was the son of Lucius and held the title of consul for the third time. The term \"imperium\" suggests that he may have been an emperor or held a high-ranking position in the Roman Empire at the time.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The Latin inscription above the columns reads 'MAGNAE COSTI', which translates to 'Great Cost'.",
+        "Medium": "The Latin inscription above the columns of the landmark in the image reads \"MAGRIPPA L. F. COSTERUM,\" which translates to \"Magrippa, son of Lucius F. Costerum.\"",
+        "Large": "The Latin inscription above the columns of the landmark in the image reads \"MAGRIPPA L. FECIT,\" which translates to \"Magrippa, son of Lucius, made.\" This indicates that the structure was built or commissioned by a person named Magrippa, who was the son of Lucius. The presence of this inscription suggests that the building was likely a significant public or religious edifice, as inscriptions were often used to denote important works and to honor the individuals responsible for their construction."
+      },
+      "rendered_answers": {
+        "Small": "The Latin inscription above the columns of the landmark in the image reads \"MAGISTERIUM,\" which translates to \"School\" or \"Institute.\"",
+        "Medium": "The Latin inscription above the columns of the landmark in the image reads \"AGGRIVM TERTIVM,\" which translates to \"Third Aggrivm.\"",
+        "Large": "The Latin inscription above the columns of the landmark in the image reads \"AGRA P.P.P. FECIT TIVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVMVM"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The Latin inscription above the columns of the landmark in the image reads \"MAGRIPPA L. FECIT,\" which translates to \"Magrippa, son of Lucius, made.\" This indicates that the structure was built or commissioned by a person named Magrippa, who was the son of Lucius. The presence of this inscription suggests that the building was likely a significant public or religious edifice, as inscriptions were often used to denote important works and to honor the individuals responsible for their construction.",
+        "reason": "",
+        "raw_output": "Large: The Latin inscription above the columns of the landmark in the image reads \"MAGRIPPA L. FECIT,\" which translates to \"Magrippa, son of Lucius, made.\" This indicates that the structure was built or commissioned by a person named Magrippa, who was the son of Lucius. The presence of this inscription suggests that the building was likely a significant public or religious edifice, as inscriptions were often used to denote important works and to honor the individuals responsible for their construction."
+      },
+      "rendered_selected": {
+        "scale": "Small",
+        "answer": "The Latin inscription above the columns of the landmark in the image reads \"MAGISTERIUM,\" which translates to \"School\" or \"Institute.\"",
+        "reason": "The inscription is clearly visible and legible, indicating a small scale.",
+        "raw_output": "Small: The Latin inscription above the columns of the landmark in the image reads \"MAGISTERIUM,\" which translates to \"School\" or \"Institute.\"\n\nBEST_SCALE: Small\nREASON: The inscription is clearly visible and legible, indicating a small scale."
+      }
+    },
+    {
+      "question_index": 13,
+      "question": "Answer with the option letter only. What type of pediment is visible above the front columns?\nA. Broken pediment\nB. Segmental pediment\nC. Triangular pediment\nD. Curved pediment",
+      "expected": "C",
+      "rgb_answer": "C",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "C",
+        "Medium": "C",
+        "Large": "C"
+      },
+      "rendered_answers": {
+        "Small": "C",
+        "Medium": "C",
+        "Large": "C"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "C",
+        "reason": "",
+        "raw_output": "C"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "C",
+        "reason": "",
+        "raw_output": "C"
+      }
+    },
+    {
+      "question_index": 14,
+      "question": "Answer with the option letter only. What visible feature appears on the entablature above the columns?\nA. Latin inscription\nB. Rose window\nC. Clock face\nD. Papal coat of arms",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    }
+  ],
+  "diagnostic_subset": "full_minus_rgb_only_correct_v1"
+}

@@ -1,0 +1,421 @@
+{
+  "image_name": "78497506_4090760422",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.2922167778015137,
+      "rendered_std": 0.44222065806388855
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.4959226846694946,
+      "rendered_std": 0.4757538139820099
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.5181361436843872,
+      "rendered_std": 0.5882986783981323
+    }
+  },
+  "questions": [
+    {
+      "question_index": 1,
+      "question": "What famous landmark or landmark scene is shown in this image?",
+      "expected": "A temple in Nara, Japan.",
+      "rgb_answer": "The image shows the Kiyomizu-Dera temple, a famous landmark located in Kyoto, Japan. It is one of the most iconic temples in Japan and is known for its large wooden stage that extends out from the main hall, offering a panoramic view of the surrounding city. The temple was designated as a UNESCO World Heritage site in 1994 and is a significant cultural and religious site in Japan.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The image shows a traditional Japanese temple with a distinctive curved roof and intricate architectural details.",
+        "Medium": "The image shows a traditional Japanese temple with a distinctive curved roof and golden ornaments.",
+        "Large": "The image shows a traditional Japanese temple with a distinctive architectural style, characterized by its curved roof and dark wooden structure. This style is commonly associated with temples found in Japan, particularly those of historical significance. However, without more context or specific identifying features, it's not possible to determine the exact landmark from this image alone. If you have additional information about the location or name of the temple, I could provide more details."
+      },
+      "rendered_answers": {
+        "Small": "The image shows a traditional Japanese temple with a distinctive curved roof and golden ornaments.",
+        "Medium": "The image shows a traditional Japanese temple with a multi-tiered roof and intricate wooden architecture.",
+        "Large": "The image shows a traditional Japanese temple with a large, curved roof and intricate wooden architecture."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The image shows a traditional Japanese temple with a distinctive architectural style, characterized by its curved roof and dark wooden structure. This style is commonly associated with temples found in Japan, particularly those of historical significance. However, without more context or specific identifying features, it's not possible to determine the exact landmark from this image alone. If you have additional information about the location or name of the temple, I could provide more details.",
+        "reason": "",
+        "raw_output": "Small: The image shows a traditional Japanese temple with a distinctive curved roof and intricate architectural details."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The image shows a traditional Japanese temple with a large, curved roof and intricate wooden architecture.",
+        "reason": "The image depicts a traditional Japanese temple with a large, curved roof and intricate wooden architecture, which is characteristic of famous landmarks in Japan.",
+        "raw_output": "Large: The image shows a traditional Japanese temple with a large, curved roof and intricate wooden architecture.\nREASON: The image depicts a traditional Japanese temple with a large, curved roof and intricate wooden architecture, which is characteristic of famous landmarks in Japan."
+      }
+    },
+    {
+      "question_index": 2,
+      "question": "Answer with the option letter only. Which of these architectural or landmark components is visibly present in this image? A. eave B. golden Shibi C. onion dome D. rose window",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 3,
+      "question": "Answer with the option letter only. Which component is positioned above the main entrance area in the image?\nA. Bell tower\nB. Water basin\nC. Stone bridge\nD. Large tiled roof",
+      "expected": "D",
+      "rgb_answer": "D",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "D",
+        "Medium": "D",
+        "Large": "D"
+      },
+      "rendered_answers": {
+        "Small": "D",
+        "Medium": "D",
+        "Large": "D"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "D",
+        "reason": "",
+        "raw_output": "D"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "D",
+        "reason": "",
+        "raw_output": "D"
+      }
+    },
+    {
+      "question_index": 4,
+      "question": "Answer with yes or no only. Is the roof visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes",
+        "Large": "yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes.",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "yes",
+        "reason": "",
+        "raw_output": "Large: yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "",
+        "raw_output": "Large: Yes."
+      }
+    },
+    {
+      "question_index": 5,
+      "question": "Answer with the option letter only. Which roof ornament is visible at the ends of the main roof ridge in the image?\nA. Golden shibi\nB. Stone lantern\nC. Wooden gate plaque\nD. Bronze bell",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 6,
+      "question": "What material visually dominates the temple structure in the image?",
+      "expected": "Wood",
+      "rgb_answer": "The temple structure in the image is dominated by dark wood, which is visible on the exterior walls and roof. The dark color of the wood contrasts with the bright green grass and the blue sky, making it a prominent feature of the building's appearance.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The temple structure is dominated by dark wooden beams and pillars.",
+        "Medium": "The temple structure is dominated by dark wooden beams and pillars.",
+        "Large": "The temple structure in the image is dominated by dark wood, which is visible on the exterior walls and roof."
+      },
+      "rendered_answers": {
+        "Small": "The temple structure is dominated by dark wooden beams and pillars.",
+        "Medium": "The temple structure is dominated by dark wooden beams and pillars.",
+        "Large": "The temple structure is primarily composed of dark wood."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The temple structure in the image is dominated by dark wood, which is visible on the exterior walls and roof.",
+        "reason": "",
+        "raw_output": "Large: The temple structure in the image is dominated by dark wood, which is visible on the exterior walls and roof."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The temple structure is primarily composed of dark wood.",
+        "reason": "",
+        "raw_output": "Large: The temple structure is primarily composed of dark wood."
+      }
+    },
+    {
+      "question_index": 7,
+      "question": "In which city and country is the landmark scene shown in the image located?",
+      "expected": "Nara, Japan.",
+      "rgb_answer": "The landmark scene shown in the image is located in Kyoto, Japan.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The landmark scene is located in Kyoto, Japan.",
+        "Medium": "The landmark scene is located in Kyoto, Japan.",
+        "Large": "The landmark scene shown in the image is located in Kyoto, Japan."
+      },
+      "rendered_answers": {
+        "Small": "The landmark scene is located in Kyoto, Japan.",
+        "Medium": "The landmark scene is located in Kyoto, Japan.",
+        "Large": "The landmark scene is located in Kyoto, Japan."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The landmark scene shown in the image is located in Kyoto, Japan.",
+        "reason": "",
+        "raw_output": "Large: The landmark scene shown in the image is located in Kyoto, Japan."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The landmark scene is located in Kyoto, Japan.",
+        "reason": "",
+        "raw_output": "Large: The landmark scene is located in Kyoto, Japan."
+      }
+    },
+    {
+      "question_index": 8,
+      "question": "Answer with a number only. How many golden shibi ornaments are visible on the main roof ridge?",
+      "expected": "2",
+      "rgb_answer": "2",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Two",
+        "Medium": "2",
+        "Large": "2"
+      },
+      "rendered_answers": {
+        "Small": "Two",
+        "Medium": "Two",
+        "Large": "Two"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "2",
+        "reason": "There are two golden ornaments visible on the roof ridge.",
+        "raw_output": "Small: Two\nREASON: There are two golden ornaments visible on the roof ridge."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Two",
+        "reason": "",
+        "raw_output": "Large: Two"
+      }
+    },
+    {
+      "question_index": 9,
+      "question": "Answer with the option letter only. Which type of building is shown? A. Japanese temple hall B. Baroque fountain C. royal palace D. Mughal mausoleum",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Small: A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Large: A"
+      }
+    },
+    {
+      "question_index": 10,
+      "question": "Answer with yes or no only. Is the roof/eave structure visually important in the landmark scene shown in the image?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes.",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "",
+        "raw_output": "Large: Yes."
+      }
+    },
+    {
+      "question_index": 11,
+      "question": "Answer with the option letter only. Which component is NOT visibly present in this image? A. eave B. roof C. golden Shibi D. column",
+      "expected": "C",
+      "rgb_answer": "C",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "C",
+        "Medium": "C",
+        "Large": "C"
+      },
+      "rendered_answers": {
+        "Small": "C",
+        "Medium": "C",
+        "Large": "D"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "C",
+        "reason": "",
+        "raw_output": "Small: C"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "D",
+        "reason": "",
+        "raw_output": "Small: C"
+      }
+    },
+    {
+      "question_index": 12,
+      "question": "Answer with yes or no only. Is the golden Shibi clearly visible in this image?",
+      "expected": "No",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No.",
+        "Medium": "No",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes.",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Small: No."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "",
+        "raw_output": "Large: Yes."
+      }
+    },
+    {
+      "question_index": 13,
+      "question": "Answer with the option letter only. Which visible feature extends outward from the roof edge?\nA. Deep eaves\nB. Rose window\nC. Minaret balcony\nD. Flying buttress",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    }
+  ],
+  "diagnostic_subset": "strength_trimmed"
+}

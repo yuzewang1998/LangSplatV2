@@ -1,0 +1,121 @@
+{
+  "image_name": "99933312_2768771111",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.2196263074874878,
+      "rendered_std": 0.3656664490699768
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.5374433994293213,
+      "rendered_std": 0.37216895818710327
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.4777452945709229,
+      "rendered_std": 0.4175851345062256
+    }
+  },
+  "questions": [
+    {
+      "question_index": 2,
+      "question": "Answer with a number only. How many oval medallions are visible on the inner walls?",
+      "expected": "3",
+      "rgb_answer": "3",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "3",
+        "Medium": "4",
+        "Large": "6"
+      },
+      "rendered_answers": {
+        "Small": "2",
+        "Medium": "4",
+        "Large": "4"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "6",
+        "reason": "",
+        "raw_output": "Small: 3"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "4",
+        "reason": "",
+        "raw_output": "Small: 2"
+      }
+    },
+    {
+      "question_index": 18,
+      "question": "Answer with yes or no only. Is the passage space behind the columns visible from this angle?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No",
+        "Medium": "No",
+        "Large": "No"
+      },
+      "rendered_answers": {
+        "Small": "No",
+        "Medium": "No",
+        "Large": "No"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "",
+        "raw_output": "Small: No"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "",
+        "raw_output": "Small: No"
+      }
+    },
+    {
+      "question_index": 22,
+      "question": "Which ancient gateway is often cited as the design inspiration for the landmark shown in the image?",
+      "expected": "The Propylaea of the Acropolis in Athens.",
+      "rgb_answer": "The Brandenburg Gate in Berlin is often cited as the design inspiration for the landmark shown in the image. This is because both structures share a neoclassical style, with a central archway flanked by columns and topped with sculptures. The Brandenburg Gate was originally built in 1763 and has been a symbol of Berlin ever since, with its design influencing many other monumental gateways around the world.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The ancient gateway often cited as the design inspiration for the landmark shown in the image is the Pergamon Gate, which is part of the ancient city of Troy. This gate is known for its Doric columns and intricate friezes, similar to the architectural elements visible in the image.",
+        "Medium": "The ancient gateway often cited as the design inspiration for the landmark shown in the image is the Porta Nigra, a Roman gate located in Trier, Germany. It is known for its robust construction and the presence of sculptures, which are similar to the architectural elements visible in the Brandenburg Gate.",
+        "Large": "The ancient gateway often cited as the design inspiration for the Brandenburg Gate is the Porta Maggiore in Rome, which was built by Emperor Hadrian in 142 AD. Both structures share similarities in their classical design elements, such as the use of Corinthian columns and the inclusion of sculptures."
+      },
+      "rendered_answers": {
+        "Small": "The ancient gateway of the Temple of Karnak in Egypt is often cited as the design inspiration for the landmark shown in the image.",
+        "Medium": "The ancient gateway of the Temple of Trajan in Rome is often cited as the design inspiration for the landmark shown in the image.",
+        "Large": "The Brandenburg Gate is often cited as the design inspiration for the landmark shown in the image."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The ancient gateway often cited as the design inspiration for the Brandenburg Gate is the Porta Maggiore in Rome, which was built by Emperor Hadrian in 142 AD. Both structures share similarities in their classical design elements, such as the use of Corinthian columns and the inclusion of sculptures.",
+        "reason": "",
+        "raw_output": "Medium: The ancient gateway often cited as the design inspiration for the landmark shown in the image is the Porta Nigra, a Roman gate located in Trier, Germany. It is known for its robust construction and the presence of sculptures, which are similar to the architectural elements visible in the Brandenburg Gate."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The Brandenburg Gate is often cited as the design inspiration for the landmark shown in the image.",
+        "reason": "The Brandenburg Gate, located in Berlin, Germany, is a neoclassical monument that was inspired by the ancient Greek and Roman architecture. It features a triumphal arch with columns and sculptures, which are characteristic of the style of the ancient gateways of the Temple of Trajan in Rome and the Temple of Karnak in Egypt. However, the Brandenburg Gate is the most directly related to the image shown, making it the correct answer.",
+        "raw_output": "Large: The Brandenburg Gate is often cited as the design inspiration for the landmark shown in the image.\n\nREASON: The Brandenburg Gate, located in Berlin, Germany, is a neoclassical monument that was inspired by the ancient Greek and Roman architecture. It features a triumphal arch with columns and sculptures, which are characteristic of the style of the ancient gateways of the Temple of Trajan in Rome and the Temple of Karnak in Egypt. However, the Brandenburg Gate is the most directly related to the image shown, making it the correct answer."
+      }
+    }
+  ],
+  "diagnostic_subset": "significant_ours_errors"
+}

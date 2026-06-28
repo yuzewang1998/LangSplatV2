@@ -1,0 +1,391 @@
+{
+  "image_name": "99784014_3777253105",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.3151113986968994,
+      "rendered_std": 0.4765097200870514
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.5213682651519775,
+      "rendered_std": 0.6901580691337585
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.5496890544891357,
+      "rendered_std": 0.7717891335487366
+    }
+  },
+  "questions": [
+    {
+      "question_index": 1,
+      "question": "What famous landmark or landmark scene is shown in this image?",
+      "expected": "Notre-Dame Cathedral's front facade.",
+      "rgb_answer": "The image shows the facade of Notre-Dame Cathedral in Paris, France.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The image shows a famous landmark, likely Notre-Dame Cathedral in Paris.",
+        "Medium": "The image shows the famous Notre Dame Cathedral in Paris, France.",
+        "Large": "The image shows the facade of Notre-Dame Cathedral in Paris, France. This is one of the most famous landmarks in the world, known for its Gothic architecture and historical significance. The cathedral was severely damaged by a fire in April 2019, but efforts are ongoing to restore it to its former glory."
+      },
+      "rendered_answers": {
+        "Small": "The image shows a famous landmark, possibly the Notre-Dame Cathedral in Paris.",
+        "Medium": "The image shows a famous landmark, possibly the Notre-Dame Cathedral in Paris.",
+        "Large": "The image shows the famous Notre-Dame Cathedral in Paris, France."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The image shows the facade of Notre-Dame Cathedral in Paris, France. This is one of the most famous landmarks in the world, known for its Gothic architecture and historical significance. The cathedral was severely damaged by a fire in April 2019, but efforts are ongoing to restore it to its former glory.",
+        "reason": "The image shows the facade of Notre-Dame Cathedral in Paris, France. This is one of the most famous landmarks in the world, known for its Gothic architecture and historical significance. The cathedral was severely damaged by a fire in April 2019, but efforts are ongoing to restore it to its former glory.",
+        "raw_output": "Large: The image shows the facade of Notre-Dame Cathedral in Paris, France. This is one of the most famous landmarks in the world, known for its Gothic architecture and historical significance. The cathedral was severely damaged by a fire in April 2019, but efforts are ongoing to restore it to its former glory.\nBEST_SCALE: Large\nREASON: The image shows the facade of Notre-Dame Cathedral in Paris, France. This is one of the most famous landmarks in the world, known for its Gothic architecture and historical significance. The cathedral was severely damaged by a fire in April 2019, but efforts are ongoing to restore it to its former glory."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The image shows the famous Notre-Dame Cathedral in Paris, France.",
+        "reason": "",
+        "raw_output": "Large: The image shows the famous Notre-Dame Cathedral in Paris, France."
+      }
+    },
+    {
+      "question_index": 2,
+      "question": "Answer with the option letter only. Which of these architectural or landmark components is visibly present in this image? A. rose window B. tympanum C. door D. onion dome",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Large: A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Small: A"
+      }
+    },
+    {
+      "question_index": 3,
+      "question": "Answer with yes or no only. Is the rose window visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "No",
+        "Medium": "Yes.",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "The rose window is visible in the image.",
+        "raw_output": "Large: Yes.\nREASON: The rose window is visible in the image."
+      }
+    },
+    {
+      "question_index": 4,
+      "question": "Answer with a number only. How many distinct rose window components are visible?",
+      "expected": "1",
+      "rgb_answer": "12",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "12",
+        "Medium": "12",
+        "Large": "12"
+      },
+      "rendered_answers": {
+        "Small": "12",
+        "Medium": "12",
+        "Large": "12"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "12",
+        "reason": "",
+        "raw_output": "Small: 12"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "12",
+        "reason": "The image shows a rose window with multiple components, and there are twelve distinct parts visible.",
+        "raw_output": "Small: 12\nREASON: The image shows a rose window with multiple components, and there are twelve distinct parts visible."
+      }
+    },
+    {
+      "question_index": 5,
+      "question": "Based on the landmark shown in the image, which city and country is it located in?",
+      "expected": "Paris, France.",
+      "rgb_answer": "The landmark in the image is the Notre-Dame Cathedral, located in Paris, France. This identification can be made based on the distinctive Gothic architecture and the rose window, which are characteristic of this famous cathedral.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The landmark is located in Paris, France.",
+        "Medium": "The landmark is located in Paris, France.",
+        "Large": "The landmark in the image is the Notre-Dame Cathedral, located in Paris, France."
+      },
+      "rendered_answers": {
+        "Small": "The landmark is located in Paris, France.",
+        "Medium": "The landmark is located in Paris, France.",
+        "Large": "The landmark is located in Paris, France."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The landmark in the image is the Notre-Dame Cathedral, located in Paris, France.",
+        "reason": "",
+        "raw_output": "Large: The landmark in the image is the Notre-Dame Cathedral, located in Paris, France."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The landmark is located in Paris, France.",
+        "reason": "The image shows a detailed view of a Gothic-style building with intricate stone carvings and statues, which is characteristic of the Notre-Dame Cathedral in Paris, France.",
+        "raw_output": "BEST_SCALE: Large\nREASON: The image shows a detailed view of a Gothic-style building with intricate stone carvings and statues, which is characteristic of the Notre-Dame Cathedral in Paris, France."
+      }
+    },
+    {
+      "question_index": 6,
+      "question": "What type of landmark scene is visible in this image?",
+      "expected": "a Gothic cathedral front facade",
+      "rgb_answer": "The image depicts a Gothic cathedral, which is a type of religious landmark.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The image shows a scene of an architectural landmark, specifically the facade of a cathedral.",
+        "Medium": "The image shows a gothic-style cathedral with intricate stone carvings and statues.",
+        "Large": "The image shows a scene of a historic cathedral with Gothic architectural elements, including flying buttresses and intricate stonework."
+      },
+      "rendered_answers": {
+        "Small": "The image shows a detailed view of an architectural landmark, possibly a church or cathedral.",
+        "Medium": "The image shows a detailed view of an architectural landmark, possibly a cathedral or church.",
+        "Large": "The image shows a detailed view of an architectural landmark, possibly a cathedral or church."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The image shows a scene of a historic cathedral with Gothic architectural elements, including flying buttresses and intricate stonework.",
+        "reason": "The image depicts the facade of a cathedral with Gothic architectural features such as flying buttresses, pointed arches, and detailed stone carvings.",
+        "raw_output": "Large: The image shows a scene of a historic cathedral with Gothic architectural elements, including flying buttresses and intricate stonework.\nREASON: The image depicts the facade of a cathedral with Gothic architectural features such as flying buttresses, pointed arches, and detailed stone carvings."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The image shows a detailed view of an architectural landmark, possibly a cathedral or church.",
+        "reason": "",
+        "raw_output": "Large: The image shows a detailed view of an architectural landmark, possibly a cathedral or church."
+      }
+    },
+    {
+      "question_index": 7,
+      "question": "Answer with the option letter only. Which type of landmark facade is shown? A. Gothic cathedral facade B. royal palace C. Mughal mausoleum D. Baroque fountain",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Large: A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 8,
+      "question": "Answer with yes or no only. Is the scene dominated by cathedral facade elements rather than a palace forecourt?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes.",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "The image is dominated by the architectural elements of a cathedral, with statues and gothic arches, rather than a palace forecourt.",
+        "raw_output": "Large: Yes.\nREASON: The image is dominated by the architectural elements of a cathedral, with statues and gothic arches, rather than a palace forecourt."
+      }
+    },
+    {
+      "question_index": 9,
+      "question": "Answer with yes or no only. Is the tympanum clearly visible in this image?",
+      "expected": "No",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No.",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "No.",
+        "Medium": "No.",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "",
+        "raw_output": "Large: Yes."
+      }
+    },
+    {
+      "question_index": 10,
+      "question": "What visible component matches this description: a large circular cathedral window?",
+      "expected": "rose window",
+      "rgb_answer": "Rose window",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The large circular cathedral window with intricate tracery is visible.",
+        "Medium": "The large circular cathedral window is visible.",
+        "Large": "Rose window"
+      },
+      "rendered_answers": {
+        "Small": "The large circular cathedral window is a visible component that matches this description.",
+        "Medium": "The large circular cathedral window is visible.",
+        "Large": "The large circular cathedral window is a visible component that matches this description."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Rose window",
+        "reason": "",
+        "raw_output": "Large: Rose window"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The large circular cathedral window is a visible component that matches this description.",
+        "reason": "The image shows a large circular window on the facade of a cathedral.",
+        "raw_output": "Large: The large circular cathedral window is a visible component that matches this description.\nREASON: The image shows a large circular window on the facade of a cathedral."
+      }
+    },
+    {
+      "question_index": 11,
+      "question": "Answer with the option letter only. Which visible component is most directly associated with Gothic circular window? A. rose window B. tympanum C. door D. onion dome",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 12,
+      "question": "Answer with the option letter only. Which type of religious landmark is shown in the image?\nA. Gothic cathedral\nB. Mughal mausoleum\nC. Baroque fountain\nD. Buddhist pagoda",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    }
+  ],
+  "diagnostic_subset": "full_minus_rgb_only_correct_v1"
+}

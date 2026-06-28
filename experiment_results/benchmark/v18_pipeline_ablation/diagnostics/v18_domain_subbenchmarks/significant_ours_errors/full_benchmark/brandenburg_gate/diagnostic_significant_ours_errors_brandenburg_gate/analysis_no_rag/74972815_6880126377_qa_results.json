@@ -1,0 +1,121 @@
+{
+  "image_name": "74972815_6880126377",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.2109870910644531,
+      "rendered_std": 0.3249956965446472
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.4140464067459106,
+      "rendered_std": 0.3018185496330261
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.0765742063522339,
+      "rendered_std": 0.4356984794139862
+    }
+  },
+  "questions": [
+    {
+      "question_index": 2,
+      "question": "Answer with a number only. How many horses are visible in the sculpture at the top?",
+      "expected": "4",
+      "rgb_answer": "4",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "3",
+        "Medium": "2",
+        "Large": "4"
+      },
+      "rendered_answers": {
+        "Small": "Two",
+        "Medium": "Two",
+        "Large": "4"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "4",
+        "reason": "",
+        "raw_output": "Small: 3"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "4",
+        "reason": "",
+        "raw_output": "Small: Two"
+      }
+    },
+    {
+      "question_index": 3,
+      "question": "Answer with a number only. How many oval medallions are visible on the inner walls?",
+      "expected": "5",
+      "rgb_answer": "4",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "3",
+        "Medium": "4",
+        "Large": "10"
+      },
+      "rendered_answers": {
+        "Small": "2",
+        "Medium": "12",
+        "Large": "12"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "10",
+        "reason": "",
+        "raw_output": "Small: 3"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "12",
+        "reason": "",
+        "raw_output": "Small: 2"
+      }
+    },
+    {
+      "question_index": 7,
+      "question": "Which ancient gateway is often cited as the design inspiration for the landmark shown in the image?",
+      "expected": "The Propylaea of the Acropolis in Athens.",
+      "rgb_answer": "The Brandenburg Gate is often cited as the design inspiration for the landmark shown in the image. It was originally built in 1799 to commemorate the Prussian victory over Napoleon and was modeled after the ancient Roman triumphal arches, such as the Arch of Titus in Rome.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The ancient gateway often cited as the design inspiration for the landmark shown in the image is the Porta Duffici, which is part of the Hadrianic Gate in Rome. This gate was built by Emperor Hadrian and features a similar architectural style with Corinthian columns and sculptural reliefs.",
+        "Medium": "The ancient gateway often cited as the design inspiration for the Brandenburg Gate is the Porta Maggiore in Rome, which was built by Emperor Hadrian in 142 AD. Both structures share similarities in their classical design elements, such as the use of Corinthian columns and the inclusion of sculptures.",
+        "Large": "The ancient gateway often cited as the design inspiration for the Brandenburg Gate is the Porta Maggiore in Rome, which was built by Emperor Hadrian in 142 AD. Both structures share similarities in their classical design elements and use of columns to create a monumental entrance."
+      },
+      "rendered_answers": {
+        "Small": "The ancient gateway of the Temple of Trajan in Rome is often cited as the design inspiration for the landmark shown in the image.",
+        "Medium": "The Brandenburg Gate is often cited as the design inspiration for the landmark shown in the image.",
+        "Large": "The Brandenburg Gate is often cited as the design inspiration for the landmark shown in the image."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The ancient gateway often cited as the design inspiration for the Brandenburg Gate is the Porta Maggiore in Rome, which was built by Emperor Hadrian in 142 AD. Both structures share similarities in their classical design elements and use of columns to create a monumental entrance.",
+        "reason": "",
+        "raw_output": "Medium: The ancient gateway often cited as the design inspiration for the Brandenburg Gate is the Porta Maggiore in Rome, which was built by Emperor Hadrian in 142 AD. Both structures share similarities in their classical design elements and use of columns to create a monumental entrance."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The Brandenburg Gate is often cited as the design inspiration for the landmark shown in the image.",
+        "reason": "The Brandenburg Gate is a famous historical monument in Berlin, Germany, and its design has been an influence on many other gateways around the world.",
+        "raw_output": "Large: The Brandenburg Gate is often cited as the design inspiration for the landmark shown in the image.\nREASON: The Brandenburg Gate is a famous historical monument in Berlin, Germany, and its design has been an influence on many other gateways around the world."
+      }
+    }
+  ],
+  "diagnostic_subset": "significant_ours_errors"
+}

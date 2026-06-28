@@ -1,0 +1,1104 @@
+{
+  "version": 1,
+  "name": "V18 Pipeline-level 2D/3D Sampling and Fusion Ablation",
+  "created_at": "2026-06-24",
+  "constraints": [
+    "所有正式结果必须完整 8 scenes + 全部 VQA。",
+    "每条实验必须完成 Objective 和 JudgeLM 后才进入正式结果。",
+    "不报告 partial 结论；中断/OOM 只进入待补齐队列。",
+    "不使用 question-aware routing；不使用 scene-adaptive routing。",
+    "每条实验只改变一个主要变量。"
+  ],
+  "naming": "v18_<pipe>_<s2d>_<s3d>_<ms2d>_<ms3d>_<mm>_<out>_T<budget>_R<3dRatio>_C<calls>",
+  "codebook": {
+    "pipe": {
+      "2donly": "只使用 2D/render token。",
+      "3donly": "只使用 3DGS token。",
+      "tokpipe": "主路径是 token-level fusion，通常一次模型调用直接输出。",
+      "txtpipe": "主路径是 text-level fusion，多次产生 text 后融合。",
+      "hybpipe": "token fusion 与 text fusion 混合。"
+    },
+    "s2d": {
+      "none2d": "不使用 2D。",
+      "u2d": "2D 空间均匀采样。",
+      "rep2d": "2D vision feature 代表性/多样性采样。",
+      "norm2d": "按 vision feature norm / activation 强度取 token。",
+      "pca2d": "2D PCA 覆盖采样，扩展阶段再跑。"
+    },
+    "s3d": {
+      "none3d": "不使用 3D。",
+      "geo3d": "可见 Gaussian 的 3D 坐标 farthest-point sampling。",
+      "feat3d": "3DGS language/codebook feature 代表性采样。",
+      "opa3d": "opacity / visibility based sampling。",
+      "mix3d": "geo3d 与 feat3d 固定比例混合。",
+      "pca3d": "3D language feature PCA 覆盖采样，扩展阶段再跑。"
+    },
+    "ms2d": {
+      "m2none": "2D 不做 multi-scale fusion 或 2D 不存在。",
+      "m2tokcat": "2D 三尺度 token concat。",
+      "m2tokpool": "2D 每个 scale 先 pool/summary/compress，再 concat。",
+      "m2tokinter": "2D 三尺度 token 交错组织。",
+      "m2txtllm": "2D 每个 scale 单独出 text answer，再做 LLM scale-level fusion。"
+    },
+    "ms3d": {
+      "m3none": "3D 不做 multi-scale fusion 或 3D 不存在。",
+      "m3tokcat": "3D 三尺度 token concat。",
+      "m3tokpool": "3D 每个 scale 先 pool/summary/compress，再 concat。",
+      "m3tokinter": "3D 三尺度 token 交错组织。",
+      "m3txtllm": "3D 每个 scale 单独出 text answer，再做 LLM scale-level fusion。"
+    },
+    "mm": {
+      "mmnone": "不做 2D-3D multimodal fusion。",
+      "mmtok2d3d": "2D tokens 在前，3D tokens 在后。",
+      "mmtok3d2d": "3D tokens 在前，2D tokens 在后。",
+      "mmtokscale": "同尺度 2D/3D 配对 token fusion。",
+      "mmtokinter": "2D/3D token 细粒度交错。",
+      "mmtok3dgate": "3D evidence 形成固定 gate/mask，再筛选或重加权 2D token。",
+      "mmtxtmerge": "LLM 综合 2D/3D text answers，生成一个新答案。",
+      "mmtxtselect": "LLM 从候选答案中选择一个最可信答案。",
+      "mmtxtjudge": "LLM 判断冲突、可修正并输出最终答案。"
+    },
+    "out": {
+      "odirect": "当前阶段已经只有一个答案，直接作为 final answer。",
+      "ollmmerge": "最终用 LLM 综合多个 text answers 生成一个新答案。",
+      "ollmselect": "最终用 LLM 从多个候选答案中选择一个。",
+      "ollmjudge": "最终用 LLM 判断冲突、修正并输出答案。"
+    }
+  },
+  "phases": [
+    {
+      "id": "A",
+      "title": "Phase A · 单模态 sampling baseline",
+      "purpose": "先确定 2D 与 3D 各自最强采样方式。",
+      "gating": "7 条全部 full8 + Objective + JudgeLM 后，才选择 best2d / best3d。"
+    },
+    {
+      "id": "B",
+      "title": "Phase B · pipeline archetype",
+      "purpose": "比较 fusion 主要发生在哪个阶段最合理：全 token、全 text、还是 hybrid。",
+      "gating": "必须使用 Phase A winner。"
+    },
+    {
+      "id": "C",
+      "title": "Phase C · multimodal token layout",
+      "purpose": "在 token-level 路线有希望时，比较 2D/3D token 的排列与 gate/mask。",
+      "gating": "可复用 Phase B 的 mmtokscale。"
+    },
+    {
+      "id": "D",
+      "title": "Phase D · multi-scale fusion",
+      "purpose": "单独研究 multi-scale 阶段 token/text/pool/interleave 的影响。",
+      "gating": "不同时改 2D 和 3D。"
+    },
+    {
+      "id": "E",
+      "title": "Phase E · token budget / 3D ratio sweep",
+      "purpose": "固定当前最佳 token-level fusion 架构，系统扫描 3D token 占比，判断 R30 是否过高或过低。",
+      "gating": "每条仍必须 full8 + Objective + JudgeLM；优先看 Objective 是否超过 RGB / 16A 目标线，再看 JudgeLM。"
+    },
+    {
+      "id": "F",
+      "title": "Phase F · extended sampling",
+      "purpose": "主线稳定后再评估 PCA 与 mix ratio 扩展。",
+      "gating": "不进入第一批。"
+    }
+  ],
+  "experiments": [
+    {
+      "id": "v18_2donly_u2d_none3d_m2tokcat_m3none_mmnone_odirect_T512_R0_C1",
+      "phase": "A",
+      "research_question": "2D 空间均匀采样是否足够？",
+      "unique_variable": "s2d = u2d",
+      "fixed_conditions": "2donly; none3d; m2tokcat; m3none; mmnone; odirect; T512_R0_C1; full8 + all VQA + Objective + JudgeLM",
+      "fields": {
+        "pipe": "2donly",
+        "s2d": "u2d",
+        "s3d": "none3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3none",
+        "mm": "mmnone",
+        "out": "odirect",
+        "T": "T512",
+        "R": "R0",
+        "C": "C1"
+      },
+      "priority": "batch1",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      }
+    },
+    {
+      "id": "v18_2donly_rep2d_none3d_m2tokcat_m3none_mmnone_odirect_T512_R0_C1",
+      "phase": "A",
+      "research_question": "2D feature 代表性采样是否更好？",
+      "unique_variable": "s2d = rep2d",
+      "fixed_conditions": "2donly; none3d; m2tokcat; m3none; mmnone; odirect; T512_R0_C1; full8 + all VQA + Objective + JudgeLM",
+      "fields": {
+        "pipe": "2donly",
+        "s2d": "rep2d",
+        "s3d": "none3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3none",
+        "mm": "mmnone",
+        "out": "odirect",
+        "T": "T512",
+        "R": "R0",
+        "C": "C1"
+      },
+      "priority": "batch1",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      }
+    },
+    {
+      "id": "v18_2donly_norm2d_none3d_m2tokcat_m3none_mmnone_odirect_T512_R0_C1",
+      "phase": "A",
+      "research_question": "2D 高响应 token 是否更有效？",
+      "unique_variable": "s2d = norm2d",
+      "fixed_conditions": "2donly; none3d; m2tokcat; m3none; mmnone; odirect; T512_R0_C1; full8 + all VQA + Objective + JudgeLM",
+      "fields": {
+        "pipe": "2donly",
+        "s2d": "norm2d",
+        "s3d": "none3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3none",
+        "mm": "mmnone",
+        "out": "odirect",
+        "T": "T512",
+        "R": "R0",
+        "C": "C1"
+      },
+      "priority": "batch1",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      }
+    },
+    {
+      "id": "v18_3donly_none2d_geo3d_m2none_m3tokcat_mmnone_odirect_T512_R100_C1",
+      "phase": "A",
+      "research_question": "3D 几何覆盖是否足够？",
+      "unique_variable": "s3d = geo3d",
+      "fixed_conditions": "3donly; none2d; m2none; m3tokcat; mmnone; odirect; T512_R100_C1; full8 + all VQA + Objective + JudgeLM",
+      "fields": {
+        "pipe": "3donly",
+        "s2d": "none2d",
+        "s3d": "geo3d",
+        "ms2d": "m2none",
+        "ms3d": "m3tokcat",
+        "mm": "mmnone",
+        "out": "odirect",
+        "T": "T512",
+        "R": "R100",
+        "C": "C1"
+      },
+      "priority": "batch1",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      }
+    },
+    {
+      "id": "v18_3donly_none2d_feat3d_m2none_m3tokcat_mmnone_odirect_T512_R100_C1",
+      "phase": "A",
+      "research_question": "3D 语义特征代表性是否更好？",
+      "unique_variable": "s3d = feat3d",
+      "fixed_conditions": "3donly; none2d; m2none; m3tokcat; mmnone; odirect; T512_R100_C1; full8 + all VQA + Objective + JudgeLM",
+      "fields": {
+        "pipe": "3donly",
+        "s2d": "none2d",
+        "s3d": "feat3d",
+        "ms2d": "m2none",
+        "ms3d": "m3tokcat",
+        "mm": "mmnone",
+        "out": "odirect",
+        "T": "T512",
+        "R": "R100",
+        "C": "C1"
+      },
+      "priority": "batch1",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      }
+    },
+    {
+      "id": "v18_3donly_none2d_opa3d_m2none_m3tokcat_mmnone_odirect_T512_R100_C1",
+      "phase": "A",
+      "research_question": "opacity/visibility 是否是好 proxy？",
+      "unique_variable": "s3d = opa3d",
+      "fixed_conditions": "3donly; none2d; m2none; m3tokcat; mmnone; odirect; T512_R100_C1; full8 + all VQA + Objective + JudgeLM",
+      "fields": {
+        "pipe": "3donly",
+        "s2d": "none2d",
+        "s3d": "opa3d",
+        "ms2d": "m2none",
+        "ms3d": "m3tokcat",
+        "mm": "mmnone",
+        "out": "odirect",
+        "T": "T512",
+        "R": "R100",
+        "C": "C1"
+      },
+      "priority": "batch1",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      }
+    },
+    {
+      "id": "v18_3donly_none2d_mix3d_m2none_m3tokcat_mmnone_odirect_T512_R100_C1",
+      "phase": "A",
+      "research_question": "几何+语义混合是否更好？",
+      "unique_variable": "s3d = mix3d",
+      "fixed_conditions": "3donly; none2d; m2none; m3tokcat; mmnone; odirect; T512_R100_C1; full8 + all VQA + Objective + JudgeLM",
+      "fields": {
+        "pipe": "3donly",
+        "s2d": "none2d",
+        "s3d": "mix3d",
+        "ms2d": "m2none",
+        "ms3d": "m3tokcat",
+        "mm": "mmnone",
+        "out": "odirect",
+        "T": "T512",
+        "R": "R100",
+        "C": "C1"
+      },
+      "priority": "batch1",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      }
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T512_R30_C1",
+      "phase": "B",
+      "research_question": "所有 evidence tokens 一次性进入 LLaVA 是否最好？",
+      "unique_variable": "pipe/mm/out = tokpipe + mmtokscale + odirect",
+      "fixed_conditions": "使用 Phase A best2d + best3d; T512_R30; full8 + all VQA + Objective + JudgeLM",
+      "fields": {
+        "pipe": "tokpipe",
+        "s2d": "best2d",
+        "s3d": "best3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3tokcat",
+        "mm": "mmtokscale",
+        "out": "odirect",
+        "T": "T512",
+        "R": "R30",
+        "C": "C1"
+      },
+      "priority": "after_phase_a",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      }
+    },
+    {
+      "id": "v18_hybpipe_best2d_best3d_m2tokcat_m3tokcat_mmtxtmerge_odirect_T512_R30_C3",
+      "phase": "B",
+      "research_question": "先模态内部 token fusion，再 2D/3D text merge 是否更稳？",
+      "unique_variable": "pipe/mm/out = hybpipe + mmtxtmerge + odirect",
+      "fixed_conditions": "使用 Phase A best2d + best3d; T512_R30; full8 + all VQA + Objective + JudgeLM",
+      "fields": {
+        "pipe": "hybpipe",
+        "s2d": "best2d",
+        "s3d": "best3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3tokcat",
+        "mm": "mmtxtmerge",
+        "out": "odirect",
+        "T": "T512",
+        "R": "R30",
+        "C": "C3"
+      },
+      "priority": "after_phase_a",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      }
+    },
+    {
+      "id": "v18_hybpipe_best2d_best3d_m2none_m3none_mmtokscale_ollmmerge_T512_R30_C4",
+      "phase": "B",
+      "research_question": "每个 scale 内 2D/3D token fusion，再 scale-level LLM merge 是否更清晰？",
+      "unique_variable": "pipe/mm/out = hybpipe + mmtokscale + ollmmerge",
+      "fixed_conditions": "使用 Phase A best2d + best3d; T512_R30; full8 + all VQA + Objective + JudgeLM",
+      "fields": {
+        "pipe": "hybpipe",
+        "s2d": "best2d",
+        "s3d": "best3d",
+        "ms2d": "m2none",
+        "ms3d": "m3none",
+        "mm": "mmtokscale",
+        "out": "ollmmerge",
+        "T": "T512",
+        "R": "R30",
+        "C": "C4"
+      },
+      "priority": "after_phase_a",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      }
+    },
+    {
+      "id": "v18_txtpipe_best2d_best3d_m2txtllm_m3txtllm_mmtxtmerge_ollmjudge_T512_R30_C8",
+      "phase": "B",
+      "research_question": "全程 text-level fusion 是否更鲁棒？",
+      "unique_variable": "pipe/ms/mm/out = txtpipe + m2txtllm/m3txtllm + mmtxtmerge + ollmjudge",
+      "fixed_conditions": "使用 Phase A best2d + best3d; T512_R30; full8 + all VQA + Objective + JudgeLM",
+      "fields": {
+        "pipe": "txtpipe",
+        "s2d": "best2d",
+        "s3d": "best3d",
+        "ms2d": "m2txtllm",
+        "ms3d": "m3txtllm",
+        "mm": "mmtxtmerge",
+        "out": "ollmjudge",
+        "T": "T512",
+        "R": "R30",
+        "C": "C8"
+      },
+      "priority": "after_phase_a",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      }
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtok2d3d_odirect_T512_R30_C1",
+      "phase": "C",
+      "research_question": "2D tokens 在前是否更好？",
+      "unique_variable": "mm = mmtok2d3d",
+      "fixed_conditions": "使用 Phase A best2d + best3d; m2tokcat; m3tokcat; odirect; T512_R30_C1; full8 + all VQA + Objective + JudgeLM",
+      "fields": {
+        "pipe": "tokpipe",
+        "s2d": "best2d",
+        "s3d": "best3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3tokcat",
+        "mm": "mmtok2d3d",
+        "out": "odirect",
+        "T": "T512",
+        "R": "R30",
+        "C": "C1"
+      },
+      "priority": "after_phase_b",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      }
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtok3d2d_odirect_T512_R30_C1",
+      "phase": "C",
+      "research_question": "3D tokens 在前是否更好？",
+      "unique_variable": "mm = mmtok3d2d",
+      "fixed_conditions": "使用 Phase A best2d + best3d; m2tokcat; m3tokcat; odirect; T512_R30_C1; full8 + all VQA + Objective + JudgeLM",
+      "fields": {
+        "pipe": "tokpipe",
+        "s2d": "best2d",
+        "s3d": "best3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3tokcat",
+        "mm": "mmtok3d2d",
+        "out": "odirect",
+        "T": "T512",
+        "R": "R30",
+        "C": "C1"
+      },
+      "priority": "after_phase_b",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      }
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T512_R30_C1",
+      "phase": "C",
+      "research_question": "同尺度配对是否更好？",
+      "unique_variable": "mm = mmtokscale",
+      "fixed_conditions": "使用 Phase A best2d + best3d; m2tokcat; m3tokcat; odirect; T512_R30_C1; full8 + all VQA + Objective + JudgeLM",
+      "fields": {
+        "pipe": "tokpipe",
+        "s2d": "best2d",
+        "s3d": "best3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3tokcat",
+        "mm": "mmtokscale",
+        "out": "odirect",
+        "T": "T512",
+        "R": "R30",
+        "C": "C1"
+      },
+      "priority": "after_phase_b",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      }
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokinter_odirect_T512_R30_C1",
+      "phase": "C",
+      "research_question": "2D/3D token 细粒度交错是否更好？",
+      "unique_variable": "mm = mmtokinter",
+      "fixed_conditions": "使用 Phase A best2d + best3d; m2tokcat; m3tokcat; odirect; T512_R30_C1; full8 + all VQA + Objective + JudgeLM",
+      "fields": {
+        "pipe": "tokpipe",
+        "s2d": "best2d",
+        "s3d": "best3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3tokcat",
+        "mm": "mmtokinter",
+        "out": "odirect",
+        "T": "T512",
+        "R": "R30",
+        "C": "C1"
+      },
+      "priority": "after_phase_b",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      }
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtok3dgate_odirect_T512_R30_C1",
+      "phase": "C",
+      "research_question": "3D-guided gate/mask 是否能改善 2D token 选择？",
+      "unique_variable": "mm = mmtok3dgate",
+      "fixed_conditions": "使用 Phase A best2d + best3d; m2tokcat; m3tokcat; odirect; T512_R30_C1; full8 + all VQA + Objective + JudgeLM",
+      "fields": {
+        "pipe": "tokpipe",
+        "s2d": "best2d",
+        "s3d": "best3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3tokcat",
+        "mm": "mmtok3dgate",
+        "out": "odirect",
+        "T": "T512",
+        "R": "R30",
+        "C": "C1"
+      },
+      "priority": "after_phase_b",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      }
+    },
+    {
+      "id": "v18_template_bestpipe_best2d_best3d_ms2d_sweep",
+      "phase": "D",
+      "research_question": "2D multi-scale token/text 组织方式是否影响结果？",
+      "unique_variable": "ms2d = m2tokcat/m2tokpool/m2tokinter/m2txtllm",
+      "fixed_conditions": "固定 best3d/best mm/out/T/R；逐项替换 ms2d；full8 + Objective + JudgeLM",
+      "fields": {},
+      "priority": "later",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      }
+    },
+    {
+      "id": "v18_template_bestpipe_best2d_best3d_ms3d_sweep",
+      "phase": "D",
+      "research_question": "3D multi-scale token/text 组织方式是否影响结果？",
+      "unique_variable": "ms3d = m3tokcat/m3tokpool/m3tokinter/m3txtllm",
+      "fixed_conditions": "固定 best2d/best mm/out/T/R；逐项替换 ms3d；full8 + Objective + JudgeLM",
+      "fields": {},
+      "priority": "later",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      }
+    },
+    {
+      "id": "v18_template_bestpipeline_budget_ratio_sweep",
+      "phase": "E",
+      "research_question": "token 总量与 3D token 占比是否影响 best pipeline？",
+      "unique_variable": "T/R = T512_R20/R30/R50, T768_R30/R50, T1024_R30",
+      "fixed_conditions": "固定 best pipeline 其它字段；full8 + Objective + JudgeLM",
+      "fields": {},
+      "priority": "later",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      }
+    },
+    {
+      "id": "v18_template_extended_sampling_pca_mixratio",
+      "phase": "F",
+      "research_question": "PCA 与 mix ratio 是否带来额外收益？",
+      "unique_variable": "s2d/s3d 扩展 = pca2d/pca3d/mix3d ratio",
+      "fixed_conditions": "主线稳定后扩展；full8 + Objective + JudgeLM",
+      "fields": {},
+      "priority": "later",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      }
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T512_R10_C1",
+      "phase": "E",
+      "priority": "ratio_sweep_now",
+      "research_question": "在当前最佳 token-level fusion 架构下，3D token 占比 R10 是否优于 R30？",
+      "unique_variable": "仅改变 3D token ratio：R10。",
+      "fixed_conditions": "best2d=Phase-A Objective winner(rep2d), best3d=Phase-A Objective winner(mix3d), ms2d=m2tokcat, ms3d=m3tokcat, mm=mmtokscale, out=odirect, T512, C1；full benchmark。",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      },
+      "fields": {
+        "pipe": "tokpipe",
+        "s2d": "best2d",
+        "s3d": "best3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3tokcat",
+        "mm": "mmtokscale",
+        "out": "odirect",
+        "T": "T512",
+        "R": "R10",
+        "C": "C1"
+      }
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T512_R20_C1",
+      "phase": "E",
+      "priority": "ratio_sweep_now",
+      "research_question": "在当前最佳 token-level fusion 架构下，3D token 占比 R20 是否优于 R30？",
+      "unique_variable": "仅改变 3D token ratio：R20。",
+      "fixed_conditions": "best2d=Phase-A Objective winner(rep2d), best3d=Phase-A Objective winner(mix3d), ms2d=m2tokcat, ms3d=m3tokcat, mm=mmtokscale, out=odirect, T512, C1；full benchmark。",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      },
+      "fields": {
+        "pipe": "tokpipe",
+        "s2d": "best2d",
+        "s3d": "best3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3tokcat",
+        "mm": "mmtokscale",
+        "out": "odirect",
+        "T": "T512",
+        "R": "R20",
+        "C": "C1"
+      }
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T512_R40_C1",
+      "phase": "E",
+      "priority": "ratio_sweep_now",
+      "research_question": "在当前最佳 token-level fusion 架构下，3D token 占比 R40 是否优于 R30？",
+      "unique_variable": "仅改变 3D token ratio：R40。",
+      "fixed_conditions": "best2d=Phase-A Objective winner(rep2d), best3d=Phase-A Objective winner(mix3d), ms2d=m2tokcat, ms3d=m3tokcat, mm=mmtokscale, out=odirect, T512, C1；full benchmark。",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      },
+      "fields": {
+        "pipe": "tokpipe",
+        "s2d": "best2d",
+        "s3d": "best3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3tokcat",
+        "mm": "mmtokscale",
+        "out": "odirect",
+        "T": "T512",
+        "R": "R40",
+        "C": "C1"
+      }
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T512_R5_C1",
+      "phase": "E",
+      "priority": "ratio_budget_refine_now",
+      "research_question": "围绕当前最优 token-level fusion（mmtokscale, R10）细化 3D ratio / token budget，寻找能稳定超过 RGB 与 16A 的配置。",
+      "unique_variable": "仅改变 3D token ratio：R5，测试比 R10 更低的 3D 注入是否更稳。",
+      "fixed_conditions": "best2d=rep2d, best3d=mix3d, ms2d=m2tokcat, ms3d=m3tokcat, mm=mmtokscale, out=odirect, C1；full benchmark。",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      },
+      "fields": {
+        "pipe": "tokpipe",
+        "s2d": "best2d",
+        "s3d": "best3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3tokcat",
+        "mm": "mmtokscale",
+        "out": "odirect",
+        "T": "T512",
+        "R": "R5",
+        "C": "C1"
+      }
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T512_R15_C1",
+      "phase": "E",
+      "priority": "ratio_budget_refine_now",
+      "research_question": "围绕当前最优 token-level fusion（mmtokscale, R10）细化 3D ratio / token budget，寻找能稳定超过 RGB 与 16A 的配置。",
+      "unique_variable": "仅改变 3D token ratio：R15，测试 R10 附近上调是否保持收益。",
+      "fixed_conditions": "best2d=rep2d, best3d=mix3d, ms2d=m2tokcat, ms3d=m3tokcat, mm=mmtokscale, out=odirect, C1；full benchmark。",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      },
+      "fields": {
+        "pipe": "tokpipe",
+        "s2d": "best2d",
+        "s3d": "best3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3tokcat",
+        "mm": "mmtokscale",
+        "out": "odirect",
+        "T": "T512",
+        "R": "R15",
+        "C": "C1"
+      }
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T384_R10_C1",
+      "phase": "E",
+      "priority": "ratio_budget_refine_now",
+      "research_question": "围绕当前最优 token-level fusion（mmtokscale, R10）细化 3D ratio / token budget，寻找能稳定超过 RGB 与 16A 的配置。",
+      "unique_variable": "仅改变总 token budget：T384，测试更少 token 是否减少噪声。",
+      "fixed_conditions": "best2d=rep2d, best3d=mix3d, ms2d=m2tokcat, ms3d=m3tokcat, mm=mmtokscale, out=odirect, C1；full benchmark。",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      },
+      "fields": {
+        "pipe": "tokpipe",
+        "s2d": "best2d",
+        "s3d": "best3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3tokcat",
+        "mm": "mmtokscale",
+        "out": "odirect",
+        "T": "T384",
+        "R": "R10",
+        "C": "C1"
+      }
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T768_R10_C1",
+      "phase": "E",
+      "priority": "ratio_budget_refine_now",
+      "research_question": "围绕当前最优 token-level fusion（mmtokscale, R10）细化 3D ratio / token budget，寻找能稳定超过 RGB 与 16A 的配置。",
+      "unique_variable": "仅改变总 token budget：T768，测试更多 token 是否带来增益。",
+      "fixed_conditions": "best2d=rep2d, best3d=mix3d, ms2d=m2tokcat, ms3d=m3tokcat, mm=mmtokscale, out=odirect, C1；full benchmark。",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      },
+      "fields": {
+        "pipe": "tokpipe",
+        "s2d": "best2d",
+        "s3d": "best3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3tokcat",
+        "mm": "mmtokscale",
+        "out": "odirect",
+        "T": "T768",
+        "R": "R10",
+        "C": "C1"
+      }
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T512_R2_C1",
+      "phase": "E",
+      "priority": "ratio_budget_refine_r5_now",
+      "research_question": "围绕当前最优配置 mmtokscale_T512_R5 继续细化 3D ratio / token budget。",
+      "unique_variable": "仅改变 3D token ratio：R2，测试 R5 以下的极低 3D 注入是否继续提升 Objective。",
+      "fixed_conditions": "best2d=rep2d, best3d=mix3d, ms2d=m2tokcat, ms3d=m3tokcat, mm=mmtokscale, out=odirect, C1；full benchmark。",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      },
+      "fields": {
+        "pipe": "tokpipe",
+        "s2d": "best2d",
+        "s3d": "best3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3tokcat",
+        "mm": "mmtokscale",
+        "out": "odirect",
+        "T": "T512",
+        "R": "R2",
+        "C": "C1"
+      }
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T512_R7_C1",
+      "phase": "E",
+      "priority": "ratio_budget_refine_r5_now",
+      "research_question": "围绕当前最优配置 mmtokscale_T512_R5 继续细化 3D ratio / token budget。",
+      "unique_variable": "仅改变 3D token ratio：R7，测试 R5 附近微调是否更优。",
+      "fixed_conditions": "best2d=rep2d, best3d=mix3d, ms2d=m2tokcat, ms3d=m3tokcat, mm=mmtokscale, out=odirect, C1；full benchmark。",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      },
+      "fields": {
+        "pipe": "tokpipe",
+        "s2d": "best2d",
+        "s3d": "best3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3tokcat",
+        "mm": "mmtokscale",
+        "out": "odirect",
+        "T": "T512",
+        "R": "R7",
+        "C": "C1"
+      }
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T384_R5_C1",
+      "phase": "E",
+      "priority": "ratio_budget_refine_r5_now",
+      "research_question": "围绕当前最优配置 mmtokscale_T512_R5 继续细化 3D ratio / token budget。",
+      "unique_variable": "固定当前最佳 ratio R5，仅降低总 token budget 到 T384，测试是否减少冗余 token 噪声。",
+      "fixed_conditions": "best2d=rep2d, best3d=mix3d, ms2d=m2tokcat, ms3d=m3tokcat, mm=mmtokscale, out=odirect, C1；full benchmark。",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      },
+      "fields": {
+        "pipe": "tokpipe",
+        "s2d": "best2d",
+        "s3d": "best3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3tokcat",
+        "mm": "mmtokscale",
+        "out": "odirect",
+        "T": "T384",
+        "R": "R5",
+        "C": "C1"
+      }
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T640_R5_C1",
+      "phase": "E",
+      "priority": "ratio_budget_refine_r5_now",
+      "research_question": "围绕当前最优配置 mmtokscale_T512_R5 继续细化 3D ratio / token budget。",
+      "unique_variable": "固定当前最佳 ratio R5，提高总 token budget 到 T640，测试更多 2D/3D token 是否继续增益。",
+      "fixed_conditions": "best2d=rep2d, best3d=mix3d, ms2d=m2tokcat, ms3d=m3tokcat, mm=mmtokscale, out=odirect, C1；full benchmark。",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      },
+      "fields": {
+        "pipe": "tokpipe",
+        "s2d": "best2d",
+        "s3d": "best3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3tokcat",
+        "mm": "mmtokscale",
+        "out": "odirect",
+        "T": "T640",
+        "R": "R5",
+        "C": "C1"
+      }
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T512_R1_C1",
+      "phase": "E",
+      "priority": "auto_queue_ratio_budget_grid",
+      "research_question": "围绕当前最优 token-level fusion（mmtokscale）做自动队列化 ratio/budget grid refinement。",
+      "unique_variable": "极低 3D token 注入 R1，测试是否几乎只需少量 3D anchor 即可增益。",
+      "fixed_conditions": "best2d=rep2d, best3d=mix3d, ms2d=m2tokcat, ms3d=m3tokcat, mm=mmtokscale, out=odirect, C1；full benchmark。",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      },
+      "fields": {
+        "pipe": "tokpipe",
+        "s2d": "best2d",
+        "s3d": "best3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3tokcat",
+        "mm": "mmtokscale",
+        "out": "odirect",
+        "T": "T512",
+        "R": "R1",
+        "C": "C1"
+      }
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T512_R3_C1",
+      "phase": "E",
+      "priority": "auto_queue_ratio_budget_grid",
+      "research_question": "围绕当前最优 token-level fusion（mmtokscale）做自动队列化 ratio/budget grid refinement。",
+      "unique_variable": "R2/R5 之间插值 R3，定位低 ratio 最优点。",
+      "fixed_conditions": "best2d=rep2d, best3d=mix3d, ms2d=m2tokcat, ms3d=m3tokcat, mm=mmtokscale, out=odirect, C1；full benchmark。",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      },
+      "fields": {
+        "pipe": "tokpipe",
+        "s2d": "best2d",
+        "s3d": "best3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3tokcat",
+        "mm": "mmtokscale",
+        "out": "odirect",
+        "T": "T512",
+        "R": "R3",
+        "C": "C1"
+      }
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T512_R4_C1",
+      "phase": "E",
+      "priority": "auto_queue_ratio_budget_grid",
+      "research_question": "围绕当前最优 token-level fusion（mmtokscale）做自动队列化 ratio/budget grid refinement。",
+      "unique_variable": "R3/R5 之间插值 R4，定位低 ratio 最优点。",
+      "fixed_conditions": "best2d=rep2d, best3d=mix3d, ms2d=m2tokcat, ms3d=m3tokcat, mm=mmtokscale, out=odirect, C1；full benchmark。",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      },
+      "fields": {
+        "pipe": "tokpipe",
+        "s2d": "best2d",
+        "s3d": "best3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3tokcat",
+        "mm": "mmtokscale",
+        "out": "odirect",
+        "T": "T512",
+        "R": "R4",
+        "C": "C1"
+      }
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T512_R6_C1",
+      "phase": "E",
+      "priority": "auto_queue_ratio_budget_grid",
+      "research_question": "围绕当前最优 token-level fusion（mmtokscale）做自动队列化 ratio/budget grid refinement。",
+      "unique_variable": "R5/R7 之间插值 R6，检验 R5 附近稳定性。",
+      "fixed_conditions": "best2d=rep2d, best3d=mix3d, ms2d=m2tokcat, ms3d=m3tokcat, mm=mmtokscale, out=odirect, C1；full benchmark。",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      },
+      "fields": {
+        "pipe": "tokpipe",
+        "s2d": "best2d",
+        "s3d": "best3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3tokcat",
+        "mm": "mmtokscale",
+        "out": "odirect",
+        "T": "T512",
+        "R": "R6",
+        "C": "C1"
+      }
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T512_R8_C1",
+      "phase": "E",
+      "priority": "auto_queue_ratio_budget_grid",
+      "research_question": "围绕当前最优 token-level fusion（mmtokscale）做自动队列化 ratio/budget grid refinement。",
+      "unique_variable": "R7/R10 之间插值 R8，检验 R10 降到 R5 的收益曲线。",
+      "fixed_conditions": "best2d=rep2d, best3d=mix3d, ms2d=m2tokcat, ms3d=m3tokcat, mm=mmtokscale, out=odirect, C1；full benchmark。",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      },
+      "fields": {
+        "pipe": "tokpipe",
+        "s2d": "best2d",
+        "s3d": "best3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3tokcat",
+        "mm": "mmtokscale",
+        "out": "odirect",
+        "T": "T512",
+        "R": "R8",
+        "C": "C1"
+      }
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T256_R5_C1",
+      "phase": "E",
+      "priority": "auto_queue_ratio_budget_grid",
+      "research_question": "围绕当前最优 token-level fusion（mmtokscale）做自动队列化 ratio/budget grid refinement。",
+      "unique_variable": "固定 R5，降低总 token budget 到 T256，测试更强压缩是否减少噪声或损失信息。",
+      "fixed_conditions": "best2d=rep2d, best3d=mix3d, ms2d=m2tokcat, ms3d=m3tokcat, mm=mmtokscale, out=odirect, C1；full benchmark。",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      },
+      "fields": {
+        "pipe": "tokpipe",
+        "s2d": "best2d",
+        "s3d": "best3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3tokcat",
+        "mm": "mmtokscale",
+        "out": "odirect",
+        "T": "T256",
+        "R": "R5",
+        "C": "C1"
+      }
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T448_R5_C1",
+      "phase": "E",
+      "priority": "auto_queue_ratio_budget_grid",
+      "research_question": "围绕当前最优 token-level fusion（mmtokscale）做自动队列化 ratio/budget grid refinement。",
+      "unique_variable": "固定 R5，在 T384/T512 之间插值 T448，定位较小 token budget 最优点。",
+      "fixed_conditions": "best2d=rep2d, best3d=mix3d, ms2d=m2tokcat, ms3d=m3tokcat, mm=mmtokscale, out=odirect, C1；full benchmark。",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      },
+      "fields": {
+        "pipe": "tokpipe",
+        "s2d": "best2d",
+        "s3d": "best3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3tokcat",
+        "mm": "mmtokscale",
+        "out": "odirect",
+        "T": "T448",
+        "R": "R5",
+        "C": "C1"
+      }
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T576_R5_C1",
+      "phase": "E",
+      "priority": "auto_queue_ratio_budget_grid",
+      "research_question": "围绕当前最优 token-level fusion（mmtokscale）做自动队列化 ratio/budget grid refinement。",
+      "unique_variable": "固定 R5，在 T512/T640 之间插值 T576，检验略增 token 是否继续增益。",
+      "fixed_conditions": "best2d=rep2d, best3d=mix3d, ms2d=m2tokcat, ms3d=m3tokcat, mm=mmtokscale, out=odirect, C1；full benchmark。",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      },
+      "fields": {
+        "pipe": "tokpipe",
+        "s2d": "best2d",
+        "s3d": "best3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3tokcat",
+        "mm": "mmtokscale",
+        "out": "odirect",
+        "T": "T576",
+        "R": "R5",
+        "C": "C1"
+      }
+    },
+    {
+      "id": "v18_tokpipe_best2d_best3d_m2tokcat_m3tokcat_mmtokscale_odirect_T704_R5_C1",
+      "phase": "E",
+      "priority": "auto_queue_ratio_budget_grid",
+      "research_question": "围绕当前最优 token-level fusion（mmtokscale）做自动队列化 ratio/budget grid refinement。",
+      "unique_variable": "固定 R5，在 T640/T768 之间插值 T704，测试较大 token budget 是否过冗余。",
+      "fixed_conditions": "best2d=rep2d, best3d=mix3d, ms2d=m2tokcat, ms3d=m3tokcat, mm=mmtokscale, out=odirect, C1；full benchmark。",
+      "required_scope": {
+        "scenes": 8,
+        "vqa": "all",
+        "objective": true,
+        "judgelm": true
+      },
+      "fields": {
+        "pipe": "tokpipe",
+        "s2d": "best2d",
+        "s3d": "best3d",
+        "ms2d": "m2tokcat",
+        "ms3d": "m3tokcat",
+        "mm": "mmtokscale",
+        "out": "odirect",
+        "T": "T704",
+        "R": "R5",
+        "C": "C1"
+      }
+    }
+  ]
+}

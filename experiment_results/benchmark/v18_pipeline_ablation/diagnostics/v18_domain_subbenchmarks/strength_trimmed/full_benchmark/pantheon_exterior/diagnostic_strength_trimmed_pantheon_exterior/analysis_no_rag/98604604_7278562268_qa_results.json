@@ -1,0 +1,331 @@
+{
+  "image_name": "98604604_7278562268",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.28923499584198,
+      "rendered_std": 0.2752735912799835
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.4023171663284302,
+      "rendered_std": 0.2938072979450226
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.438319444656372,
+      "rendered_std": 0.4457820951938629
+    }
+  },
+  "questions": [
+    {
+      "question_index": 1,
+      "question": "What famous landmark or landmark scene is shown in this image?",
+      "expected": "The Pantheon.",
+      "rgb_answer": "The image shows the Pantheon, a renowned landmark in Rome, Italy. It is an ancient Roman temple dedicated to all the gods of ancient Rome and is one of the most famous examples of Roman architecture. The inscription \"MAGRIFFAL LFCOSTERTIVM FECIT\" translates to \"Magrippa built this temple,\" referring to Marcus Aemilius Lepidus' son, Lucius Aemilianus Magrippa, who was responsible for its construction.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The image shows a famous landmark, the Pantheon in Rome.",
+        "Medium": "The image shows the Pantheon, a famous landmark in Rome.",
+        "Large": "The image shows the Pantheon, a renowned landmark in Rome, Italy. It is an ancient Roman temple that has been converted into a church and is famous for its impressive dome and architectural design. The inscription \"MAGRIFFA COSTUM\" is not part of the original structure and seems to be a modern addition or graffiti."
+      },
+      "rendered_answers": {
+        "Small": "The image shows a famous landmark scene with columns and an inscription that reads \"MAGNIFICENT\".",
+        "Medium": "The image shows the Palazzo Farnese, a famous landmark in Rome.",
+        "Large": "The image shows the front facade of the Pantheon, a famous landmark in Rome, Italy."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The image shows the Pantheon, a renowned landmark in Rome, Italy. It is an ancient Roman temple that has been converted into a church and is famous for its impressive dome and architectural design. The inscription \"MAGRIFFA COSTUM\" is not part of the original structure and seems to be a modern addition or graffiti.",
+        "reason": "",
+        "raw_output": "Large: The image shows the Pantheon, a renowned landmark in Rome, Italy. It is an ancient Roman temple that has been converted into a church and is famous for its impressive dome and architectural design. The inscription \"MAGRIFFA COSTUM\" is not part of the original structure and seems to be a modern addition or graffiti."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The image shows the front facade of the Pantheon, a famous landmark in Rome, Italy.",
+        "reason": "",
+        "raw_output": "Large: The image shows the front facade of the Pantheon, a famous landmark in Rome, Italy."
+      }
+    },
+    {
+      "question_index": 4,
+      "question": "Answer with yes or no only. Is the column visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      }
+    },
+    {
+      "question_index": 5,
+      "question": "Answer with the option letter only. Which visible component is higher in the image? A. triangular pediment B. column",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 6,
+      "question": "Based on the landmark shown in the image, which city and country is it located in?",
+      "expected": "Rome, Italy.",
+      "rgb_answer": "The landmark is the Pantheon, which is located in Rome, Italy. This can be inferred from the Latin inscription \"MAGRIFFALCOSTERTIVM FECIT,\" which translates to \"Magrippa built this temple,\" referring to Marcus Agrippa, a Roman statesman and general who commissioned the construction of the Pantheon. The architectural style and the inscription are distinctive features that identify the building as the Pantheon in Rome.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The landmark is located in Rome, Italy.",
+        "Medium": "The landmark is located in Rome, Italy.",
+        "Large": "The landmark is the Pantheon, which is located in Rome, Italy. This can be inferred from the Latin inscription \"MAGRIFFA COSEIT,\" which refers to Marcus Agrippa, a Roman statesman and general who commissioned the construction of the Pantheon, and the architectural style that is characteristic of Roman buildings."
+      },
+      "rendered_answers": {
+        "Small": "The landmark is located in Rome, Italy.",
+        "Medium": "The landmark is located in Rome, Italy.",
+        "Large": "The landmark is located in Rome, Italy."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The landmark is the Pantheon, which is located in Rome, Italy. This can be inferred from the Latin inscription \"MAGRIFFA COSEIT,\" which refers to Marcus Agrippa, a Roman statesman and general who commissioned the construction of the Pantheon, and the architectural style that is characteristic of Roman buildings.",
+        "reason": "The image shows a large building with classical architecture, including columns and an inscription in Latin. The inscription \"MAGRIFFA COSEIT\" refers to Marcus Agrippa, a Roman statesman and general who commissioned the construction of the Pantheon. Therefore, it can be inferred that the landmark is the Pantheon, which is located in Rome, Italy.",
+        "raw_output": "Large: The landmark is the Pantheon, which is located in Rome, Italy. This can be inferred from the Latin inscription \"MAGRIFFA COSEIT,\" which refers to Marcus Agrippa, a Roman statesman and general who commissioned the construction of the Pantheon, and the architectural style that is characteristic of Roman buildings.\nBEST_SCALE: Large\nREASON: The image shows a large building with classical architecture, including columns and an inscription in Latin. The inscription \"MAGRIFFA COSEIT\" refers to Marcus Agrippa, a Roman statesman and general who commissioned the construction of the Pantheon. Therefore, it can be inferred that the landmark is the Pantheon, which is located in Rome, Italy."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The landmark is located in Rome, Italy.",
+        "reason": "The text on the building reads \"MAGISTERIUM PRINCEPS\" which is a Latin phrase that translates to \"The Prince's School\" and is associated with the University of Rome.",
+        "raw_output": "Small: The landmark is located in Rome, Italy.\nREASON: The text on the building reads \"MAGISTERIUM PRINCEPS\" which is a Latin phrase that translates to \"The Prince's School\" and is associated with the University of Rome."
+      }
+    },
+    {
+      "question_index": 7,
+      "question": "Answer with the option letter only. Which type of architecture is most evident? A. classical Roman portico B. Gothic cathedral facade C. Japanese temple roof D. Mughal mausoleum",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Large: A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "The image shows a classical Roman portico with columns and an entablature, which is the most evident architectural style.",
+        "raw_output": "Small: A\nREASON: The image shows a classical Roman portico with columns and an entablature, which is the most evident architectural style."
+      }
+    },
+    {
+      "question_index": 8,
+      "question": "Answer with yes or no only. Does the facade include a classical portico form?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      }
+    },
+    {
+      "question_index": 9,
+      "question": "Answer with yes or no only. Is the dome clearly visible in this image?",
+      "expected": "No",
+      "rgb_answer": "No",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No.",
+        "Medium": "No.",
+        "Large": "No"
+      },
+      "rendered_answers": {
+        "Small": "No.",
+        "Medium": "No",
+        "Large": "No"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "",
+        "raw_output": "Small: No."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "",
+        "raw_output": "Small: No."
+      }
+    },
+    {
+      "question_index": 10,
+      "question": "Answer with the option letter only. Which type of landmark is shown in the image?\nA. Gothic cathedral\nB. Ancient Roman temple\nC. Baroque fountain\nD. Mughal mausoleum",
+      "expected": "B",
+      "rgb_answer": "B",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "rendered_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "Large: B"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "Small: B\nMedium: B\nLarge: B"
+      }
+    },
+    {
+      "question_index": 12,
+      "question": "Answer with a number only. How many separate triangular pediment instances are visible?",
+      "expected": "1",
+      "rgb_answer": "1",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "2",
+        "Medium": "2",
+        "Large": "1"
+      },
+      "rendered_answers": {
+        "Small": "3",
+        "Medium": "2",
+        "Large": "1"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "1",
+        "reason": "",
+        "raw_output": "Small: 2"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "1",
+        "reason": "",
+        "raw_output": "Small: 3"
+      }
+    },
+    {
+      "question_index": 13,
+      "question": "Answer with the option letter only. What visible feature appears on the entablature above the columns?\nA. Latin inscription\nB. Rose window\nC. Clock face\nD. Papal coat of arms",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    }
+  ],
+  "diagnostic_subset": "strength_trimmed"
+}

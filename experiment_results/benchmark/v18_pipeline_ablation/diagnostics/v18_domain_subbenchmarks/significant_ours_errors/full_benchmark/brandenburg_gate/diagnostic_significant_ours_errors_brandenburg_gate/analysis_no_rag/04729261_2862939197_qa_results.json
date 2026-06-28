@@ -1,0 +1,211 @@
+{
+  "image_name": "04729261_2862939197",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.1905226707458496,
+      "rendered_std": 0.3847641348838806
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.361234188079834,
+      "rendered_std": 0.31838932633399963
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.096010684967041,
+      "rendered_std": 0.5159635543823242
+    }
+  },
+  "questions": [
+    {
+      "question_index": 3,
+      "question": "Answer with a number only. How many passage openings are visible in the gate?",
+      "expected": "5",
+      "rgb_answer": "4",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "2",
+        "Medium": "3",
+        "Large": "3"
+      },
+      "rendered_answers": {
+        "Small": "2",
+        "Medium": "3",
+        "Large": "3"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "3",
+        "reason": "",
+        "raw_output": "Small: 2"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "3",
+        "reason": "",
+        "raw_output": "Small: 2"
+      }
+    },
+    {
+      "question_index": 4,
+      "question": "Answer with a number only. How many horses are visible in the sculpture at the top?",
+      "expected": "4",
+      "rgb_answer": "4",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "2",
+        "Medium": "2",
+        "Large": "2"
+      },
+      "rendered_answers": {
+        "Small": "Two",
+        "Medium": "2",
+        "Large": "4"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "2",
+        "reason": "",
+        "raw_output": "Small: 2"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "4",
+        "reason": "The sculpture at the top of the structure features two horses.",
+        "raw_output": "Small: Two\nREASON: The sculpture at the top of the structure features two horses."
+      }
+    },
+    {
+      "question_index": 5,
+      "question": "Answer with a number only. How many oval medallions are visible on the inner walls?",
+      "expected": "5",
+      "rgb_answer": "4",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "4",
+        "Medium": "10",
+        "Large": "4"
+      },
+      "rendered_answers": {
+        "Small": "2",
+        "Medium": "4",
+        "Large": "10"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "4",
+        "reason": "",
+        "raw_output": "Small: 4"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "10",
+        "reason": "",
+        "raw_output": "Small: 2"
+      }
+    },
+    {
+      "question_index": 12,
+      "question": "Which direction are the horses facing in the image?",
+      "expected": "Toward the right side of the image.",
+      "rgb_answer": "The horses in the image are facing towards the left side of the frame.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The horses are facing left in the image.",
+        "Medium": "The horses are facing towards the left side of the image.",
+        "Large": "The horses are facing towards the left side of the image."
+      },
+      "rendered_answers": {
+        "Small": "The horses are facing left.",
+        "Medium": "The horses are facing left.",
+        "Large": "The horses are facing left."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The horses are facing towards the left side of the image.",
+        "reason": "The horses are depicted with their heads turned to the left, indicating they are facing that direction.",
+        "raw_output": "Small: The horses are facing left in the image.\nREASON: The horses are depicted with their heads turned to the left, indicating they are facing that direction."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The horses are facing left.",
+        "reason": "",
+        "raw_output": "Small: The horses are facing left.\nMedium: The horses are facing left.\nLarge: The horses are facing left."
+      }
+    },
+    {
+      "question_index": 14,
+      "question": "Answer with a number only. How many oval medallions are visible on the inner walls in this frontal view?",
+      "expected": "5",
+      "rgb_answer": "8",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "4",
+        "Medium": "10",
+        "Large": "4"
+      },
+      "rendered_answers": {
+        "Small": "3",
+        "Medium": "4",
+        "Large": "10"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "4",
+        "reason": "",
+        "raw_output": "Small: 4"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "10",
+        "reason": "",
+        "raw_output": "Small: 3"
+      }
+    },
+    {
+      "question_index": 21,
+      "question": "Which ancient gateway is often cited as the design inspiration for the landmark shown in the image?",
+      "expected": "The Propylaea of the Acropolis in Athens.",
+      "rgb_answer": "The Brandenburg Gate is often cited as the design inspiration for the landmark shown in the image. It was originally built in 1799 to commemorate the Prussian victory over Napoleon and was a symbol of Berlin's status as the capital of the Kingdom of Prussia. The gate has been rebuilt several times, with its current structure dating back to 1876.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The ancient gateway often cited as the design inspiration for the landmark shown in the image is the Arch of Triumph in Rome, which was built to commemorate military victories and features a triumphal arch with sculptures and inscriptions.",
+        "Medium": "The Brandenburg Gate is often cited as the design inspiration for the landmark shown in the image. It was originally inspired by the Arc de Triomphe in Paris and is a neoclassical monument that honors those who have fallen in war or have served the German state.",
+        "Large": "The ancient gateway often cited as the design inspiration for the landmark shown in the image is the Porta Nigra, a Roman gate located in Trier, Germany. It is known for its robust construction and the presence of Corinthian columns, which are similar to those seen on the Brandenburg Gate."
+      },
+      "rendered_answers": {
+        "Small": "The ancient gateway of the Temple of Trajan in Rome is often cited as the design inspiration for the landmark shown in the image.",
+        "Medium": "The Brandenburg Gate is often cited as the design inspiration for the landmark shown in the image.",
+        "Large": "The Brandenburg Gate is often cited as the design inspiration for the landmark shown in the image."
+      },
+      "gt_selected": {
+        "scale": "Medium",
+        "answer": "The Brandenburg Gate is often cited as the design inspiration for the landmark shown in the image. It was originally inspired by the Arc de Triomphe in Paris and is a neoclassical monument that honors those who have fallen in war or have served the German state.",
+        "reason": "The Brandenburg Gate is indeed the design inspiration for the landmark shown in the image, which is a neoclassical monument honoring those who have fallen in war or have served the German state.",
+        "raw_output": "Medium: The Brandenburg Gate is often cited as the design inspiration for the landmark shown in the image. It was originally inspired by the Arc de Triomphe in Paris and is a neoclassical monument that honors those who have fallen in war or have served the German state.\nBEST_SCALE: Medium\nREASON: The Brandenburg Gate is indeed the design inspiration for the landmark shown in the image, which is a neoclassical monument honoring those who have fallen in war or have served the German state."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The Brandenburg Gate is often cited as the design inspiration for the landmark shown in the image.",
+        "reason": "The Brandenburg Gate is a famous monument in Berlin, Germany, and its design has been an inspiration for many other gateways around the world.",
+        "raw_output": "Large: The Brandenburg Gate is often cited as the design inspiration for the landmark shown in the image.\nREASON: The Brandenburg Gate is a famous monument in Berlin, Germany, and its design has been an inspiration for many other gateways around the world."
+      }
+    }
+  ],
+  "diagnostic_subset": "significant_ours_errors"
+}

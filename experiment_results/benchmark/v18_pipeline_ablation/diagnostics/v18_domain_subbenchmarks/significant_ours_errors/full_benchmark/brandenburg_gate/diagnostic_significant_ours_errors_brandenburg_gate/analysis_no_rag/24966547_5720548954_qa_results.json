@@ -1,0 +1,211 @@
+{
+  "image_name": "24966547_5720548954",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.008360505104065,
+      "rendered_std": 0.4261932373046875
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.2245482206344604,
+      "rendered_std": 0.32874763011932373
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.010509967803955,
+      "rendered_std": 0.5054728388786316
+    }
+  },
+  "questions": [
+    {
+      "question_index": 2,
+      "question": "Answer with a number only. How many passage openings are visible in the gate?",
+      "expected": "5",
+      "rgb_answer": "3",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "3",
+        "Medium": "2",
+        "Large": "3"
+      },
+      "rendered_answers": {
+        "Small": "3",
+        "Medium": "3",
+        "Large": "3"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "3",
+        "reason": "",
+        "raw_output": "Small: 3"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "3",
+        "reason": "",
+        "raw_output": "Large: 3"
+      }
+    },
+    {
+      "question_index": 3,
+      "question": "Answer with a number only. How many horses are visible in the sculpture at the top?",
+      "expected": "4",
+      "rgb_answer": "4",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "2",
+        "Medium": "2",
+        "Large": "4"
+      },
+      "rendered_answers": {
+        "Small": "Two",
+        "Medium": "2",
+        "Large": "Two"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "4",
+        "reason": "",
+        "raw_output": "Small: 2"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Two",
+        "reason": "The sculpture at the top of the structure features two horses.",
+        "raw_output": "Small: Two\nREASON: The sculpture at the top of the structure features two horses."
+      }
+    },
+    {
+      "question_index": 4,
+      "question": "Answer with a number only. How many oval medallions are visible on the inner walls?",
+      "expected": "5",
+      "rgb_answer": "6",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "10",
+        "Medium": "4",
+        "Large": "4"
+      },
+      "rendered_answers": {
+        "Small": "Two",
+        "Medium": "4",
+        "Large": "12"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "4",
+        "reason": "",
+        "raw_output": "Medium: 4"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "12",
+        "reason": "",
+        "raw_output": "Small: Two"
+      }
+    },
+    {
+      "question_index": 8,
+      "question": "Which ancient gateway is often cited as the design inspiration for the landmark shown in the image?",
+      "expected": "The Propylaea of the Acropolis in Athens.",
+      "rgb_answer": "The Brandenburg Gate is often cited as the design inspiration for the landmark shown in the image. It was originally inspired by the Arc de Triomphe in Paris, France, and its neoclassical design features columns and a central archway, similar to what is seen in the image.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The ancient gateway often cited as the design inspiration for the landmark shown in the image is the Porta Nigra, a Roman gate located in Trier, Germany. It is known for its robust construction and the Corinthian columns that are similar to those seen in the Brandenburg Gate.",
+        "Medium": "The ancient gateway often cited as the design inspiration for the Brandenburg Gate is the Porta Maggiore in Rome, which was built by Emperor Hadrian in 142 AD. Both structures share similarities in their Doric columns and pedimented tops, reflecting a neoclassical style that was popular during the Renaissance and later in the 19th century when the Brandenburg Gate was restored.",
+        "Large": "The ancient gateway often cited as the design inspiration for the landmark shown in the image is the Porta Nigra, a Roman gate located in Trier, Germany. It is known for its robust construction and the presence of sculptures, which are similar to the features observed in the Brandenburg Gate."
+      },
+      "rendered_answers": {
+        "Small": "The ancient gateway of the Temple of Trajan in Rome is often cited as the design inspiration for the landmark shown in the image.",
+        "Medium": "The Brandenburg Gate is often cited as the design inspiration for the landmark shown in the image.",
+        "Large": "The Brandenburg Gate is often cited as the design inspiration for the landmark shown in the image."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The ancient gateway often cited as the design inspiration for the landmark shown in the image is the Porta Nigra, a Roman gate located in Trier, Germany. It is known for its robust construction and the presence of sculptures, which are similar to the features observed in the Brandenburg Gate.",
+        "reason": "",
+        "raw_output": "Medium: The ancient gateway often cited as the design inspiration for the Brandenburg Gate is the Porta Maggiore in Rome, which was built by Emperor Hadrian in 142 AD. Both structures share similarities in their Doric columns and pedimented tops, reflecting a neoclassical style that was popular during the Renaissance and later in the 19th century when the Brandenburg Gate was restored."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The Brandenburg Gate is often cited as the design inspiration for the landmark shown in the image.",
+        "reason": "The Brandenburg Gate is a famous historical monument in Berlin, Germany, and its design has been an influence on many other gateways around the world.",
+        "raw_output": "Large: The Brandenburg Gate is often cited as the design inspiration for the landmark shown in the image.\nREASON: The Brandenburg Gate is a famous historical monument in Berlin, Germany, and its design has been an influence on many other gateways around the world."
+      }
+    },
+    {
+      "question_index": 10,
+      "question": "Which direction are the horses facing in the image?",
+      "expected": "Toward the right side of the image.",
+      "rgb_answer": "The horses in the image are facing towards the left side of the frame.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The horses are facing left in the image.",
+        "Medium": "The horses are facing towards the left side of the image.",
+        "Large": "The horses are facing to the left."
+      },
+      "rendered_answers": {
+        "Small": "The horses are facing left.",
+        "Medium": "The horses are facing left.",
+        "Large": "The horses are facing left."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The horses are facing to the left.",
+        "reason": "",
+        "raw_output": "Large: The horses are facing to the left."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The horses are facing left.",
+        "reason": "The horses in the image are depicted with their heads turned to the left, indicating that they are facing left.",
+        "raw_output": "Small: The horses are facing left.\nREASON: The horses in the image are depicted with their heads turned to the left, indicating that they are facing left."
+      }
+    },
+    {
+      "question_index": 12,
+      "question": "Answer with a number only. How many oval medallions are visible on the inner walls in this frontal view?",
+      "expected": "5",
+      "rgb_answer": "6",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "10",
+        "Medium": "10",
+        "Large": "4"
+      },
+      "rendered_answers": {
+        "Small": "Two",
+        "Medium": "4",
+        "Large": "12"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "4",
+        "reason": "",
+        "raw_output": "Small: 10"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "12",
+        "reason": "",
+        "raw_output": "Small: Two"
+      }
+    }
+  ],
+  "diagnostic_subset": "significant_ours_errors"
+}

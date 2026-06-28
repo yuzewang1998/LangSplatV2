@@ -1,0 +1,61 @@
+{
+  "image_name": "42225809_253081971",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.2747284173965454,
+      "rendered_std": 0.3318457305431366
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.4820530414581299,
+      "rendered_std": 0.3956977427005768
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.5238701105117798,
+      "rendered_std": 0.432522714138031
+    }
+  },
+  "questions": [
+    {
+      "question_index": 6,
+      "question": "Answer with a number only. How many distinct door components are visible?",
+      "expected": "3",
+      "rgb_answer": "3",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Three",
+        "Medium": "3",
+        "Large": "3"
+      },
+      "rendered_answers": {
+        "Small": "3",
+        "Medium": "3",
+        "Large": "Three"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "3",
+        "reason": "There are three distinct door components visible in the image.",
+        "raw_output": "Small: Three\nREASON: There are three distinct door components visible in the image."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Three",
+        "reason": "",
+        "raw_output": "Large: Three"
+      }
+    }
+  ],
+  "diagnostic_subset": "significant_ours_errors"
+}

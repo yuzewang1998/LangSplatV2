@@ -1,0 +1,271 @@
+{
+  "image_name": "96866778_4045929561",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.4107214212417603,
+      "rendered_std": 0.48618626594543457
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.6167916059494019,
+      "rendered_std": 0.6963784098625183
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.4905765056610107,
+      "rendered_std": 0.762484610080719
+    }
+  },
+  "questions": [
+    {
+      "question_index": 2,
+      "question": "Answer with the option letter only. Which of these architectural or landmark components is visibly present in this image? A. rose window B. tympanum C. door D. onion dome",
+      "expected": "A",
+      "rgb_answer": "B",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "B"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "Medium: B"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "Large: B"
+      }
+    },
+    {
+      "question_index": 3,
+      "question": "Answer with yes or no only. Is the rose window visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No.",
+        "Medium": "No.",
+        "Large": "No"
+      },
+      "rendered_answers": {
+        "Small": "No",
+        "Medium": "No",
+        "Large": "No"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "",
+        "raw_output": "Small: No."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "",
+        "raw_output": "Small: No"
+      }
+    },
+    {
+      "question_index": 6,
+      "question": "Answer with the option letter only. Which visible component is higher in the image? A. rose window B. Last Judgment scene",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "B"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Large: B"
+      }
+    },
+    {
+      "question_index": 7,
+      "question": "Based on the landmark shown in the image, which city and country is it located in?",
+      "expected": "Paris, France.",
+      "rgb_answer": "The landmark in the image is Notre-Dame Cathedral, located in Paris, France. This identification can be made based on the distinctive Gothic architecture and the rose window, which are characteristic of this famous cathedral.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The landmark is located in Paris, France.",
+        "Medium": "The landmark is located in Paris, France.",
+        "Large": "The landmark is located in Paris, France. This can be inferred from the Gothic architectural style, which is characteristic of French cathedrals, and the fact that this particular design is reminiscent of Notre-Dame Cathedral, a famous landmark in Paris."
+      },
+      "rendered_answers": {
+        "Small": "The landmark is located in the city of Paris, France.",
+        "Medium": "The landmark is located in Paris, France.",
+        "Large": "The landmark is located in Paris, France."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The landmark is located in Paris, France. This can be inferred from the Gothic architectural style, which is characteristic of French cathedrals, and the fact that this particular design is reminiscent of Notre-Dame Cathedral, a famous landmark in Paris.",
+        "reason": "",
+        "raw_output": "Large: The landmark is located in Paris, France. This can be inferred from the Gothic architectural style, which is characteristic of French cathedrals, and the fact that this particular design is reminiscent of Notre-Dame Cathedral, a famous landmark in Paris."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The landmark is located in Paris, France.",
+        "reason": "The image shows a famous cathedral with Gothic architecture, which is identified as Notre-Dame Cathedral in Paris, France.",
+        "raw_output": "Small: The landmark is located in the city of Paris, France.\nREASON: The image shows a famous cathedral with Gothic architecture, which is identified as Notre-Dame Cathedral in Paris, France."
+      }
+    },
+    {
+      "question_index": 9,
+      "question": "Answer with the option letter only. Which type of landmark facade is shown? A. Gothic cathedral facade B. royal palace C. Mughal mausoleum D. Baroque fountain",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Large: A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 10,
+      "question": "Answer with the option letter only. Which component is located below the rose window on the façade?\nA. Main entrance portals\nB. Central dome\nC. Tall minaret\nD. Fountain basin",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 12,
+      "question": "Answer with the option letter only. Which visible component is most directly associated with Gothic circular window? A. rose window B. tympanum C. door D. onion dome",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 13,
+      "question": "Answer with the option letter only. Which type of religious landmark is shown in the image?\nA. Gothic cathedral\nB. Mughal mausoleum\nC. Baroque fountain\nD. Buddhist pagoda",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    }
+  ],
+  "diagnostic_subset": "strength_core"
+}

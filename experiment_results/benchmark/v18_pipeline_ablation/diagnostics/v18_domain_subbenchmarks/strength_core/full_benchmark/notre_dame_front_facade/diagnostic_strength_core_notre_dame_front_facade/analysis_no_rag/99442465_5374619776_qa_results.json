@@ -1,0 +1,241 @@
+{
+  "image_name": "99442465_5374619776",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.3794313669204712,
+      "rendered_std": 0.49219298362731934
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.6400387287139893,
+      "rendered_std": 0.6931825280189514
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.6597635746002197,
+      "rendered_std": 0.7487691640853882
+    }
+  },
+  "questions": [
+    {
+      "question_index": 4,
+      "question": "Based on the landmark shown in the image, which city and country is it located in?",
+      "expected": "Paris, France.",
+      "rgb_answer": "The landmark in the image is the Notre-Dame Cathedral, located in Paris, France. This identification can be made based on the distinctive Gothic architecture and the rose window, which are characteristic of this famous cathedral.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The landmark is located in Paris, France.",
+        "Medium": "The landmark is located in Paris, France.",
+        "Large": "The landmark is located in Paris, France. This can be inferred from the Gothic architectural style, which is characteristic of French cathedrals, and the fact that this particular design is reminiscent of Notre-Dame Cathedral, a famous landmark in Paris."
+      },
+      "rendered_answers": {
+        "Small": "The landmark is located in Paris, France.",
+        "Medium": "The landmark is located in Paris, France.",
+        "Large": "The landmark is located in Paris, France."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The landmark is located in Paris, France. This can be inferred from the Gothic architectural style, which is characteristic of French cathedrals, and the fact that this particular design is reminiscent of Notre-Dame Cathedral, a famous landmark in Paris.",
+        "reason": "",
+        "raw_output": "Large: The landmark is located in Paris, France. This can be inferred from the Gothic architectural style, which is characteristic of French cathedrals, and the fact that this particular design is reminiscent of Notre-Dame Cathedral, a famous landmark in Paris."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The landmark is located in Paris, France.",
+        "reason": "The image shows a detailed view of an architectural structure with sculptures and gothic arches, which is indicative of a famous landmark in Paris, France.",
+        "raw_output": "BEST_SCALE: Large\nREASON: The image shows a detailed view of an architectural structure with sculptures and gothic arches, which is indicative of a famous landmark in Paris, France."
+      }
+    },
+    {
+      "question_index": 6,
+      "question": "Answer with the option letter only. Which component is located below the rose window on the façade?\nA. Main entrance portals\nB. Central dome\nC. Tall minaret\nD. Fountain basin",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 8,
+      "question": "What broad architectural or artistic style/tradition is suggested by the visible landmark elements?",
+      "expected": "Gothic architecture",
+      "rgb_answer": "The architectural style suggested by the visible elements is Gothic, characterized by the pointed arches, ribbed vaults, and flying buttresses. The artistic tradition is likely European, possibly French, given the style of the sculptures and the overall aesthetic which is reminiscent of the Notre-Dame Cathedral in Paris.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The visible landmark elements suggest a Gothic architectural or artistic style.",
+        "Medium": "The visible landmark elements suggest a Gothic architectural or artistic style.",
+        "Large": "The visible elements suggest a Gothic architectural style, characterized by the pointed arches, ribbed vaults, and flying buttresses. The intricate stone carvings and sculptures are typical of the Gothic tradition, which often included detailed ornamentation to convey religious themes and stories."
+      },
+      "rendered_answers": {
+        "Small": "The visible landmark elements suggest a Gothic architectural or artistic style/tradition.",
+        "Medium": "The visible landmark elements suggest a Gothic architectural or artistic style/tradition.",
+        "Large": "The visible landmark elements suggest a Gothic architectural or artistic style/tradition."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The visible elements suggest a Gothic architectural style, characterized by the pointed arches, ribbed vaults, and flying buttresses. The intricate stone carvings and sculptures are typical of the Gothic tradition, which often included detailed ornamentation to convey religious themes and stories.",
+        "reason": "",
+        "raw_output": "Large: The visible elements suggest a Gothic architectural style, characterized by the pointed arches, ribbed vaults, and flying buttresses. The intricate stone carvings and sculptures are typical of the Gothic tradition, which often included detailed ornamentation to convey religious themes and stories."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The visible landmark elements suggest a Gothic architectural or artistic style/tradition.",
+        "reason": "The image shows a building with intricate stone carvings, pointed arches, and statues that are characteristic of Gothic architecture.",
+        "raw_output": "Small: The visible landmark elements suggest a Gothic architectural or artistic style/tradition.\nREASON: The image shows a building with intricate stone carvings, pointed arches, and statues that are characteristic of Gothic architecture."
+      }
+    },
+    {
+      "question_index": 10,
+      "question": "What broad medieval style is the landmark shown in the image known for?",
+      "expected": "Gothic architecture.",
+      "rgb_answer": "The landmark shown in the image is known for its Gothic style, which is characterized by the pointed arches, ribbed vaults, and flying buttresses that are visible in the architecture.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The landmark is known for its Gothic architectural style.",
+        "Medium": "The landmark is known for its Gothic style.",
+        "Large": "The landmark shown in the image is known for its Gothic style, which is characterized by elements such as pointed arches, ribbed vaults, and flying buttresses."
+      },
+      "rendered_answers": {
+        "Small": "The landmark is known for its Gothic architectural style.",
+        "Medium": "The landmark is known for its Gothic architectural style.",
+        "Large": "The landmark is known for its Gothic architectural style."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The landmark shown in the image is known for its Gothic style, which is characterized by elements such as pointed arches, ribbed vaults, and flying buttresses.",
+        "reason": "The image shows a building with Gothic architectural features, including pointed arches and intricate stone carvings.",
+        "raw_output": "Large: The landmark shown in the image is known for its Gothic style, which is characterized by elements such as pointed arches, ribbed vaults, and flying buttresses.\nREASON: The image shows a building with Gothic architectural features, including pointed arches and intricate stone carvings."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The landmark is known for its Gothic architectural style.",
+        "reason": "The image shows a building with intricate stone carvings and pointed arches, which are characteristic of Gothic architecture.",
+        "raw_output": "Small: The landmark is known for its Gothic architectural style.\nREASON: The image shows a building with intricate stone carvings and pointed arches, which are characteristic of Gothic architecture."
+      }
+    },
+    {
+      "question_index": 11,
+      "question": "Which city is the landmark shown in the image a major landmark of?",
+      "expected": "Paris.",
+      "rgb_answer": "Paris",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The landmark is a major landmark of Paris.",
+        "Medium": "The landmark is a major landmark of Paris.",
+        "Large": "Paris"
+      },
+      "rendered_answers": {
+        "Small": "The landmark shown in the image is a major landmark of Paris.",
+        "Medium": "The landmark shown in the image is a major landmark of Paris.",
+        "Large": "The landmark shown in the image is a major landmark of Paris."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Paris",
+        "reason": "",
+        "raw_output": "Large: Paris"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The landmark shown in the image is a major landmark of Paris.",
+        "reason": "",
+        "raw_output": "Large: The landmark shown in the image is a major landmark of Paris."
+      }
+    },
+    {
+      "question_index": 12,
+      "question": "What kind of building is the landmark shown in the image?",
+      "expected": "A cathedral.",
+      "rgb_answer": "The landmark shown in the image is a cathedral.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The landmark is a historical building with intricate stone carvings.",
+        "Medium": "The landmark is a cathedral.",
+        "Large": "The image shows a cathedral."
+      },
+      "rendered_answers": {
+        "Small": "The landmark shown in the image is a cathedral.",
+        "Medium": "The landmark shown in the image is a cathedral.",
+        "Large": "The landmark shown in the image is a cathedral."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The image shows a cathedral.",
+        "reason": "The image depicts a large, ornate entrance with detailed stone carvings, which is characteristic of a cathedral.",
+        "raw_output": "Large: The image shows a cathedral.\nREASON: The image depicts a large, ornate entrance with detailed stone carvings, which is characteristic of a cathedral."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The landmark shown in the image is a cathedral.",
+        "reason": "The image shows a large, ornate building with intricate carvings and statues, which are characteristic of a cathedral.",
+        "raw_output": "Small: The landmark shown in the image is a cathedral.\nREASON: The image shows a large, ornate building with intricate carvings and statues, which are characteristic of a cathedral."
+      }
+    },
+    {
+      "question_index": 13,
+      "question": "Answer with yes or no only. Is a large fountain basin the main subject of this image?",
+      "expected": "No",
+      "rgb_answer": "no",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No.",
+        "Medium": "No",
+        "Large": "No"
+      },
+      "rendered_answers": {
+        "Small": "No",
+        "Medium": "No",
+        "Large": "No."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "",
+        "raw_output": "Small: No."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "No.",
+        "reason": "",
+        "raw_output": "Small: No"
+      }
+    }
+  ],
+  "diagnostic_subset": "strength_core"
+}

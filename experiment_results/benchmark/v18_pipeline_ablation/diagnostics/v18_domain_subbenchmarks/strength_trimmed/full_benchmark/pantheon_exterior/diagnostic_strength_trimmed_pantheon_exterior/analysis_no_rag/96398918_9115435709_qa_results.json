@@ -1,0 +1,301 @@
+{
+  "image_name": "96398918_9115435709",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.3107508420944214,
+      "rendered_std": 0.3888465166091919
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.6011021137237549,
+      "rendered_std": 0.40080708265304565
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.4256224632263184,
+      "rendered_std": 0.4785989820957184
+    }
+  },
+  "questions": [
+    {
+      "question_index": 1,
+      "question": "What famous landmark or landmark scene is shown in this image?",
+      "expected": "The Pantheon.",
+      "rgb_answer": "The image shows the Pantheon, a renowned landmark in Rome, Italy. It is an ancient Roman temple dedicated to all the gods of the Roman state and is one of the most famous examples of Roman architecture. The inscription \"MAGRIFFA LECO COSTITVUM\" is part of the original inscription above the entrance, which translates to \"Magrippa, son of Lucius Caeso, has built this temple.\" The tall column with a cross on top is known as the \"Column of Augustus,\" which is part of the Piazza Navona, a historic square in Rome.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The image shows a famous landmark scene with a tall, ornate column topped with a cross and surrounded by classical architecture.",
+        "Medium": "The image shows the Pantheon, a famous landmark in Rome.",
+        "Large": "The image shows the Pantheon, a famous landmark in Rome, Italy. It is an ancient Roman temple that has been converted into a church and is known for its impressive dome and its status as one of the most well-preserved buildings from ancient times. The inscription \"MAURIPPAE FAMILIAE\" refers to the name of the family that commissioned the construction of the Pantheon."
+      },
+      "rendered_answers": {
+        "Small": "The image shows a famous landmark scene with two large stone columns.",
+        "Medium": "The image shows the Colosseum, a famous landmark in Rome, Italy.",
+        "Large": "The image shows the front facade of the Pantheon, a famous landmark in Rome."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The image shows the Pantheon, a famous landmark in Rome, Italy. It is an ancient Roman temple that has been converted into a church and is known for its impressive dome and its status as one of the most well-preserved buildings from ancient times. The inscription \"MAURIPPAE FAMILIAE\" refers to the name of the family that commissioned the construction of the Pantheon.",
+        "reason": "The image features the Pantheon, a renowned historical structure in Rome, characterized by its distinctive dome and classical architecture.",
+        "raw_output": "Large: The image shows the Pantheon, a famous landmark in Rome, Italy. It is an ancient Roman temple that has been converted into a church and is known for its impressive dome and its status as one of the most well-preserved buildings from ancient times. The inscription \"MAURIPPAE FAMILIAE\" refers to the name of the family that commissioned the construction of the Pantheon.\nREASON: The image features the Pantheon, a renowned historical structure in Rome, characterized by its distinctive dome and classical architecture."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The image shows the front facade of the Pantheon, a famous landmark in Rome.",
+        "reason": "",
+        "raw_output": "Large: The image shows the front facade of the Pantheon, a famous landmark in Rome."
+      }
+    },
+    {
+      "question_index": 4,
+      "question": "Answer with yes or no only. Is the column visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes.",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      }
+    },
+    {
+      "question_index": 5,
+      "question": "Answer with a number only. How many distinct front obelisk components are visible?",
+      "expected": "1",
+      "rgb_answer": "3",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "3",
+        "Medium": "3",
+        "Large": "2"
+      },
+      "rendered_answers": {
+        "Small": "2",
+        "Medium": "3",
+        "Large": "3"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "2",
+        "reason": "",
+        "raw_output": "Small: 3"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "3",
+        "reason": "",
+        "raw_output": "Small: 2"
+      }
+    },
+    {
+      "question_index": 7,
+      "question": "Answer with the option letter only. What shape best describes the foreground monument in the image?\nA. Tall tapering obelisk\nB. Round dome\nC. Curved arch\nD. Flat pediment",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 8,
+      "question": "Answer with the option letter only. Which type of architecture is most evident? A. classical Roman portico B. Gothic cathedral facade C. Japanese temple roof D. Mughal mausoleum",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Large: A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Large: A"
+      }
+    },
+    {
+      "question_index": 9,
+      "question": "Answer with yes or no only. Does the facade include a classical portico form?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes.",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "",
+        "raw_output": "Large: Yes."
+      }
+    },
+    {
+      "question_index": 11,
+      "question": "Answer with yes or no only. Is the dome clearly visible in this image?",
+      "expected": "No",
+      "rgb_answer": "No",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No.",
+        "Medium": "No.",
+        "Large": "No"
+      },
+      "rendered_answers": {
+        "Small": "No.",
+        "Medium": "No",
+        "Large": "No."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "No",
+        "reason": "",
+        "raw_output": "Small: No."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "No.",
+        "reason": "The dome is not fully visible in the image.",
+        "raw_output": "Small: No.\nREASON: The dome is not fully visible in the image."
+      }
+    },
+    {
+      "question_index": 12,
+      "question": "Answer with the option letter only. Which type of landmark is shown in the image?\nA. Gothic cathedral\nB. Ancient Roman temple\nC. Baroque fountain\nD. Mughal mausoleum",
+      "expected": "B",
+      "rgb_answer": "B",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "rendered_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      }
+    },
+    {
+      "question_index": 13,
+      "question": "Answer with the option letter only. What feature supports the obelisk in the foreground?\nA. Fountain base\nB. Wooden platform\nC. Bell tower\nD. Staircase",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    }
+  ],
+  "diagnostic_subset": "strength_trimmed"
+}

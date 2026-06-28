@@ -1,0 +1,331 @@
+{
+  "image_name": "00318781_8039756060",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.2785447835922241,
+      "rendered_std": 0.44943884015083313
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.5170140266418457,
+      "rendered_std": 0.5020080208778381
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.557478666305542,
+      "rendered_std": 0.5757464170455933
+    }
+  },
+  "questions": [
+    {
+      "question_index": 1,
+      "question": "What famous landmark or landmark scene is shown in this image?",
+      "expected": "Sacré-Cœur Basilica.",
+      "rgb_answer": "The image shows the Sacré Coeur, a famous Roman Catholic church and minor basilica, located in Paris, France. It is known for its distinctive white stone architecture and its position on the butte Montmartre, the highest point in Paris. The church's design is a blend of Roman, Byzantine, and Moorish styles, and it is one of the most recognizable landmarks in the city.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The image shows a famous landmark, the Sacré Coeur in Paris.",
+        "Medium": "The image shows the iconic Sacré Coeur, a famous landmark in Paris.",
+        "Large": "The image shows the Sacré Coeur, a famous Roman Catholic church and minor basilica, located in Paris, France. It is known for its distinctive white stone architecture and its position atop the butte Montmartre, the highest point in Paris."
+      },
+      "rendered_answers": {
+        "Small": "The image shows a famous landmark, possibly the Vatican, with a statue of a figure on horseback.",
+        "Medium": "The image shows a famous landmark, possibly the Sacré Coeur in Paris.",
+        "Large": "The image shows the famous Notre-Dame Cathedral in Paris, France."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The image shows the Sacré Coeur, a famous Roman Catholic church and minor basilica, located in Paris, France. It is known for its distinctive white stone architecture and its position atop the butte Montmartre, the highest point in Paris.",
+        "reason": "The Sacré Coeur is a well-known landmark in Paris, France, and the image shows its distinctive architecture and location on top of a hill.",
+        "raw_output": "Large: The image shows the Sacré Coeur, a famous Roman Catholic church and minor basilica, located in Paris, France. It is known for its distinctive white stone architecture and its position atop the butte Montmartre, the highest point in Paris.\nREASON: The Sacré Coeur is a well-known landmark in Paris, France, and the image shows its distinctive architecture and location on top of a hill."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The image shows the famous Notre-Dame Cathedral in Paris, France.",
+        "reason": "The architectural style and the statue on horseback are indicative of the Notre-Dame Cathedral.",
+        "raw_output": "Large: The image shows the famous Notre-Dame Cathedral in Paris, France.\nREASON: The architectural style and the statue on horseback are indicative of the Notre-Dame Cathedral."
+      }
+    },
+    {
+      "question_index": 3,
+      "question": "Answer with yes or no only. Is the bronze sculpture visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "",
+        "raw_output": "Large: Yes."
+      }
+    },
+    {
+      "question_index": 4,
+      "question": "Answer with yes or no only. Is the Joan of Arc statue visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "No",
+        "Medium": "Yes.",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes",
+        "Medium": "Yes.",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Small: No"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "The Joan of Arc statue is visible on top of the building.",
+        "raw_output": "Large: Yes.\nREASON: The Joan of Arc statue is visible on top of the building."
+      }
+    },
+    {
+      "question_index": 5,
+      "question": "Answer with yes or no only. Is the Saint Louis statue visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes",
+        "Medium": "Yes",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "",
+        "raw_output": "Large: Yes."
+      }
+    },
+    {
+      "question_index": 7,
+      "question": "Answer with the option letter only. Which visible component is higher in the image? A. Saint Louis B. central religious statue",
+      "expected": "B",
+      "rgb_answer": "B",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "rendered_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "Large: B"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "Large: B"
+      }
+    },
+    {
+      "question_index": 8,
+      "question": "What type of landmark scene is visible in this image?",
+      "expected": "a basilica facade",
+      "rgb_answer": "The image depicts a grand cathedral with multiple domes and spires, featuring intricate architectural details and statues. The overcast sky suggests a moody atmosphere.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The image shows a grand architectural structure, possibly a cathedral or a significant building.",
+        "Medium": "The image captures a grand architectural scene, likely a cathedral or a significant historical building.",
+        "Large": "The image depicts a scene of a historic and religious landmark, specifically the Basilica of Sacré Coeur in Paris, France."
+      },
+      "rendered_answers": {
+        "Small": "The image shows a grand architectural structure, possibly a cathedral or a significant historical building.",
+        "Medium": "The image shows a grand, historical landmark with intricate architectural details.",
+        "Large": "The image shows a grand architectural scene, likely of a cathedral or similar structure."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The image depicts a scene of a historic and religious landmark, specifically the Basilica of Sacré Coeur in Paris, France.",
+        "reason": "",
+        "raw_output": "Large: The image depicts a scene of a historic and religious landmark, specifically the Basilica of Sacré Coeur in Paris, France."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The image shows a grand architectural scene, likely of a cathedral or similar structure.",
+        "reason": "",
+        "raw_output": "Large: The image shows a grand architectural scene, likely of a cathedral or similar structure."
+      }
+    },
+    {
+      "question_index": 9,
+      "question": "Answer with the option letter only. Which type of religious landmark is shown? A. basilica B. royal palace C. ancient Roman temple D. fountain",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 10,
+      "question": "Answer with the option letter only. Which feature is NOT part of the visible in the image?\nA. Rose window\nB. Bronze equestrian statue\nC. Oceanus statue",
+      "expected": "C",
+      "rgb_answer": "C",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "C",
+        "Medium": "C",
+        "Large": "C"
+      },
+      "rendered_answers": {
+        "Small": "C",
+        "Medium": "C",
+        "Large": "C"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "C",
+        "reason": "",
+        "raw_output": "C"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "C",
+        "reason": "",
+        "raw_output": "C"
+      }
+    },
+    {
+      "question_index": 12,
+      "question": "Answer with the option letter only. In the image, who is represented by the dark bronze equestrian statue on the viewer’s left side of the façade?\nA. Joan of Arc\nB. King Saint Louis IX\nC. The central Jesus figure\nD. Saint Peter",
+      "expected": "B",
+      "rgb_answer": "B",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "rendered_answers": {
+        "Small": "B",
+        "Medium": "B",
+        "Large": "B"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "B",
+        "reason": "",
+        "raw_output": "B"
+      }
+    },
+    {
+      "question_index": 13,
+      "question": "Answer with a number only. How many separate bronze sculpture instances are visible?",
+      "expected": "2",
+      "rgb_answer": "2",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "1",
+        "Medium": "2",
+        "Large": "2"
+      },
+      "rendered_answers": {
+        "Small": "1",
+        "Medium": "2",
+        "Large": "2"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "2",
+        "reason": "There is only one visible bronze sculpture in the image.",
+        "raw_output": "Small: 1\nREASON: There is only one visible bronze sculpture in the image."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "2",
+        "reason": "There is only one separate bronze sculpture visible in the image.",
+        "raw_output": "Small: 1\nREASON: There is only one separate bronze sculpture visible in the image."
+      }
+    }
+  ],
+  "diagnostic_subset": "strength_core"
+}

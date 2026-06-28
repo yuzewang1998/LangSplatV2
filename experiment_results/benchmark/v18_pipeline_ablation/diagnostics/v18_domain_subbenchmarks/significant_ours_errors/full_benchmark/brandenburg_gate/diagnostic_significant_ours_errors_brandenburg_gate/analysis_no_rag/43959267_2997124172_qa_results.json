@@ -1,0 +1,91 @@
+{
+  "image_name": "43959267_2997124172",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.0289137363433838,
+      "rendered_std": 0.36496031284332275
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.2542868852615356,
+      "rendered_std": 0.3318667411804199
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.1793694496154785,
+      "rendered_std": 0.3799850344657898
+    }
+  },
+  "questions": [
+    {
+      "question_index": 1,
+      "question": "What sculpture group is centered at the top of this image?",
+      "expected": "The Quadriga.",
+      "rgb_answer": "The sculpture group centered at the top of the image is the Quadriga, which is a chariot drawn by four horses abreast. It is a famous landmark located on the Brandenburg Gate in Berlin, Germany. The Quadriga is topped with a figure of Victoria, the Roman goddess of victory, and an eagle. This sculpture was originally placed on the gate in 1864 to commemorate the 25th anniversary of the German Empire's victory over Prussia.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The sculpture group centered at the top of this image appears to be a classical or neoclassical style sculpture, possibly depicting mythological figures or allegorical scenes. The figures are in a dynamic pose, suggesting movement and action. The style is reminiscent of ancient Greek or Roman art, which often featured gods, goddesses, and heroes in dramatic poses. However, without more context or a clearer view, it's difficult to provide a precise identification of the specific scene or figures depicted.",
+        "Medium": "The sculpture group centered at the top of this image is the Quadriga, which is a chariot drawn by four horses abreast. It is a famous landmark located on the Brandenburg Gate in Berlin, Germany.",
+        "Large": "The sculpture group centered at the top of this image is the Quadriga, which is a chariot drawn by four horses abreast. It is a neoclassical sculpture located on the Pariser Berg, in the center of Berlin, Germany. The Quadriga is mounted on the top of the Brandenburg Gate, one of the most famous landmarks in Berlin."
+      },
+      "rendered_answers": {
+        "Small": "The sculpture group centered at the top of this image is a horse and rider.",
+        "Medium": "The sculpture group centered at the top of this image is a group of horses and riders.",
+        "Large": "The sculpture group centered at the top of this image is a group of horses and riders."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The sculpture group centered at the top of this image is the Quadriga, which is a chariot drawn by four horses abreast. It is a neoclassical sculpture located on the Pariser Berg, in the center of Berlin, Germany. The Quadriga is mounted on the top of the Brandenburg Gate, one of the most famous landmarks in Berlin.",
+        "reason": "The Quadriga is a famous landmark located on the Brandenburg Gate in Berlin, Germany.",
+        "raw_output": "BEST_SCALE: Large\nREASON: The Quadriga is a famous landmark located on the Brandenburg Gate in Berlin, Germany."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The sculpture group centered at the top of this image is a group of horses and riders.",
+        "reason": "",
+        "raw_output": "Small: The sculpture group centered at the top of this image is a horse and rider."
+      }
+    },
+    {
+      "question_index": 2,
+      "question": "Answer with a number only. How many horses are visible in the sculpture group?",
+      "expected": "4",
+      "rgb_answer": "4",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "3",
+        "Medium": "2",
+        "Large": "4"
+      },
+      "rendered_answers": {
+        "Small": "2",
+        "Medium": "2",
+        "Large": "4"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "4",
+        "reason": "",
+        "raw_output": "Medium: 2"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "4",
+        "reason": "",
+        "raw_output": "Small: 2"
+      }
+    }
+  ],
+  "diagnostic_subset": "significant_ours_errors"
+}

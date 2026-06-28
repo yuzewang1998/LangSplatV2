@@ -1,0 +1,12 @@
+category,metric_class,eval_type,n,ours_acc,rgb_acc,delta_acc,ours_only_correct,rgb_only_correct,both_correct,both_wrong
+component_presence,multiple_choice,objective,69,0.8405797101449275,0.8985507246376812,-0.057971014492753624,2,6,56,5
+count_numeric,number,objective,118,0.3813559322033898,0.4491525423728814,-0.06779661016949153,10,18,35,55
+count_numeric,multiple_choice,objective,3,0.0,0.0,0.0,0,0,0,3
+identity_location,multiple_choice,objective,16,0.9375,1.0,-0.0625,0,1,15,0
+multiple_choice_general,multiple_choice,objective,42,1.0,1.0,0.0,0,0,42,0
+part_attribute_semantics,multiple_choice,objective,25,0.96,0.96,0.0,1,1,23,0
+part_attribute_semantics,yes_no,objective,2,1.0,1.0,0.0,0,0,2,0
+spatial_view_visibility,yes_no,objective,229,0.8427947598253275,0.8646288209606987,-0.021834061135371178,15,20,178,16
+spatial_view_visibility,multiple_choice,objective,97,0.7525773195876289,0.7525773195876289,0.0,2,2,71,22
+style_history_knowledge,multiple_choice,objective,135,0.8148148148148148,0.8222222222222222,-0.007407407407407408,0,1,110,24
+yes_no_general,yes_no,objective,28,1.0,1.0,0.0,0,0,28,0

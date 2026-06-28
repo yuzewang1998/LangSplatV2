@@ -1,0 +1,271 @@
+{
+  "image_name": "63443304_3580343277",
+  "scales": [
+    "Small",
+    "Medium",
+    "Large"
+  ],
+  "scale_stats": {
+    "Small": {
+      "level": 0,
+      "scale_size": "64px",
+      "gt_std": 1.3117566108703613,
+      "rendered_std": 0.3200984299182892
+    },
+    "Medium": {
+      "level": 1,
+      "scale_size": "192px",
+      "gt_std": 1.4828943014144897,
+      "rendered_std": 0.3898492455482483
+    },
+    "Large": {
+      "level": 2,
+      "scale_size": "448px",
+      "gt_std": 1.5459240674972534,
+      "rendered_std": 0.4271937310695648
+    }
+  },
+  "questions": [
+    {
+      "question_index": 3,
+      "question": "Answer with the option letter only. Which component is positioned above the main entrance area in the image?\nA. Bell tower\nB. Water basin\nC. Stone bridge\nD. Large tiled roof",
+      "expected": "D",
+      "rgb_answer": "D",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "D",
+        "Medium": "D",
+        "Large": "D"
+      },
+      "rendered_answers": {
+        "Small": "D",
+        "Medium": "D",
+        "Large": "D"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "D",
+        "reason": "",
+        "raw_output": "D"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "D",
+        "reason": "",
+        "raw_output": "D"
+      }
+    },
+    {
+      "question_index": 4,
+      "question": "Answer with the option letter only. Which roof ornament is visible at the ends of the main roof ridge in the image?\nA. Golden shibi\nB. Stone lantern\nC. Wooden gate plaque\nD. Bronze bell",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 6,
+      "question": "In which city and country is the landmark scene shown in the image located?",
+      "expected": "Nara, Japan.",
+      "rgb_answer": "The landmark scene shown in the image is located in Kyoto, Japan.",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "The landmark scene is located in Kyoto, Japan.",
+        "Medium": "The landmark scene is located in Kyoto, Japan.",
+        "Large": "The landmark scene shown in the image is located in Kyoto, Japan."
+      },
+      "rendered_answers": {
+        "Small": "The landmark scene is located in Kyoto, Japan.",
+        "Medium": "The landmark scene is located in Kyoto, Japan.",
+        "Large": "The landmark scene is located in Kyoto, Japan."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "The landmark scene shown in the image is located in Kyoto, Japan.",
+        "reason": "",
+        "raw_output": "Large: The landmark scene shown in the image is located in Kyoto, Japan."
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "The landmark scene is located in Kyoto, Japan.",
+        "reason": "",
+        "raw_output": "Large: The landmark scene is located in Kyoto, Japan."
+      }
+    },
+    {
+      "question_index": 8,
+      "question": "Answer with the option letter only. Which type of building is shown? A. Japanese temple hall B. Baroque fountain C. royal palace D. Mughal mausoleum",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Large: A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "Large: A"
+      }
+    },
+    {
+      "question_index": 9,
+      "question": "Answer with yes or no only. Is the roof/eave structure visually important in the landmark scene shown in the image?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes",
+        "Medium": "Yes.",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes.",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "The roof and eave structure are visually prominent and intricate, indicating their importance in the landmark scene.",
+        "raw_output": "Large: Yes.\nREASON: The roof and eave structure are visually prominent and intricate, indicating their importance in the landmark scene."
+      }
+    },
+    {
+      "question_index": 10,
+      "question": "Answer with yes or no only. Is the roof clearly visible in this image?",
+      "expected": "Yes",
+      "rgb_answer": "Yes",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "Yes",
+        "Medium": "Yes.",
+        "Large": "Yes"
+      },
+      "rendered_answers": {
+        "Small": "Yes.",
+        "Medium": "Yes.",
+        "Large": "Yes."
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "Yes",
+        "reason": "",
+        "raw_output": "Large: Yes"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "Yes.",
+        "reason": "",
+        "raw_output": "Large: Yes."
+      }
+    },
+    {
+      "question_index": 11,
+      "question": "Answer with the option letter only. Which visible feature extends outward from the roof edge?\nA. Deep eaves\nB. Rose window\nC. Minaret balcony\nD. Flying buttress",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    },
+    {
+      "question_index": 13,
+      "question": "Answer with the option letter only. Which structural feature is visible beneath the eaves of the temple roof?\nA. Wooden bracket complexes\nB. Flying buttresses\nC. Steel trusses\nD. Marble arches",
+      "expected": "A",
+      "rgb_answer": "A",
+      "rag_enhanced": false,
+      "rag_context": "",
+      "gt_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "rendered_answers": {
+        "Small": "A",
+        "Medium": "A",
+        "Large": "A"
+      },
+      "gt_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      },
+      "rendered_selected": {
+        "scale": "Large",
+        "answer": "A",
+        "reason": "",
+        "raw_output": "A"
+      }
+    }
+  ],
+  "diagnostic_subset": "strength_core"
+}

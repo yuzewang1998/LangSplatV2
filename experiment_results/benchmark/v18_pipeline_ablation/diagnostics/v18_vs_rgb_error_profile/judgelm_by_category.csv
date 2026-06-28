@@ -1,0 +1,7 @@
+category,eval_type,n,ours_score,rgb_score,delta_score,ours_higher_exact,rgb_higher_exact,tie_exact,ours_higher_025,rgb_higher_025,near_tie_025
+component_presence,judgelm,27,3.3333333333333335,5.074074074074074,-1.7407407407407407,6,12,9,6,12,9
+identity_location,judgelm,182,8.89010989010989,8.571428571428571,0.31868131868131866,65,30,87,65,30,87
+open_description_general,judgelm,6,8.333333333333334,9.166666666666666,-0.8333333333333334,0,1,5,0,1,5
+part_attribute_semantics,judgelm,14,6.5,6.857142857142857,-0.35714285714285715,2,5,7,2,5,7
+spatial_view_visibility,judgelm,20,6.75,7.8,-1.05,3,8,9,3,8,9
+style_history_knowledge,judgelm,48,7.5,7.9375,-0.4375,19,13,16,19,13,16

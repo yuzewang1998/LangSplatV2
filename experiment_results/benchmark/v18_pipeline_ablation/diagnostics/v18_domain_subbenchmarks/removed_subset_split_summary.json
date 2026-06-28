@@ -1,0 +1,31 @@
+{
+  "ours_relative_weakness": {
+    "question_count": 61,
+    "objective_count": 36,
+    "judge_count": 25,
+    "objective_accuracy": 0.19444444444444445,
+    "rgb_objective_accuracy": 0.9722222222222222,
+    "judgelm_score": 1.88,
+    "rgb_judgelm_score": 5.84,
+    "outcomes": {
+      "not_ours_rgb": 28,
+      "ours_rgb": 7,
+      "not_ours_not_rgb": 1
+    }
+  },
+  "common_hard_ours_unstable": {
+    "question_count": 108,
+    "objective_count": 108,
+    "judge_count": 0,
+    "objective_accuracy": 0.07407407407407407,
+    "rgb_objective_accuracy": 0.06481481481481481,
+    "judgelm_score": null,
+    "rgb_judgelm_score": null,
+    "outcomes": {
+      "not_ours_not_rgb": 95,
+      "ours_rgb": 2,
+      "not_ours_rgb": 5,
+      "ours_not_rgb": 6
+    }
+  }
+}
